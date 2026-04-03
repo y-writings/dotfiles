@@ -1,0 +1,77 @@
+{
+  "agent_servers": {
+    "opencode": {
+      "type": "registry"
+    }
+  },
+  "show_wrap_guides": true,
+  "notification_panel": {
+    "dock": "left"
+  },
+  "project_panel": {
+    "dock": "right"
+  },
+  "debugger": {
+    "dock": "right"
+  },
+  "git_panel": {
+    "dock": "right",
+    "sort_by_path": true
+  },
+  "language_models": {
+    "ollama": {
+      "api_url": "http://localhost:11434"
+    }
+  },
+  "disable_ai": false,
+  "show_edit_predictions": false,
+  "edit_predictions": {
+    "mode": "eager",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null,
+      "enterprise_uri": null
+    },
+    "enabled_in_text_threads": false
+  },
+  "terminal": {
+    "dock": "right"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "icon_theme": "Bearded Icon Theme",
+  "vim_mode": true,
+  "agent": {
+    "enable_feedback": false,
+    "dock": "right",
+    "default_profile": "write",
+    "default_model": {
+      "provider": "x_ai",
+      "model": "grok-code-fast-1"
+    }
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "Ayu Dark",
+    "dark": "One Dark"
+  },
+  "lsp": {
+    "yaml-language-server": {
+      "settings": {
+        "yaml": {
+          "customTags": ["!override sequence", "!reset sequence"]
+        }
+      }
+    }
+  },
+  "telemetry": {
+    "metrics": false,
+    "diagnostics": false
+  },
+  "tabs": {
+    "activate_on_close": "neighbour"
+  }
+}

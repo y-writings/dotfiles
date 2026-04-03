@@ -1,0 +1,3653 @@
+{
+  "profiles": [
+    {
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "Vimでinsertモードを抜ける操作に前処理を挟む。",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_eisuu"
+                  },
+                  {
+                    "key_code": "escape"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": ""
+                    }
+                  },
+                  {
+                    "key_code": "c",
+                    "modifiers": ["left_control"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ],
+                "description": "vimでinsertモードから抜ける。日本語入力を同時に解除する。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "escape"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": ""
+                    }
+                  },
+                  {
+                    "key_code": "c",
+                    "modifiers": ["left_control"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "input_source_unless",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ],
+                "description": "vimでinsertモードから抜ける。"
+              }
+            ]
+          },
+          {
+            "description": "既存コマンドの1ストローク目に前処理を挟む。",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "x",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_eisuu"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": ""
+                    }
+                  },
+                  {
+                    "key_code": "x",
+                    "modifiers": ["left_control"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ],
+                "description": "zellijやopencodeの1ストローク目のキーが押されたとき、日本語入力を解除する。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "t",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_eisuu"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": ""
+                    }
+                  },
+                  {
+                    "key_code": "t",
+                    "modifiers": ["left_control"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ],
+                "description": "zellijやopencodeの1ストローク目のキーが押されたとき、日本語入力を解除する。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_eisuu"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": ""
+                    }
+                  },
+                  {
+                    "key_code": "s",
+                    "modifiers": ["left_control"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ],
+                "description": "zellijやopencodeの1ストローク目のキーが押されたとき、日本語入力を解除する。"
+              }
+            ]
+          },
+          {
+            "description": "競合しやすい既存ショートカットを一時的に無効化する。",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": ["left_option"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "description": "typo防止のため、一時的に無効化している。本来はArcでタブ移動に割り当てている。NotionとArc操作がコンフリクトし、Notion側にキー入力が多発したため、無効化。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": ["left_option"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "description": "typo防止のため、一時的に無効化している。本来はArcでタブ移動に割り当てている。NotionとArc操作がコンフリクトし、Notion側にキー入力が多発したため、無効化。"
+              }
+            ]
+          },
+          {
+            "description": "左Commandレイヤーの開始とリセット",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "parameters": {
+                  "basic.to_if_alone_timeout_milliseconds": -1,
+                  "basic.to_if_held_down_threshold_milliseconds": -1
+                },
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "layer_lcmd",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "left_command"
+                  }
+                ],
+                "to_if_held_down": [
+                  {
+                    "set_variable": {
+                      "name": "layer_lcmd",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_command"
+                  }
+                ],
+                "description": "left_commandのホールド中は左Commandレイヤーを有効化し、離したときに関連状態をリセットする。"
+              }
+            ]
+          },
+          {
+            "description": "左Commandレイヤー: アプリケーションスイッチの開始とリセット",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 190
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "key_code": "tab"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "key_code": "left_arrow"
+                    }
+                  ],
+                  "to_if_canceled": []
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_lcmd",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 0
+                  }
+                ],
+                "description": "アプリケーションスイッチモードを開始する。左CommandレイヤーがOFFになるまで継続する。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "key_code": "tab"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 0
+                  }
+                ],
+                "description": "アプリケーションスイッチ状態を強制リセットする。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 190
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "key_code": "down_arrow",
+                    "modifiers": ["left_command"]
+                  },
+                  {
+                    "key_code": "tab",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "key_code": "left_arrow"
+                    }
+                  ],
+                  "to_if_canceled": []
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 1
+                  }
+                ],
+                "description": "アプリケーションスイッチ状態を強制リセットする(上方向状態の特殊ケース)。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 190
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "key_code": "down_arrow",
+                    "modifiers": ["left_command"]
+                  },
+                  {
+                    "key_code": "tab",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "key_code": "left_arrow"
+                    }
+                  ],
+                  "to_if_canceled": []
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 1
+                  }
+                ],
+                "description": "アプリケーションスイッチ状態をリセットする(上方向状態での再入力)。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 190
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "key_code": "down_arrow",
+                    "modifiers": ["left_command"]
+                  },
+                  {
+                    "key_code": "tab",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "key_code": "left_arrow"
+                    }
+                  ],
+                  "to_if_canceled": []
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 1
+                  }
+                ],
+                "description": "アプリケーションスイッチ状態をリセットする(上方向から下方向へ切り替える前段)。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 190
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "key_code": "down_arrow",
+                    "modifiers": ["left_command"]
+                  },
+                  {
+                    "key_code": "tab",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "key_code": "left_arrow"
+                    }
+                  ],
+                  "to_if_canceled": []
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 1
+                  }
+                ],
+                "description": "アプリケーションスイッチ状態をリセットする(上方向状態を維持したまま再入力する)。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 190
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "key_code": "tab",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "key_code": "left_arrow"
+                    }
+                  ],
+                  "to_if_canceled": []
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_down",
+                    "value": 1
+                  }
+                ],
+                "description": "アプリケーションスイッチ状態をリセットする(下方向から上方向へ切り替える前段)。"
+              }
+            ]
+          },
+          {
+            "description": "左Commandレイヤー: アプリケーションスイッチ操作",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": ["left_command"]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "escape",
+                    "modifiers": ["left_command"]
+                  },
+                  {
+                    "key_code": "up_arrow",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_down",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 0
+                  }
+                ],
+                "description": "Mission Controlを上へ移動する。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "optional": ["left_command"]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "down_arrow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_down",
+                    "value": 0
+                  }
+                ],
+                "description": "Mission Controlを下へ移動する。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": ["left_command", "shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "tab",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_down",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": ["left_command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "tab"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_down",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": ["left_command"]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "down_arrow"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_up",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode_in_mission_down",
+                    "value": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "左Commandレイヤー: アプリケーションスイッチを下方向で開始",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": ["left_command"]
+                  }
+                },
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 180
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_up",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is_switch_app_mode_in_mission_down",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "down_arrow",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_lcmd",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 0
+                  }
+                ],
+                "description": "アプリケーションスイッチモードを下方向から開始する。左CommandレイヤーがOFFになるまで継続する。"
+              }
+            ]
+          },
+          {
+            "description": "左Commandレイヤーで英数入力とかな入力を切り替える",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f18",
+                  "modifiers": {
+                    "mandatory": ["left_command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_kana"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_lcmd",
+                    "value": 1
+                  },
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "en"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f18",
+                  "modifiers": {
+                    "mandatory": ["left_command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_eisuu"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "is-test",
+                      "value": 0
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_lcmd",
+                    "value": 1
+                  },
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Layer - layer_rcmd",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f20"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "__layer",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_unless",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "__layer",
+                    "value": 1
+                  }
+                ],
+                "to_if_alone": [],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "__layer",
+                      "value": 0
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_shift"
+                },
+                "to": [
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_command"
+                },
+                "to": [
+                  {
+                    "key_code": "left_command"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_option"
+                },
+                "to": [
+                  {
+                    "key_code": "left_option"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "hyphen"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "equal_sign"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "slash",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": ["left_shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "slash"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": ["left_shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_forward"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": []
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_or_backspace"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "e",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_eisuu"
+                  },
+                  {
+                    "key_code": "escape"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": ""
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "t",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "tab"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a"
+                },
+                "to": [
+                  {
+                    "key_code": "a",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s"
+                },
+                "to": [
+                  {
+                    "key_code": "s",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "z",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "z",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "x"
+                },
+                "to": [
+                  {
+                    "key_code": "x",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c"
+                },
+                "to": [
+                  {
+                    "key_code": "c",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "v"
+                },
+                "to": [
+                  {
+                    "key_code": "v",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 1
+                    }
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "layer_rcmd_leader",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": []
+                },
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 2000
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 0
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "o"
+                },
+                "to": [
+                  {
+                    "key_code": "o",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  }
+                ],
+                "description": "Raycast: Command Palette",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "w"
+                },
+                "to": [
+                  {
+                    "key_code": "w",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  }
+                ],
+                "description": "Raycast: Clipboard History",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "i"
+                },
+                "to": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n"
+                },
+                "to": [
+                  {
+                    "key_code": "b",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "any": "key_code"
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Launch application with Leader mode",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "o"
+                },
+                "to": [
+                  {
+                    "key_code": "o",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "description": "Raycast: Command Palette",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "w"
+                },
+                "to": [
+                  {
+                    "key_code": "w",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "description": "Raycast: Clipboard History",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s"
+                },
+                "to": [
+                  {
+                    "key_code": "s",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "description": "Raycast: Switch Windows",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "i"
+                },
+                "to": [
+                  {
+                    "key_code": "i",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "description": "Obsidian",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d"
+                },
+                "to": [
+                  {
+                    "key_code": "d",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "description": "DBeaver",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g"
+                },
+                "to": [
+                  {
+                    "key_code": "g",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "description": "Ghostty",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c"
+                },
+                "to": [
+                  {
+                    "key_code": "c",
+                    "modifiers": ["left_command", "left_option", "left_control"]
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "description": "Cursor",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "any": "key_code"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "layer_rcmd_leader",
+                      "value": 0
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd_leader",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Layer - layer_sign",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f18"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "layer_sign",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "__layer",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "layer-layer_sign",
+                      "text": "sign_layer_mode"
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_unless",
+                    "name": "layer_sign",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "__layer",
+                    "value": 1
+                  }
+                ],
+                "to_if_alone": [],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "layer_sign",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "__layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "layer-layer_sign",
+                      "text": ""
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "e"
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "r"
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d"
+                },
+                "to": [
+                  {
+                    "key_code": "9",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f"
+                },
+                "to": [
+                  {
+                    "key_code": "0",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j"
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k"
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n"
+                },
+                "to": [
+                  {
+                    "key_code": "semicolon",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n"
+                },
+                "to": [
+                  {
+                    "key_code": "semicolon",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n",
+                  "modifiers": {
+                    "mandatory": ["left_shift"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "semicolon"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "u"
+                },
+                "to": [
+                  {
+                    "key_code": "grave_accent_and_tilde"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "i"
+                },
+                "to": [
+                  {
+                    "key_code": "grave_accent_and_tilde",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "q"
+                },
+                "to": [
+                  {
+                    "key_code": "f16"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "w"
+                },
+                "to": [
+                  {
+                    "key_code": "f16",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "v"
+                },
+                "to": [
+                  {
+                    "key_code": "f14"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c"
+                },
+                "to": [
+                  {
+                    "key_code": "f14",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "o",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "backslash"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_sign",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "数字レイヤーモードの開始とリセット",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f17"
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_eisuu"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": "NUM - Layer Enabled"
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 0
+                  },
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f17"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": "NUM - Layer Enabled"
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 0
+                  },
+                  {
+                    "type": "input_source_unless",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f17"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": ""
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "数字レイヤー有効中の数字配列設定",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "1"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "2"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "3"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "4"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "5"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "6"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "7"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "8"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "9"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "0"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "z"
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "r"
+                },
+                "to": [
+                  {
+                    "key_code": "8",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "q"
+                },
+                "to": [
+                  {
+                    "key_code": "1",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "w"
+                },
+                "to": [
+                  {
+                    "key_code": "2",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "e"
+                },
+                "to": [
+                  {
+                    "key_code": "5",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "t"
+                },
+                "to": [
+                  {
+                    "key_code": "3",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "c"
+                },
+                "to": [
+                  {
+                    "key_code": "6",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "v"
+                },
+                "to": [
+                  {
+                    "key_code": "4",
+                    "modifiers": ["left_shift"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_num",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Layer - layer_window_manager",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f19"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "layer_window_manager",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "__layer",
+                      "value": 1
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_unless",
+                    "name": "layer_window_manager",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "__layer",
+                    "value": 1
+                  }
+                ],
+                "to_if_alone": [],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "layer_window_manager",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "__layer",
+                      "value": 0
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f1",
+                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                  }
+                ],
+                "description": "next-display",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_window_manager",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f2",
+                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                  }
+                ],
+                "description": "previous-display",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_window_manager",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f3",
+                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                  }
+                ],
+                "description": "left-half",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_window_manager",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f4",
+                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                  }
+                ],
+                "description": "right-half",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_window_manager",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "m",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f5",
+                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                  }
+                ],
+                "description": "maximize",
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "layer_window_manager",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Emacsキーバインドを基本キー操作に割り当てる。",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "n",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "down_arrow"
+                  }
+                ],
+                "description": "標準カーソル移動↓"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "p",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "up_arrow"
+                  }
+                ],
+                "description": "標準カーソル移動↑"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "b",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow"
+                  }
+                ],
+                "description": "標準カーソル移動←"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow"
+                  }
+                ],
+                "description": "標準カーソル移動→"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a",
+                  "modifiers": {
+                    "mandatory": ["left_control"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow",
+                    "modifiers": ["command"]
+                  }
+                ],
+                "description": "行頭へ移動",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "e",
+                  "modifiers": {
+                    "mandatory": ["left_control"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow",
+                    "modifiers": ["command"]
+                  }
+                ],
+                "description": "行末へ移動",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": ["left_control"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow",
+                    "modifiers": ["shift", "command"]
+                  },
+                  {
+                    "key_code": "x",
+                    "modifiers": ["command"]
+                  }
+                ],
+                "description": "カーソル位置から行末まで削除",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": [
+                      "com.microsoft.VSCode",
+                      "dev.zed.Zed",
+                      "com.apple.Terminal",
+                      "com.mitchellh.ghostty",
+                      "dev.kdrag0n.MacVirt"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "y",
+                  "modifiers": {
+                    "mandatory": ["left_control"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "v",
+                    "modifiers": ["command"]
+                  }
+                ],
+                "description": "ペースト",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": ["left_option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow",
+                    "modifiers": ["left_option"]
+                  }
+                ],
+                "description": "単語単位で次へ移動",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "b",
+                  "modifiers": {
+                    "mandatory": ["left_option"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow",
+                    "modifiers": ["left_option"]
+                  }
+                ],
+                "description": "単語単位で前へ移動",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Slack Key Bind Minimal",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "mandatory": ["command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f",
+                    "modifiers": ["command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": ["com.tinyspeck.slackmacgap"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "obsidian.md Custom Key Bind",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": ["command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f19"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": ["md.obsidian"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_shift"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is-left-one-tap",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "key_code": "f17"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is-left-one-tap",
+                    "value": 1
+                  },
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": ["md.obsidian"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_shift"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "is-left-one-tap",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "left_shift"
+                  }
+                ],
+                "parameters": {
+                  "basic.to_delayed_action_delay_milliseconds": 500
+                },
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "is-left-one-tap",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "is-left-one-tap",
+                        "value": 0
+                      }
+                    }
+                  ]
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "is-left-one-tap",
+                    "value": 0
+                  },
+                  {
+                    "type": "frontmost_application_if",
+                    "bundle_identifiers": ["md.obsidian"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "OSレベルの組み込みショートカットを無効化する。",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "mandatory": ["command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "description": "Hide Applicationを無効化する。",
+                "conditions": [
+                  {
+                    "type": "frontmost_application_unless",
+                    "bundle_identifiers": ["com.microsoft.VSCode"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "tab",
+                  "modifiers": {
+                    "mandatory": ["command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "description": "Application Switchを無効化する。Application Switchそのものは別ショートカットキーで管理する。運指で癖がつかないように無効化するのが目的。"
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "mandatory": ["command", "control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "vk_none"
+                  }
+                ],
+                "description": "Emoji Viewerを無効化する。たまに暴発するため。Emojiは必要であればRaycastを使用する。"
+              }
+            ]
+          }
+        ],
+        "parameters": {
+          "basic.to_if_alone_timeout_milliseconds": 1000,
+          "basic.to_if_held_down_threshold_milliseconds": 500,
+          "basic.to_delayed_action_delay_milliseconds": 500,
+          "basic.simultaneous_threshold_milliseconds": 50,
+          "mouse_motion_to_scroll.speed": 100
+        }
+      },
+      "name": "Default profile",
+      "selected": true,
+      "virtual_hid_keyboard": {
+        "country_code": 0,
+        "keyboard_type_v2": "ansi"
+      },
+      "simple_modifications": [
+        {
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "from": {
+            "key_code": "caps_lock"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "delete_or_backspace"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "escape"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "hyphen"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "equal_sign"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "grave_accent_and_tilde"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "1"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "2"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "3"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "4"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "5"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "6"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "7"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "8"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "9"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "0"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "tab"
+            }
+          ],
+          "from": {
+            "key_code": "h"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "h"
+            }
+          ],
+          "from": {
+            "key_code": "j"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "j"
+            }
+          ],
+          "from": {
+            "key_code": "k"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "k"
+            }
+          ],
+          "from": {
+            "key_code": "l"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "l"
+            }
+          ],
+          "from": {
+            "key_code": "semicolon"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "quote"
+            }
+          ],
+          "from": {
+            "key_code": "return_or_enter"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "tab",
+              "modifiers": ["left_shift"]
+            }
+          ],
+          "from": {
+            "key_code": "y"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "y"
+            }
+          ],
+          "from": {
+            "key_code": "u"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "u"
+            }
+          ],
+          "from": {
+            "key_code": "i"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "i"
+            }
+          ],
+          "from": {
+            "key_code": "o"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "o"
+            }
+          ],
+          "from": {
+            "key_code": "p"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "p"
+            }
+          ],
+          "from": {
+            "key_code": "open_bracket"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "close_bracket"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "backslash"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "vk_none"
+            }
+          ],
+          "from": {
+            "key_code": "b"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "b"
+            }
+          ],
+          "from": {
+            "key_code": "n"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "n"
+            }
+          ],
+          "from": {
+            "key_code": "m"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "m"
+            }
+          ],
+          "from": {
+            "key_code": "comma"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "comma"
+            }
+          ],
+          "from": {
+            "key_code": "period"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "period"
+            }
+          ],
+          "from": {
+            "key_code": "slash"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "f20"
+            }
+          ],
+          "from": {
+            "key_code": "right_command"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "f19"
+            }
+          ],
+          "from": {
+            "key_code": "right_shift"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "f18"
+            }
+          ],
+          "from": {
+            "key_code": "quote"
+          }
+        },
+        {
+          "to": [
+            {
+              "key_code": "f17"
+            }
+          ],
+          "from": {
+            "key_code": "right_option"
+          }
+        }
+      ]
+    }
+  ]
+}

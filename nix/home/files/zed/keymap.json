@@ -1,0 +1,166 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-k r": null
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-k m": null
+    }
+  },
+  {
+    "bindings": {
+      "alt-h": "workspace::ActivatePaneLeft",
+      "alt-l": "workspace::ActivatePaneRight",
+      "cmd-k e": "project_panel::ToggleFocus",
+      "cmd-k a": "agent::ToggleFocus",
+      "cmd-k t": "terminal_panel::ToggleFocus",
+      "cmd-k g": "git_panel::ToggleFocus",
+      "cmd-k d": "debug_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "alt-j": "debug_panel::ToggleFocus",
+      "alt-k": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "alt-j": "project_panel::ToggleFocus",
+      "alt-k": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "alt-j": "terminal_panel::ToggleFocus",
+      "alt-k": "agent::ToggleFocus"
+    }
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "alt-j": "git_panel::ToggleFocus",
+      "alt-k": "debug_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "DebugPanel",
+    "bindings": {
+      "alt-j": "agent::ToggleFocus",
+      "alt-k": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Editor || Pane",
+    "bindings": {
+      "ctrl-alt-h": "pane::SwapItemLeft",
+      "ctrl-alt-l": "pane::SwapItemRight",
+      "alt-shift-h": ["workspace::MoveItemToPane", { "destination": 0 }],
+      "alt-shift-l": ["workspace::MoveItemToPane", { "destination": 1 }],
+      "ctrl-l": "pane::ActivateNextItem",
+      "ctrl-h": "pane::ActivatePreviousItem",
+      "cmd-k l": "pane::SplitRight",
+      "cmd-k h": "pane::SplitLeft",
+      "cmd-k cmd-e": "pane::TogglePinTab"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "shift-space": "terminal::ToggleViMode"
+    }
+  },
+  {
+    "bindings": {
+      "f16": "workspace::IncreaseOpenDocksSize",
+      "shift-f16": "workspace::DecreaseOpenDocksSize",
+      "alt-r": "workspace::ResetActiveDockSize",
+      "alt-e": "editor::ToggleFocus",
+      "ctrl-shift-l": "workspace::ActivateNextPane",
+      "ctrl-shift-h": "workspace::ActivatePreviousPane",
+      "cmd-k m": "workspace::ToggleZoom"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "shift-k": "menu::SelectPrevious",
+      "shift-j": "menu::SelectNext",
+      "escape": "menu::Cancel"
+    }
+  },
+  {
+    "context": "Editor && mode==full && vim_mode == visual",
+    "bindings": {
+      "cmd-shift-l": "agent::AddSelectionToThread"
+    }
+  },
+  {
+    "context": "Workspace || !(Editor && mode==full && vim_mode == visual)",
+    "bindings": {
+      "cmd-shift-l": "workspace::ToggleRightDock"
+    }
+  },
+  {
+    "context": "Workspace || Editor",
+    "bindings": {
+      "cmd-shift-j": "workspace::ToggleBottomDock",
+      "cmd-shift-b": "workspace::ToggleLeftDock",
+      "shift shift": "tab_switcher::ToggleAll"
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-space": "editor::GoToDefinition",
+      "ctrl-shift-space": "editor::GoToTypeDefinitionSplit",
+      "ctrl-i": "pane::GoForward",
+      "ctrl-o": "pane::GoBack",
+      "cmd-k f": "editor::Hover",
+      "cmd-k shift-f": "editor::BlameHover",
+      ": :": "editor::ShowCompletions",
+      "; ;": "editor::ShowWordCompletions"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "a": "vim::ToggleComments"
+    }
+  },
+  {
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      "x": ["workspace::SendKeystrokes", "\" _ x"],
+      "shift-x": ["workspace::SendKeystrokes", "\" _ shift-x"]
+    }
+  },
+  {
+    "context": "vim_mode == visual && !menu",
+    "bindings": {
+      "x": ["workspace::SendKeystrokes", "\" _ x"],
+      "shift-x": ["workspace::SendKeystrokes", "\" _ shift-x"],
+      "p": ["workspace::SendKeystrokes", "\" _ d shift-p"],
+      "shift-p": ["workspace::SendKeystrokes", "\" _ d shift-p"]
+    }
+  },
+  {
+    "context": "vim_mode == literal",
+    "bindings": {
+      "ctrl-h": null
+    }
+  },
+  {
+    "context": "Picker > Editor",
+    "bindings": {
+      "ctrl-h": null
+    }
+  }
+]

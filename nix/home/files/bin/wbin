@@ -1,0 +1,84 @@
+#!/bin/sh
+
+set -eu
+
+usage() {
+  cat >&2 <<'EOF'
+Usage:
+  wbin add <target-script> <command-name>
+  wbin rm <command-name>
+  wbin cd
+  wbin help
+
+Tip:
+  Use `cd "$(wbin cd)"` to move to workspace/bin in your current shell.
+EOF
+}
+
+action="${1:-}"
+bin_dir="$HOME/workspace/bin"
+
+case "$action" in
+  add)
+    target="${2:-}"
+    command_name="${3:-}"
+
+    if [ -z "$target" ] || [ -z "$command_name" ]; then
+      usage
+      exit 1
+    fi
+
+    if [ ! -e "$target" ]; then
+      echo "Error: target script does not exist: $target" >&2
+      exit 1
+    fi
+
+    if [ ! -f "$target" ]; then
+      echo "Error: target must be a file: $target" >&2
+      exit 1
+    fi
+
+    if [ ! -x "$target" ]; then
+      echo "Error: target script is not executable: $target" >&2
+      exit 1
+    fi
+
+    mkdir -p "$bin_dir"
+    target_dir=$(cd "$(dirname "$target")" && pwd)
+    target_abs="$target_dir/$(basename "$target")"
+
+    ln -sfn "$target_abs" "$bin_dir/$command_name"
+    ;;
+  rm)
+    command_name="${2:-}"
+    link_path="$bin_dir/$command_name"
+
+    if [ -z "$command_name" ]; then
+      usage
+      exit 1
+    fi
+
+    if [ ! -e "$link_path" ]; then
+      echo "Error: command does not exist in workspace/bin: $command_name" >&2
+      exit 1
+    fi
+
+    if [ ! -L "$link_path" ]; then
+      echo "Error: target is not a symbolic link: $link_path" >&2
+      exit 1
+    fi
+
+    rm "$link_path"
+    ;;
+  cd)
+    mkdir -p "$bin_dir"
+    printf '%s\n' "$bin_dir"
+    ;;
+  help|usage)
+    usage
+    ;;
+  *)
+    usage
+    exit 1
+    ;;
+esac

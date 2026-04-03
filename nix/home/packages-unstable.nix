@@ -1,0 +1,52 @@
+{ pkgs }:
+with pkgs;
+[
+  # lsp server
+  bash-language-server
+  biome
+  tombi
+  markdown-oxide
+  lua-language-server
+  typescript-language-server
+  pyright
+  yaml-language-server
+  nixd
+  terraform-ls
+  # tools
+  bash
+  bashly
+  bat
+  betterleaks
+  cloc
+  curl
+  delta
+  dust
+  eza
+  fd
+  fish
+  gemini-cli
+  gh
+  ghq
+  git
+  gitleaks
+  google-cloud-sdk
+  img2pdf
+  jjui
+  jq
+  jujutsu
+  lazydocker
+  lazygit
+  lefthook
+  markdownlint-cli2
+  neovim
+  nil
+  nixfmt
+  opencode
+  pinact
+  poppler
+  postgresql
+  prettier
+  terraform
+  tldr
+  tree
+]
