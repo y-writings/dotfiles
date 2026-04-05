@@ -13,6 +13,7 @@ with pkgs;
   nixd
   terraform-ls
   # tools
+  ast-grep
   bash
   bashly
   bat

@@ -35,6 +35,7 @@
       nr = "ni run";
       mr = "mise run";
       rp = "realpath";
+      sg = "ast-grep";
       pbc = "pbcopy";
       pbp = "pbpaste";
 
