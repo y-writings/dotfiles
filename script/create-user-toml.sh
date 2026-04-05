@@ -18,6 +18,16 @@ toml_escape() {
   printf '%s' "$value"
 }
 
+get_git_config_value() {
+  local key="$1"
+
+  if ! command -v git >/dev/null 2>&1; then
+    return 0
+  fi
+
+  git config --get "$key" 2>/dev/null || true
+}
+
 build_features_toml() {
   local raw="$1"
   local -a features
@@ -127,11 +137,14 @@ printf 'dotfilesRoot [%s]: ' "$default_dotfiles_root"
 IFS= read -r input_dotfiles_root
 input_dotfiles_root="$(trim "$input_dotfiles_root")"
 
-printf 'gitIdentity.name: '
+default_git_name="$(trim "$(get_git_config_value user.name)")"
+default_git_email="$(trim "$(get_git_config_value user.email)")"
+
+printf 'gitIdentity.name [%s]: ' "${default_git_name:-your account}"
 IFS= read -r input_name
 input_name="$(trim "$input_name")"
 
-printf 'gitIdentity.email: '
+printf 'gitIdentity.email [%s]: ' "${default_git_email:-your email}"
 IFS= read -r input_email
 input_email="$(trim "$input_email")"
 
@@ -152,11 +165,11 @@ if [ -z "$input_dotfiles_root" ]; then
 fi
 
 if [ -z "$input_name" ]; then
-  input_name="your account"
+  input_name="${default_git_name:-your account}"
 fi
 
 if [ -z "$input_email" ]; then
-  input_email="your email"
+  input_email="${default_git_email:-your email}"
 fi
 
 if [ -z "$input_exa" ]; then
