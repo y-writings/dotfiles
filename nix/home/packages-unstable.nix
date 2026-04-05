@@ -19,6 +19,7 @@ with pkgs;
   bat
   betterleaks
   cloc
+  commitlint
   curl
   delta
   dust
