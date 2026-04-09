@@ -5,7 +5,7 @@ set -eu
 usage() {
   cat >&2 <<'EOF'
 Usage:
-  wbin add <target-script> <command-name>
+  wbin add <target-script> [command-name]
   wbin rm <command-name>
   wbin cd
   wbin help
@@ -21,9 +21,9 @@ bin_dir="$HOME/workspace/bin"
 case "$action" in
   add)
     target="${2:-}"
-    command_name="${3:-}"
+    command_name="${3:-$(basename "$target")}"
 
-    if [ -z "$target" ] || [ -z "$command_name" ]; then
+    if [ -z "$target" ]; then
       usage
       exit 1
     fi
