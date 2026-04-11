@@ -50,6 +50,7 @@ in
       "zed"
     ]
     ++ lib.optionals (hasInstallFeature "productivity") [
+      "cleanshot"
       "rize"
     ]
     ++ lib.optionals aiDevelopmentEnabled [
