@@ -53,6 +53,18 @@
             type = "standard";
           };
         };
+        # Application windows (Cmd+J) - 33
+        "33" = {
+          enabled = true;
+          value = {
+            parameters = [
+              106
+              38
+              1048576
+            ];
+            type = "standard";
+          };
+        };
       };
     };
   };
