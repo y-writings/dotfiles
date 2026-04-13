@@ -257,6 +257,37 @@
             ]
           },
           {
+            "description": "日本語IMEの変換ショートカットを追加する。",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a",
+                  "modifiers": {
+                    "mandatory": ["left_option"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "f7",
+                    "modifiers": ["fn"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  }
+                ],
+                "description": "Option+Aでカタカナ変換する"
+              }
+            ]
+          },
+          {
             "description": "左Commandレイヤーの開始とリセット",
             "manipulators": [
               {

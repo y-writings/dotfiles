@@ -15,8 +15,9 @@
     "dock": "right"
   },
   "git_panel": {
+    "tree_view": true,
     "dock": "right",
-    "sort_by_path": true
+    "sort_by_path": false
   },
   "language_models": {
     "ollama": {
