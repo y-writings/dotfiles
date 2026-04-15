@@ -162,5 +162,23 @@
     "bindings": {
       "ctrl-h": null
     }
+  },
+  {
+    "context": "ProjectPanel",
+    "unbind": {
+      "cmd-c": "project_panel::Copy"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "cmd-c": "workspace::CopyRelativePath"
+    }
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "y": "workspace::CopyRelativePath"
+    }
   }
 ]
