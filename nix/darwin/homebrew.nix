@@ -57,7 +57,7 @@ in
       "ollama-app"
     ]
     ++ lib.optionals codexEnabled [
-      "codex"
+      "codex-app"
     ];
   };
 }
