@@ -53,13 +53,13 @@
             type = "standard";
           };
         };
-        # Application windows (Cmd+J) - 33
+        # Application windows (Cmd+Down Arrow) - 33
         "33" = {
           enabled = true;
           value = {
             parameters = [
-              106
-              38
+              65535
+              125
               1048576
             ];
             type = "standard";
@@ -80,6 +80,7 @@
       "/System/Applications/System Settings.app"
       "/Applications/Ghostty.app"
       "/Applications/Arc.app"
+      "/Applications/Ice.app"
     ];
 
   };
