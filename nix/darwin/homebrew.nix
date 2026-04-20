@@ -37,6 +37,7 @@ in
       "1password-cli"
       "amical"
       "brainfm"
+      "cleanshot"
       "dbeaver-community"
       "ghostty@tip"
       "homerow"
@@ -50,7 +51,6 @@ in
       "zed"
     ]
     ++ lib.optionals (hasInstallFeature "productivity") [
-      "cleanshot"
       "rize"
     ]
     ++ lib.optionals aiDevelopmentEnabled [
