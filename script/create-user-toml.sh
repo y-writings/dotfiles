@@ -3,6 +3,8 @@ set -eu
 
 target_dir="${HOME}/.config/nix"
 target_file="${target_dir}/user.toml"
+git_target_dir="${target_dir}/git"
+git_target_file="${git_target_dir}/config"
 
 trim() {
   local value="$1"
@@ -12,6 +14,13 @@ trim() {
 }
 
 toml_escape() {
+  local value="$1"
+  value="${value//\\/\\\\}"
+  value="${value//\"/\\\"}"
+  printf '%s' "$value"
+}
+
+git_config_escape() {
   local value="$1"
   value="${value//\\/\\\\}"
   value="${value//\"/\\\"}"
@@ -110,8 +119,11 @@ prompt_enabled_install_features() {
 
 echo "Create ~/.config/nix/user.toml interactively"
 
-if [ -f "$target_file" ]; then
-  printf '%s already exists. Overwrite? [y/N]: ' "$target_file"
+if [ -f "$target_file" ] || [ -f "$git_target_file" ]; then
+  printf 'One or more target files already exist:\n' >&2
+  [ -f "$target_file" ] && printf '  - %s\n' "$target_file" >&2
+  [ -f "$git_target_file" ] && printf '  - %s\n' "$git_target_file" >&2
+  printf 'Overwrite? [y/N]: '
   IFS= read -r overwrite
   overwrite="$(trim "$overwrite")"
   if [ "$overwrite" != "y" ] && [ "$overwrite" != "Y" ]; then
@@ -198,11 +210,19 @@ dotfiles_root_toml="$(toml_escape "$input_dotfiles_root")"
 name_toml="$(toml_escape "$input_name")"
 email_toml="$(toml_escape "$input_email")"
 exa_toml="$(toml_escape "$input_exa")"
+name_git_config="$(git_config_escape "$input_name")"
+email_git_config="$(git_config_escape "$input_email")"
 
 mkdir -p "$target_dir"
+mkdir -p "$git_target_dir"
 
-tmp_file="$(mktemp "${TMPDIR:-/tmp}/user.toml.XXXXXX")"
-trap 'rm -f "$tmp_file"' EXIT
+tmp_file=""
+git_tmp_file=""
+trap 'rm -f "$tmp_file" "$git_tmp_file"' EXIT
+
+tmp_file="$(mktemp "$target_dir/user.toml.XXXXXX")"
+git_tmp_file="$(mktemp "$git_target_dir/config.XXXXXX")"
+trap 'rm -f "$tmp_file" "$git_tmp_file"' EXIT
 
 umask 077
 
@@ -220,7 +240,15 @@ email = "${email_toml}"
 EXA_API_KEY = "${exa_toml}"
 EOF
 
+cat > "$git_tmp_file" <<EOF
+[user]
+	name = "${name_git_config}"
+	email = "${email_git_config}"
+EOF
+
 mv "$tmp_file" "$target_file"
+mv "$git_tmp_file" "$git_target_file"
 trap - EXIT
 
 echo "Created ${target_file}"
+echo "Created ${git_target_file}"

@@ -7,6 +7,12 @@
   programs.git = {
     enable = true;
 
+    includes = [
+      {
+        path = "~/.config/nix/git/config";
+      }
+    ];
+
     settings = {
       user = {
         name = gitIdentity.name;
