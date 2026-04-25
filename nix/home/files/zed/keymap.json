@@ -174,11 +174,5 @@
     "bindings": {
       "cmd-c": "workspace::CopyRelativePath"
     }
-  },
-  {
-    "context": "ProjectPanel",
-    "bindings": {
-      "y": "workspace::CopyRelativePath"
-    }
   }
 ]
