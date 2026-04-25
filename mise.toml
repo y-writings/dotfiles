@@ -11,23 +11,22 @@ run = "sudo nix flake update"
 [tasks.rebuild]
 description = "Apply nix-darwin configuration"
 run = "sudo darwin-rebuild switch --impure --flake path:.#${USER}-aarch64-darwin --override-input user-config path:${HOME}/.config/nix"
-depends_post = ["post-agent-browser", "post-lefthook"]
+depends_post = ["post-rebuild-agent-browser", "post-rebuild-lefthook"]
 
-[tasks.brew]
-description = "Update Homebrew cask"
-run = "brew update && brew upgrade && brew cleanup"
-depends_post = ["post-agent-browser"]
-
-[tasks.scan]
-description = "Scan all repository files with betterleaks"
-run = "betterleaks dir --no-banner --redact=20 ."
-
-[tasks.post-agent-browser]
+[tasks.post-rebuild-agent-browser]
 hide = true
 description = "Install agent-browser"
 run = "agent-browser install"
 
-[tasks.post-lefthook]
+[tasks.post-rebuild-lefthook]
 hide = true
 description = "Install lefthook hooks"
 run = "lefthook install"
+
+[tasks.brew]
+description = "Update Homebrew cask"
+run = "brew update && brew upgrade && brew cleanup"
+
+[tasks.scan]
+description = "Scan all repository files with betterleaks"
+run = "betterleaks dir --no-banner --redact=20 ."
