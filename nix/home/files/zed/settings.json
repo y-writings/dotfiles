@@ -1,4 +1,8 @@
 {
+  "cli_default_open_behavior": "existing_window",
+  "collaboration_panel": {
+    "dock": "right"
+  },
   "agent_servers": {
     "opencode": {
       "type": "registry"
@@ -39,7 +43,7 @@
     "dock": "right"
   },
   "outline_panel": {
-    "dock": "left"
+    "dock": "right"
   },
   "icon_theme": "Bearded Icon Theme",
   "vim_mode": true,
