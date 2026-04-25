@@ -22,7 +22,7 @@
 ### 条件
 
 - システム構成: Nix + nix-darwin + Home Manager
-- 個人設定ファイル: 初回実行時に `$HOME/.config/nix/user.toml` を対話形式で作成
+- 個人設定ファイル: 初回実行時に `$HOME/.config/nix/user.toml` と `$HOME/.config/nix/git/config` を対話形式で作成
 
 ## 実行手順
 
@@ -41,7 +41,7 @@ chmod +x bootstrap.sh
 1. Xcode Command Line Tools の導入
 1. Determinate Nix の導入
 1. `https://www.github.com/y-writings/dotfiles.git` の clone
-1. `script/create-user-toml.sh` の対話実行（`$HOME/.config/nix/user.toml` 作成）
+1. `script/create-user-toml.sh` の対話実行（`$HOME/.config/nix/user.toml` と `$HOME/.config/nix/git/config` を作成）
 1. 初回 `nix-darwin switch`
 
 #### エラー発生時
