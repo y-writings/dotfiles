@@ -43,84 +43,75 @@
       ...
     }@inputs:
     let
-      userConfig = import ./nix/user.nix {
-        userConfigRoot = inputs.user-config;
-      };
-      inherit (userConfig)
-        username
-        homeDir
-        gitIdentity
-        dotfilesRoot
-        secrets
-        ;
-
-      workspacePath = "${homeDir}/workspace";
-      enabledInstallFeatures = userConfig.enabledInstallFeatures or [ ];
-      ghqRootPath = "${workspacePath}/repos";
       hostSystem = "aarch64-darwin";
 
-      hostname = "${username}-${hostSystem}";
-    in
-    {
+      homeModule = import ./nix/home;
+      darwinModule = import ./nix/darwin;
 
-      darwinConfigurations."${hostname}" = nix-darwin.lib.darwinSystem {
-        system = hostSystem;
-        specialArgs = {
-          inherit
-            username
-            gitIdentity
-            dotfilesRoot
-            enabledInstallFeatures
-            workspacePath
-            ghqRootPath
-            ;
-        };
+      mkDarwinSystem = import ./nix/lib/mk-darwin-system.nix {
+        inherit
+          inputs
+          nix-darwin
+          home-manager
+          nix-homebrew
+          determinate
+          homeModule
+          darwinModule
+          ;
+      };
 
-        modules = [
-          nix-homebrew.darwinModules.nix-homebrew
+      userConfigPath = builtins.toPath "${toString inputs.user-config}/user.toml";
+      hasUserConfig = builtins.pathExists userConfigPath;
+
+      standaloneConfigurations =
+        if hasUserConfig then
+          let
+            userConfig = import ./nix/user.nix {
+              userConfigRoot = inputs.user-config;
+            };
+            inherit (userConfig)
+              username
+              homeDir
+              dotfilesRoot
+              enabledInstallFeatures
+              secrets
+              gitIdentity
+              ;
+
+            workspacePath = "${homeDir}/workspace";
+            ghqRootPath = "${workspacePath}/repos";
+            hostname = "${username}-${hostSystem}";
+          in
           {
-            nix-homebrew.enable = true;
-            nix-homebrew.user = username;
-          }
-          ./nix/darwin
-          { nixpkgs.config.allowUnfree = true; }
-
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.extraSpecialArgs = {
+            darwinConfigurations.${hostname} = mkDarwinSystem {
+              system = hostSystem;
               inherit
-                inputs
-                gitIdentity
-                secrets
+                username
+                homeDir
                 dotfilesRoot
+                enabledInstallFeatures
                 workspacePath
                 ghqRootPath
+                secrets
+                gitIdentity
                 ;
             };
-            home-manager.users.${username} = import ./nix/home;
-
           }
-          determinate.darwinModules.default
-          (
-            { ... }:
-            {
-              nix.enable = false;
-              determinateNix.enable = true;
+        else
+          { };
+    in
+    {
+      homeModules.default = homeModule;
+      darwinModules.default = darwinModule;
 
-              system.stateVersion = 6;
-              users.users.${username} = {
-                name = username;
-                home = homeDir;
-              };
-
-              security.pam.services.sudo_local.touchIdAuth = true;
-              programs.zsh.enable = true;
-            }
-          )
-        ];
+      checks.${hostSystem} = import ./nix/checks {
+        inherit
+          inputs
+          hostSystem
+          homeModule
+          mkDarwinSystem
+          ;
       };
-    };
+    }
+    // standaloneConfigurations;
 }
