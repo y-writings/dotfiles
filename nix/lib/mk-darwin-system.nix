@@ -10,27 +10,20 @@
 {
   system,
   username,
-  homeDir,
-  dotfilesRoot,
+  paths,
   enabledInstallFeatures ? [ ],
-  workspacePath,
-  ghqRootPath,
   secrets ? { },
-  gitIdentity ? null,
-  extraHomeModules ? [ ],
-  extraDarwinModules ? [ ],
+  gitIdentity,
 }:
 let
   homeManagerExtraSpecialArgs = {
     inherit
       inputs
-      dotfilesRoot
-      workspacePath
-      ghqRootPath
+      paths
       secrets
+      gitIdentity
       ;
-  }
-  // (if gitIdentity == null then { } else { inherit gitIdentity; });
+  };
 in
 nix-darwin.lib.darwinSystem {
   inherit system;
@@ -38,10 +31,7 @@ nix-darwin.lib.darwinSystem {
   specialArgs = {
     inherit
       username
-      dotfilesRoot
       enabledInstallFeatures
-      workspacePath
-      ghqRootPath
       ;
   };
 
@@ -60,7 +50,7 @@ nix-darwin.lib.darwinSystem {
       home-manager.backupFileExtension = "backup";
       home-manager.extraSpecialArgs = homeManagerExtraSpecialArgs;
       home-manager.users.${username} = {
-        imports = [ homeModule ] ++ extraHomeModules;
+        imports = [ homeModule ];
       };
     }
     determinate.darwinModules.default
@@ -73,13 +63,12 @@ nix-darwin.lib.darwinSystem {
         system.stateVersion = 6;
         users.users.${username} = {
           name = username;
-          home = homeDir;
+          home = paths.homeDir;
         };
 
         security.pam.services.sudo_local.touchIdAuth = true;
         programs.zsh.enable = true;
       }
     )
-  ]
-  ++ extraDarwinModules;
+  ];
 }

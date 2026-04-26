@@ -2,8 +2,7 @@
   pkgs,
   config,
   inputs,
-  workspacePath,
-  ghqRootPath,
+  paths,
   secrets,
   ...
 }:
@@ -27,7 +26,7 @@
       la = "eza -F -lgha";
       llg = "eza -F -lgh --git";
       lag = "eza -F -lgha --git";
-      dr = "cd ${ghqRootPath}";
+      dr = "cd ${paths.ghqRootPath}";
       dw = "cd $vscodeWorkspace";
       dc = "COMPOSE_BAKE=true docker compose";
       lg = "lazygit";
@@ -78,7 +77,7 @@
     if builtins.hasAttr "EXA_API_KEY" secrets then { EXA_API_KEY = secrets.EXA_API_KEY; } else { };
 
   home.sessionPath = [
-    "${workspacePath}/bin"
+    "${paths.workspacePath}/bin"
     "${config.home.homeDirectory}/.local/bin"
     "/opt/homebrew/bin"
   ];

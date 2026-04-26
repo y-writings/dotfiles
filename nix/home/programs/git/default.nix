@@ -1,6 +1,6 @@
 {
   gitIdentity,
-  ghqRootPath,
+  paths,
   ...
 }:
 {
@@ -16,7 +16,7 @@
         graph = "log --graph --all --color --pretty=format:'%C(yellow)%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
       };
       init.defaultBranch = "main";
-      ghq.root = ghqRootPath;
+      ghq.root = paths.ghqRootPath;
 
       filter.lfs = {
         clean = "git-lfs clean -- %f";

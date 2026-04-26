@@ -1,10 +1,10 @@
 {
   config,
-  dotfilesRoot,
+  paths,
   ...
 }:
 let
-  filesDir = "${dotfilesRoot}/nix/home/files";
+  filesDir = "${paths.dotfilesRoot}/nix/home/files";
 in
 {
   xdg.enable = true;

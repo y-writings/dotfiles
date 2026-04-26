@@ -83,6 +83,14 @@
 
             workspacePath = "${homeDir}/workspace";
             ghqRootPath = "${workspacePath}/repos";
+            paths = {
+              inherit
+                homeDir
+                dotfilesRoot
+                workspacePath
+                ghqRootPath
+                ;
+            };
             hostname = "${username}-${hostSystem}";
           in
           {
@@ -90,11 +98,8 @@
               system = hostSystem;
               inherit
                 username
-                homeDir
-                dotfilesRoot
+                paths
                 enabledInstallFeatures
-                workspacePath
-                ghqRootPath
                 secrets
                 gitIdentity
                 ;
