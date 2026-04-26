@@ -15,12 +15,12 @@ out-of-store symlink を採用しています。
 ## トレードオフ
 
 - メリット: ツール側の設定変更（GUI操作や自動更新）がそのまま反映される
-- デメリット: ローカル checkout パス（`dotfilesRoot`）への依存が発生する
+- デメリット: ローカル checkout パス（`paths.dotfilesRoot`）への依存が発生する
 
 これは意図的な設計上のトレードオフです。
 
 ## 運用方針
 
-- 再現性は `dotfilesRoot` を明示設定することで担保する
+- 再現性は `paths.dotfilesRoot` を含む `paths` を明示設定することで担保する
 - 「ツール側で更新される可能性があるファイル」は out-of-store を維持する
 - 完全な読み取り専用で問題ないファイルのみ in-store 管理を検討する
