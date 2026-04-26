@@ -1,7 +1,13 @@
 { ... }:
 {
   nix.settings = {
-    extra-substituters = [ "https://yazi.cachix.org" ];
-    extra-trusted-public-keys = [ "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k=" ];
+    extra-substituters = [
+      "https://cache.nixos.org/"
+      "https://yazi.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "yazi.cachix.org-1:Dcdz63NZKfvUCbDGngQDAZq6kOroIrFoyO064uvLh8k="
+    ];
   };
 }
