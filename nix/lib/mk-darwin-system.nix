@@ -14,6 +14,8 @@
   enabledInstallFeatures ? [ ],
   secrets ? { },
   gitIdentity,
+  extraDarwinModules ? [ ],
+  extraHomeModules ? [ ],
 }:
 let
   homeManagerExtraSpecialArgs = {
@@ -50,7 +52,7 @@ nix-darwin.lib.darwinSystem {
       home-manager.backupFileExtension = "backup";
       home-manager.extraSpecialArgs = homeManagerExtraSpecialArgs;
       home-manager.users.${username} = {
-        imports = [ homeModule ];
+        imports = [ homeModule ] ++ extraHomeModules;
       };
     }
     determinate.darwinModules.default
@@ -70,5 +72,6 @@ nix-darwin.lib.darwinSystem {
         programs.zsh.enable = true;
       }
     )
-  ];
+  ]
+  ++ extraDarwinModules;
 }
