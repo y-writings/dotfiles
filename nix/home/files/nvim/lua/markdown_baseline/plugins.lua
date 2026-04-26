@@ -1,12 +1,11 @@
 local vim = rawget(_G, 'vim')
 return {
   {
-    'rebelot/kanagawa.nvim',
+    'EdenEast/nightfox.nvim',
     lazy = false,
     priority = 1000,
     config = function()
-      require('kanagawa').setup({ theme = 'wave' })
-      vim.cmd.colorscheme('kanagawa')
+      vim.cmd.colorscheme('duskfox')
     end,
   },
   {
@@ -22,7 +21,9 @@ return {
 
       configs.setup({
         ensure_installed = { 'markdown', 'markdown_inline' },
-        highlight = { enable = true },
+        highlight = {
+          enable = true,
+        },
         indent = { enable = false },
       })
     end,
@@ -40,12 +41,19 @@ return {
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
-    enabled = false,
     cmd = { 'RenderMarkdown' },
     ft = { 'markdown' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require('render-markdown').setup({})
+      require('render-markdown').setup({
+        heading = {
+          atx = false,
+        },
+        code = {
+          conceal_delimiters = false,
+          border = 'hide',
+        },
+      })
     end,
   },
   {
