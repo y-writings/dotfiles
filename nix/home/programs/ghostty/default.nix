@@ -1,4 +1,4 @@
-{ workspacePath, ... }:
+{ paths, ... }:
 {
   programs.ghostty = {
     enable = true;
@@ -17,7 +17,7 @@
       ];
       "font-feature" = "calt,liga";
       theme = "TokyoNight Night";
-      working-directory = workspacePath;
+      working-directory = paths.workspacePath;
     };
   };
 }
