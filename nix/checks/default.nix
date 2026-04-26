@@ -10,6 +10,14 @@ let
   workspacePath = "${homeDir}/workspace";
   ghqRootPath = "${workspacePath}/repos";
   dotfilesRoot = toString ../..;
+  paths = {
+    inherit
+      homeDir
+      dotfilesRoot
+      workspacePath
+      ghqRootPath
+      ;
+  };
 
   pkgs = import inputs.nixpkgs {
     system = hostSystem;
@@ -19,9 +27,7 @@ let
   homeArgs = {
     inherit
       inputs
-      dotfilesRoot
-      workspacePath
-      ghqRootPath
+      paths
       ;
     gitIdentity = {
       name = "Public User";
@@ -34,10 +40,7 @@ let
     system = hostSystem;
     inherit
       username
-      homeDir
-      dotfilesRoot
-      workspacePath
-      ghqRootPath
+      paths
       ;
     gitIdentity = {
       name = "Public User";
@@ -57,7 +60,7 @@ let
         {
           home = {
             inherit username;
-            homeDirectory = homeDir;
+            homeDirectory = paths.homeDir;
             stateVersion = "25.11";
           };
         }
@@ -69,6 +72,4 @@ in
   exported-home-base = (homeConfiguration [ ]).activationPackage;
 
   exported-darwin-base = (mkDarwinSystem baseSystemArgs).config.system.build.toplevel;
-
-  standalone-dogfood = (mkDarwinSystem baseSystemArgs).config.system.build.toplevel;
 }
