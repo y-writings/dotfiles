@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-mise-pinned.url = "github:NixOS/nixpkgs?rev=b86751bc4085f48661017fa226dee99fab6c651b";
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     nix-darwin = {
