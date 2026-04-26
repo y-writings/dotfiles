@@ -63,6 +63,8 @@
       userConfigPath = builtins.toPath "${toString inputs.user-config}/user.toml";
     in
     {
+      lib.mkDarwinSystem = mkDarwinSystem;
+
       homeModules.default = homeModule;
       darwinModules.default = darwinModule;
 
