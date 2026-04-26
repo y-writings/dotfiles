@@ -61,44 +61,44 @@
       };
 
       userConfigPath = builtins.toPath "${toString inputs.user-config}/user.toml";
-      hasUserConfig = builtins.pathExists userConfigPath;
-
-      standaloneConfigurations =
-        if hasUserConfig then
-          let
-            userConfig = import ./nix/user.nix {
-              userConfigRoot = inputs.user-config;
-            };
-            inherit (userConfig)
-              username
-              homeDir
-              dotfilesRoot
-              enabledInstallFeatures
-              secrets
-              gitIdentity
-              ;
-
-            workspacePath = "${homeDir}/workspace";
-            ghqRootPath = "${workspacePath}/repos";
-            hostname = "${username}-${hostSystem}";
-          in
-          {
-            darwinConfigurations.${hostname} = mkDarwinSystem {
-              system = hostSystem;
-              inherit
-                username
-                homeDir
-                dotfilesRoot
-                enabledInstallFeatures
-                workspacePath
-                ghqRootPath
-                secrets
-                gitIdentity
-                ;
-            };
+      userConfig =
+        if builtins.pathExists userConfigPath then
+          import ./nix/user.nix {
+            userConfigRoot = inputs.user-config;
           }
         else
-          { };
+          throw ''
+            Missing user config: ${toString userConfigPath}
+            Override the user-config input with your private config directory.
+          '';
+      inherit (userConfig)
+        username
+        homeDir
+        dotfilesRoot
+        enabledInstallFeatures
+        secrets
+        gitIdentity
+        ;
+
+      workspacePath = "${homeDir}/workspace";
+      ghqRootPath = "${workspacePath}/repos";
+      hostname = "${username}-${hostSystem}";
+
+      standaloneConfigurations = {
+        darwinConfigurations.${hostname} = mkDarwinSystem {
+          system = hostSystem;
+          inherit
+            username
+            homeDir
+            dotfilesRoot
+            enabledInstallFeatures
+            workspacePath
+            ghqRootPath
+            secrets
+            gitIdentity
+            ;
+        };
+      };
     in
     {
       homeModules.default = homeModule;
