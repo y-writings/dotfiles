@@ -4,6 +4,9 @@ experimental = true
 [hooks]
 enter = "if [ -f lefthook.yml ]; then lefthook install; fi"
 
+[env]
+GH_CONFIG_DIR="{{config_root}}/.gh"
+
 [tasks.update]
 description = "Update flake.lock"
 run = "sudo nix flake update"
