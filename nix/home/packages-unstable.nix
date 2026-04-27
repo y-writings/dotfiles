@@ -44,6 +44,7 @@ with pkgs;
   nil
   nixfmt
   opencode
+  pik
   pinact
   poppler
   postgresql
