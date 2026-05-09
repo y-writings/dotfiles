@@ -1,0 +1,11 @@
+username = "your account"
+home = "/Users/your account"
+dotfilesRoot = "/path/to/dotfiles"
+enabledInstallFeatures = ["productivity"]
+
+[gitIdentity]
+name = "your account"
+email = "your email"
+
+[secrets]
+EXA_API_KEY = "op://vault/item/field"

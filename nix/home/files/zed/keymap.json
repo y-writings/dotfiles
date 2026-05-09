@@ -1,0 +1,184 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "cmd-k r": null,
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-k m": null,
+      "cmd-b": null,
+    },
+  },
+  {
+    "context": "Picker > Editor",
+    "bindings": {
+      "ctrl-h": null,
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "unbind": {
+      "cmd-c": "project_panel::Copy",
+    },
+  },
+  {
+    "bindings": {
+      "cmd-b": "multi_workspace::FocusWorkspaceSidebar",
+      "cmd-shift-b": "multi_workspace::ToggleWorkspaceSidebar",
+      "alt-n": "agent::NewThread",
+      "alt-k": "multi_workspace::PreviousThread",
+      "alt-shift-k": "multi_workspace::PreviousProject",
+      "alt-j": "multi_workspace::NextThread",
+      "alt-shift-j": "multi_workspace::NextProject",
+      "cmd-shift-l": "workspace::ToggleRightDock",
+      "shift shift": "tab_switcher::ToggleAll",
+      "cmd-k e": "project_panel::ToggleFocus",
+      "cmd-k a": "agent::ToggleFocus",
+      "cmd-k t": "terminal_panel::ToggleFocus",
+      "cmd-k g": "git_panel::ToggleFocus",
+      "cmd-k d": "debug_panel::ToggleFocus",
+    },
+  },
+  {
+    "context": "ThreadsSidebar",
+    "bindings": {
+      "shift-d": "agent::ArchiveSelectedThread",
+      "j": "agents_sidebar::ToggleThreadSwitcher",
+      "alt-l": "workspace::ActivatePaneRight",
+    },
+  },
+  {
+    "context": "Workspace > Pane > Editor",
+    "bindings": {
+      "alt-h": "multi_workspace::FocusWorkspaceSidebar",
+      "alt-l": "workspace::ActivatePaneRight",
+    },
+  },
+  {
+    "context": "ProjectPanel || Terminal || GitPanel || AgentPanel",
+    "bindings": {
+      "alt-h": "workspace::FocusCenterPane",
+    },
+  },
+  {
+    "context": "ProjectPanel || Terminal || GitPanel || AgentPanel",
+    "bindings": {
+      "alt-h": "workspace::ActivatePaneLeft",
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {},
+  },
+  {
+    "context": "Terminal",
+    "bindings": {},
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {},
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {},
+  },
+  {
+    "context": "DebugPanel",
+    "bindings": {},
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-alt-h": "pane::SwapItemLeft",
+      "ctrl-alt-l": "pane::SwapItemRight",
+      "alt-shift-h": ["workspace::MoveItemToPane", { "destination": 0 }],
+      "alt-shift-l": ["workspace::MoveItemToPane", { "destination": 1 }],
+      "ctrl-l": "pane::ActivateNextItem",
+      "ctrl-h": "pane::ActivatePreviousItem",
+      "cmd-k l": "pane::SplitRight",
+      "cmd-k h": "pane::SplitLeft",
+      "cmd-k cmd-e": "pane::TogglePinTab",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "shift-space": "terminal::ToggleViMode",
+    },
+  },
+  {
+    "bindings": {
+      "f16": "workspace::IncreaseOpenDocksSize",
+      "shift-f16": "workspace::DecreaseOpenDocksSize",
+      "alt-r": "workspace::ResetActiveDockSize",
+      "alt-e": "editor::ToggleFocus",
+      "ctrl-shift-l": "workspace::ActivateNextPane",
+      "ctrl-shift-h": "workspace::ActivatePreviousPane",
+      "cmd-k m": "workspace::ToggleZoom",
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "shift-k": "menu::SelectPrevious",
+      "shift-j": "menu::SelectNext",
+      "escape": "menu::Cancel",
+    },
+  },
+  {
+    "context": "Editor && mode==full && vim_mode == visual",
+    "bindings": {
+      "cmd-shift-l": "agent::AddSelectionToThread",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-space": "editor::GoToDefinition",
+      "ctrl-shift-space": "editor::GoToTypeDefinitionSplit",
+      "ctrl-i": "pane::GoForward",
+      "ctrl-o": "pane::GoBack",
+      "cmd-k f": "editor::Hover",
+      "cmd-k shift-f": "editor::BlameHover",
+      ": :": "editor::ShowCompletions",
+      "; ;": "editor::ShowWordCompletions",
+    },
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "a": "vim::ToggleComments",
+    },
+  },
+  {
+    "context": "vim_mode == normal && !menu",
+    "bindings": {
+      "x": ["workspace::SendKeystrokes", "\" _ x"],
+      "shift-x": ["workspace::SendKeystrokes", "\" _ shift-x"],
+    },
+  },
+  {
+    "context": "vim_mode == visual && !menu",
+    "bindings": {
+      "x": ["workspace::SendKeystrokes", "\" _ x"],
+      "shift-x": ["workspace::SendKeystrokes", "\" _ shift-x"],
+      "p": ["workspace::SendKeystrokes", "\" _ d shift-p"],
+      "shift-p": ["workspace::SendKeystrokes", "\" _ d shift-p"],
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "cmd-c": "workspace::CopyRelativePath",
+    },
+  },
+  {
+    "context": "vim_mode == literal",
+    "bindings": {
+      "ctrl-h": null,
+    },
+  },
+]

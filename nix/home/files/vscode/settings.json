@@ -1,0 +1,460 @@
+{
+  "[dockercompose]": {
+    "editor.autoIndent": "advanced",
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.insertSpaces": true,
+    "editor.quickSuggestions": {
+      "comments": false,
+      "other": true,
+      "strings": true
+    },
+    "editor.tabSize": 2
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "accessibility.signals.chatEditModifiedFile": {
+    "sound": "off"
+  },
+  "accessibility.signals.chatRequestSent": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.chatResponseReceived": {
+    "sound": "off"
+  },
+  "accessibility.signals.clear": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.codeActionApplied": {
+    "sound": "off"
+  },
+  "accessibility.signals.codeActionTriggered": {
+    "sound": "off"
+  },
+  "accessibility.signals.diffLineDeleted": {
+    "sound": "off"
+  },
+  "accessibility.signals.diffLineInserted": {
+    "sound": "off"
+  },
+  "accessibility.signals.diffLineModified": {
+    "sound": "off"
+  },
+  "accessibility.signals.editsKept": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.editsUndone": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasBreakpoint": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasError": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasFoldedArea": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasInlineSuggestion": {
+    "sound": "off"
+  },
+  "accessibility.signals.lineHasWarning": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.noInlayHints": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.notebookCellCompleted": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.notebookCellFailed": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.onDebugBreak": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.positionHasError": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.positionHasWarning": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.progress": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.taskCompleted": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.taskFailed": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.terminalBell": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.terminalCommandFailed": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.terminalCommandSucceeded": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.terminalQuickFix": {
+    "announcement": "auto",
+    "sound": "off"
+  },
+  "accessibility.signals.voiceRecordingStarted": {
+    "sound": "off"
+  },
+  "accessibility.signals.voiceRecordingStopped": {
+    "sound": "off"
+  },
+  "accessibility.verbosity.terminal": false,
+  "chat.agentsControl.enabled": false,
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "${env:HOME}/.local/share/mise/shims/node"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": false,
+  "diffEditor.useInlineViewWhenSpaceIsLimited": false,
+  "editor.accessibilitySupport": "off",
+  "editor.codeActionsOnSave": {},
+  "editor.detectIndentation": false,
+  "editor.find.cursorMoveOnType": false,
+  "editor.fontFamily": "'Cascadia Code NF', 'UDEV Gothic 35NFLG'",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.fontWeight": 450,
+  "editor.guides.bracketPairs": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.inlineSuggest.showToolbar": "always",
+  "editor.insertSpaces": true,
+  "editor.lineNumbers": "relative",
+  "editor.minimap.enabled": false,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.wordWrap": "on",
+  "editorconfig.generateAuto": false,
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "files.exclude": {
+    "": false
+  },
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.mergeEditor": true,
+  "github.copilot.chat.agent.currentEditorContext.enabled": false,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.enable": {
+    "*": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "githubPullRequests.createOnPublishBranch": "never",
+  "githubPullRequests.fileListLayout": "tree",
+  "githubPullRequests.pullBranch": "never",
+  "gitlens.ai.enabled": false,
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "gitlens.cloudPatches.enabled": false,
+  "gitlens.graph.allowMultiple": false,
+  "gitlens.home.preview.enabled": false,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.menus": false,
+  "gitlens.mode.statusBar.enabled": false,
+  "gitlens.plusFeatures.enabled": false,
+  "gitlens.telemetry.enabled": false,
+  "gitlens.views.commitDetails.files.layout": "list",
+  "gitlens.views.fileHistory.mode": "contributors",
+  "gitlens.views.scm.grouped.hiddenViews": {
+    "branches": true,
+    "commits": true,
+    "contributors": true,
+    "fileHistory": false,
+    "launchpad": true,
+    "remotes": true,
+    "repositories": true,
+    "searchAndCompare": false,
+    "stashes": true,
+    "tags": true,
+    "worktrees": true
+  },
+  "gitlens.views.scm.grouped.views": {
+    "branches": false,
+    "commits": true,
+    "contributors": false,
+    "fileHistory": false,
+    "launchpad": false,
+    "remotes": false,
+    "repositories": false,
+    "searchAndCompare": false,
+    "stashes": false,
+    "tags": false,
+    "worktrees": false
+  },
+  "gitlens.virtualRepositories.enabled": false,
+  "go.alternateTools": {
+    "dlv": "${env:HOME}/.local/share/mise/shims/dlv",
+    "go": "${env:HOME}/.local/share/mise/shims/go",
+    "gopls": "${env:HOME}/.local/share/mise/shims/gopls"
+  },
+  "go.goroot": "${env:HOME}/.local/share/mise/installs/go/1.25.2",
+  "go.toolsManagement.autoUpdate": true,
+  "js/ts.preferences.preferTypeOnlyAutoImports": true,
+  "json.schemaDownload.enable": true,
+  "json.schemaDownload.trustedDomains": {
+    "https://biomejs.dev": true,
+    "https://json-schema.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://schemastore.azurewebsites.net/": true,
+    "https://www.schemastore.org/": true
+  },
+  "keyboard.dispatch": "keyCode",
+  "markdown.updateLinksOnFileMove.enabled": "prompt",
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nil",
+  "nix.serverSettings": {
+    "nil": {
+      "formatting": {
+        "command": ["nixfmt"]
+      }
+    }
+  },
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "scm.countBadge": "focused",
+  "scm.graph.badges": "all",
+  "telemetry.telemetryLevel": "off",
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "/Applications/Ghostty.app",
+  "terminal.integrated.allowedLinkSchemes": [
+    "file",
+    "http",
+    "https",
+    "mailto",
+    "vscode",
+    "vscode-insiders",
+    "docker-desktop"
+  ],
+  "terminal.integrated.commandsToSkipShell": [
+    "workbench.action.nextAuxiliaryBarView",
+    "workbench.action.previousAuxiliaryBarView",
+    "workbench.action.decreaseViewSize",
+    "workbench.action.increaseViewSize"
+  ],
+  "terminal.integrated.env.osx": {
+    "vscodeWorkspace": "${workspaceFolder}"
+  },
+  "terminal.integrated.fontFamily": "'Cascadia Code NF', 'UDEV Gothic 35NFLG'",
+  "terminal.integrated.fontLigatures.enabled": true,
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.fontWeight": 600,
+  "terminal.integrated.macOptionIsMeta": true,
+  "terminal.integrated.persistentSessionReviveProcess": "never",
+  "terminal.integrated.shellIntegration.enabled": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [";", ";"],
+      "commands": ["editor.action.triggerSuggest"]
+    },
+    {
+      "before": ["<C-e>"],
+      "commands": ["cursorEnd"]
+    },
+    {
+      "after": ["right"],
+      "before": ["<C-l>"]
+    },
+    {
+      "after": ["left"],
+      "before": ["<C-h>"]
+    },
+    {
+      "after": ["up"],
+      "before": ["<C-k>"]
+    },
+    {
+      "after": ["down"],
+      "before": ["<C-j>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "after": ["\"", "_", "x"],
+      "before": ["x"]
+    },
+    {
+      "after": ["\"", "_", "x"],
+      "before": ["s"]
+    },
+    {
+      "after": ["$"],
+      "before": ["<C-e>"]
+    },
+    {
+      "after": ["right"],
+      "before": ["<C-l>"]
+    },
+    {
+      "after": ["left"],
+      "before": ["<C-h>"]
+    },
+    {
+      "after": ["up"],
+      "before": ["<C-k>"]
+    },
+    {
+      "after": ["down"],
+      "before": ["<C-j>"]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    }
+  ],
+  "vim.surround": true,
+  "vim.useSystemClipboard": true,
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "after": ["\"", "_", "d", "P"],
+      "before": ["p"]
+    },
+    {
+      "after": ["\"", "_", "d", "P"],
+      "before": ["P"]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    },
+    {
+      "after": ["$"],
+      "before": ["<C-e>"]
+    },
+    {
+      "after": ["right"],
+      "before": ["<C-l>"]
+    },
+    {
+      "after": ["left"],
+      "before": ["<C-h>"]
+    },
+    {
+      "after": ["up"],
+      "before": ["<C-k>"]
+    },
+    {
+      "after": ["down"],
+      "before": ["<C-j>"]
+    },
+    {
+      "before": ["a"],
+      "commands": ["editor.action.commentLine"]
+    },
+    {
+      "before": ["J"],
+      "commands": ["Nop"]
+    }
+  ],
+  "vscode_custom_css.imports": [
+    "file:///${userHome}/workspace/assets/vscode-custom-css/custom.css"
+  ],
+  "window.openFilesInNewWindow": "on",
+  "window.zoomLevel": 0,
+  "workbench.activityBar.location": "top",
+  "workbench.colorCustomizations": {
+    "focusBorder": "#FFFFFF",
+    "panel.border": "#FFFFFF",
+    "tab.activeBorder": "#FFFFFF",
+    "toolbar.hoverOutline": "#FFFFFF"
+  },
+  "workbench.editor.editorActionsLocation": "titleBar",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": true,
+  "workbench.editor.focusRecentEditorAfterClose": false,
+  "workbench.editor.pinnedTabsOnSeparateRow": true,
+  "workbench.editor.showTabs": "multiple",
+  "workbench.editor.wrapTabs": false,
+  "workbench.editorAssociations": {
+    "*.xlsx": "default"
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.layoutControl.enabled": true,
+  "workbench.navigationControl.enabled": false,
+  "workbench.panel.showLabels": true,
+  "workbench.secondarySideBar.showLabels": false,
+  "yaml.customTags": ["!override sequence"],
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": "compose.override.yml"
+  },
+  "zenMode.hideLineNumbers": false
+}

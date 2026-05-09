@@ -1,0 +1,32 @@
+{
+  "skill_name": "install-pkgs",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "https://github.com/entireio/cli を brew側でインストールして。",
+      "expected_output": "The agent verifies the tap contents, classifies Entire as a cask rather than a formula, adds entireio/tap to homebrew.taps, adds a tap-qualified cask token to homebrew.casks, and removes any duplicate Nix package if appropriate.",
+      "files": [
+        "nix/darwin/homebrew.nix",
+        "nix/home/packages-unstable.nix"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "ripgrep をこのdotfilesに追加して。Nixとbrewのどちらが良いかも確認して。",
+      "expected_output": "The agent checks existing package lists for duplicates, recognizes ripgrep as a normal CLI available in nixpkgs, recommends Home Manager/Nix package management unless the user explicitly requests brew, and verifies Nix formatting/evaluation after editing.",
+      "files": [
+        "nix/home/packages-unstable.nix",
+        "nix/home/packages-stable.nix",
+        "nix/darwin/homebrew.nix"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "新しいGUIアプリをHomebrew caskで追加して。tapが必要ならそれも含めて。",
+      "expected_output": "The agent confirms whether the package is a cask, checks whether a third-party tap is required, adds the tap and tap-qualified cask token when needed, and validates that it did not accidentally add a formula entry.",
+      "files": [
+        "nix/darwin/homebrew.nix"
+      ]
+    }
+  ]
+}

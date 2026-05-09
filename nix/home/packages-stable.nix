@@ -1,0 +1,5 @@
+{ stablePkgs }:
+with stablePkgs;
+[
+  devcontainer
+]

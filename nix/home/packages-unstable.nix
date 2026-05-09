@@ -1,0 +1,60 @@
+{ pkgs }:
+with pkgs;
+[
+  # lsp server
+  bash-language-server
+  biome
+  gopls
+  tombi
+  markdown-oxide
+  lua-language-server
+  typescript-language-server
+  pyright
+  yaml-language-server
+  nixd
+  terraform-ls
+  # tools
+  ast-grep
+  bash
+  bashly
+  bat
+  betterleaks
+  cloc
+  commitlint
+  curl
+  delta
+  dust
+  entire
+  eza
+  fd
+  fish
+  gemini-cli
+  gh
+  ghq
+  git
+  gitleaks
+  (google-cloud-sdk.withExtraComponents [
+    google-cloud-sdk.components.cloud-run-proxy
+  ])
+  img2pdf
+  jjui
+  jq
+  jujutsu
+  lazydocker
+  lazygit
+  lefthook
+  markdownlint-cli2
+  neovim
+  nil
+  nixfmt
+  opencode
+  pik
+  pinact
+  poppler
+  postgresql
+  prettier
+  terraform
+  tldr
+  tree
+  trivy
+]
