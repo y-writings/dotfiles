@@ -68,6 +68,25 @@
       homeModules.default = homeModule;
       darwinModules.default = darwinModule;
 
+      formatter.${hostSystem} =
+        let
+          pkgs = nixpkgs.legacyPackages.${hostSystem};
+        in
+        pkgs.writeShellApplication {
+          name = "nixfmt";
+          runtimeInputs = [
+            pkgs.fd
+            pkgs.nixfmt
+          ];
+          text = ''
+            if [ "$#" -eq 0 ]; then
+              fd --extension nix --exec nixfmt {}
+            else
+              nixfmt "$@"
+            fi
+          '';
+        };
+
       darwinConfigurations =
         if builtins.pathExists userConfigPath then
           let
