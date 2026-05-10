@@ -13,12 +13,6 @@
     },
   },
   {
-    "context": "Picker > Editor",
-    "bindings": {
-      "ctrl-h": null,
-    },
-  },
-  {
     "context": "ProjectPanel",
     "unbind": {
       "cmd-c": "project_panel::Copy",
@@ -40,6 +34,13 @@
       "cmd-k t": "terminal_panel::ToggleFocus",
       "cmd-k g": "git_panel::ToggleFocus",
       "cmd-k d": "debug_panel::ToggleFocus",
+      "cmd-k m": "workspace::ToggleZoom",
+      "f16": "workspace::IncreaseOpenDocksSize",
+      "shift-f16": "workspace::DecreaseOpenDocksSize",
+      "alt-r": "workspace::ResetActiveDockSize",
+      "alt-e": "editor::ToggleFocus",
+      "ctrl-shift-l": "workspace::ActivateNextPane",
+      "ctrl-shift-h": "workspace::ActivatePreviousPane",
     },
   },
   {
@@ -70,27 +71,7 @@
     },
   },
   {
-    "context": "ProjectPanel",
-    "bindings": {},
-  },
-  {
-    "context": "Terminal",
-    "bindings": {},
-  },
-  {
-    "context": "GitPanel",
-    "bindings": {},
-  },
-  {
-    "context": "AgentPanel",
-    "bindings": {},
-  },
-  {
-    "context": "DebugPanel",
-    "bindings": {},
-  },
-  {
-    "context": "Pane",
+    "context": "Pane || Editor",
     "bindings": {
       "ctrl-alt-h": "pane::SwapItemLeft",
       "ctrl-alt-l": "pane::SwapItemRight",
@@ -107,17 +88,6 @@
     "context": "Terminal",
     "bindings": {
       "shift-space": "terminal::ToggleViMode",
-    },
-  },
-  {
-    "bindings": {
-      "f16": "workspace::IncreaseOpenDocksSize",
-      "shift-f16": "workspace::DecreaseOpenDocksSize",
-      "alt-r": "workspace::ResetActiveDockSize",
-      "alt-e": "editor::ToggleFocus",
-      "ctrl-shift-l": "workspace::ActivateNextPane",
-      "ctrl-shift-h": "workspace::ActivatePreviousPane",
-      "cmd-k m": "workspace::ToggleZoom",
     },
   },
   {
@@ -173,12 +143,6 @@
     "context": "ProjectPanel",
     "bindings": {
       "cmd-c": "workspace::CopyRelativePath",
-    },
-  },
-  {
-    "context": "vim_mode == literal",
-    "bindings": {
-      "ctrl-h": null,
     },
   },
 ]

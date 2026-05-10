@@ -227,6 +227,40 @@
               {
                 "type": "basic",
                 "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": ["left_command"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "japanese_eisuu"
+                  },
+                  {
+                    "key_code": "k",
+                    "modifiers": ["left_command"]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "is_switch_app_mode",
+                    "value": 0
+                  }
+                ],
+                "description": "日本語入力中のCommand+K前に英数へ切り替える"
+              },
+              {
+                "type": "basic",
+                "from": {
                   "key_code": "a",
                   "modifiers": {
                     "mandatory": ["left_option"]
