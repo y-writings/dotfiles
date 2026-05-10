@@ -65,6 +65,66 @@
             type = "standard";
           };
         };
+        # Disabled because CleanShot X handles screenshots: save picture of screen as a file (Shift+Cmd+3) - 28
+        "28" = {
+          enabled = false;
+          value = {
+            parameters = [
+              51
+              20
+              1179648
+            ];
+            type = "standard";
+          };
+        };
+        # Disabled because CleanShot X handles screenshots: copy picture of screen to the clipboard (Ctrl+Shift+Cmd+3) - 29
+        "29" = {
+          enabled = false;
+          value = {
+            parameters = [
+              51
+              20
+              1441792
+            ];
+            type = "standard";
+          };
+        };
+        # Disabled because CleanShot X handles screenshots: save picture of selected area as a file (Shift+Cmd+4) - 30
+        "30" = {
+          enabled = false;
+          value = {
+            parameters = [
+              52
+              21
+              1179648
+            ];
+            type = "standard";
+          };
+        };
+        # Disabled because CleanShot X handles screenshots: copy picture of selected area to the clipboard (Ctrl+Shift+Cmd+4) - 31
+        "31" = {
+          enabled = false;
+          value = {
+            parameters = [
+              52
+              21
+              1441792
+            ];
+            type = "standard";
+          };
+        };
+        # Disabled because CleanShot X handles screenshots: screenshot and recording options (Shift+Cmd+5) - 184
+        "184" = {
+          enabled = false;
+          value = {
+            parameters = [
+              53
+              23
+              1179648
+            ];
+            type = "standard";
+          };
+        };
       };
     };
   };
