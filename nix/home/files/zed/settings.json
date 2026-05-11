@@ -1,9 +1,8 @@
 {
-  "diff_view_style": "unified",
-  "cli_default_open_behavior": "existing_window",
-  "collaboration_panel": {
-    "dock": "right",
-  },
+  "ui_font_weight": 300.0,
+  "buffer_font_weight": 320.0,
+  "buffer_font_family": "CaskaydiaCove Nerd Font",
+  "ui_font_family": "CaskaydiaCove Nerd Font",
   "agent_servers": {
     "opencode": {
       "type": "registry",
@@ -12,10 +11,12 @@
       },
     },
   },
-  "show_wrap_guides": true,
-  "notification_panel": {
-    "dock": "left",
+  "diff_view_style": "unified",
+  "cli_default_open_behavior": "existing_window",
+  "collaboration_panel": {
+    "dock": "right",
   },
+  "show_wrap_guides": true,
   "project_panel": {
     "dock": "right",
   },
@@ -41,15 +42,17 @@
       "proxy_no_verify": null,
       "enterprise_uri": null,
     },
-    "enabled_in_text_threads": false,
   },
   "terminal": {
+    "font_weight": 450.0,
+    "font_size": 14.0,
+    "font_family": "CaskaydiaCove Nerd Font",
     "dock": "right",
   },
   "outline_panel": {
     "dock": "right",
   },
-  "icon_theme": "Bearded Icon Theme",
+  "icon_theme": "JetBrains Icons Dark",
   "vim_mode": true,
   "agent": {
     "enable_feedback": false,
@@ -60,12 +63,12 @@
       "model": "grok-code-fast-1",
     },
   },
-  "ui_font_size": 16,
-  "buffer_font_size": 15,
+  "ui_font_size": 14,
+  "buffer_font_size": 14,
   "theme": {
     "mode": "system",
-    "light": "Ayu Dark",
-    "dark": "One Dark",
+    "light": "One Dark",
+    "dark": "Kanagawa Wave",
   },
   "lsp": {
     "yaml-language-server": {
