@@ -13,7 +13,7 @@ let
     name = "hunk";
     runtimeInputs = [ pkgs.nodejs ];
     text = ''
-      exec ${pkgs.nodejs}/bin/npx --yes hunkdiff "$@"
+      exec ${pkgs.nodejs}/bin/npx --yes hunkdiff@beta "$@"
     '';
   };
 
