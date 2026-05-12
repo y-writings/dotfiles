@@ -13,6 +13,7 @@
     ./programs/mise
     ./programs/zellij
     ./programs/ghostty
+    ./programs/lazygit
   ];
 
   home.stateVersion = "25.11";

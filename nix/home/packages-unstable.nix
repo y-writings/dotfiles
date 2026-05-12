@@ -41,7 +41,6 @@ with pkgs;
   jq
   jujutsu
   lazydocker
-  lazygit
   lefthook
   markdownlint-cli2
   neovim
