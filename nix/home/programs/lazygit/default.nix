@@ -5,9 +5,12 @@
     enable = true;
     settings = {
       git = {
+        paging = {
+          colorArg = "always";
+        };
         pagers = [
           {
-            pager = "hunk pager";
+            pager = "delta --dark --paging=never";
           }
         ];
       };
