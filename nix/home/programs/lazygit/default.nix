@@ -7,7 +7,7 @@
       git = {
         pagers = [
           {
-            pager = "hunk";
+            pager = "hunk pager";
           }
         ];
       };
