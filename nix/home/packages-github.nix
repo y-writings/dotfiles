@@ -9,13 +9,6 @@ let
     '';
   };
 
-  hunkFromNpm = pkgs.writeShellApplication {
-    name = "hunk";
-    runtimeInputs = [ pkgs.nodejs ];
-    text = ''
-      exec ${pkgs.nodejs}/bin/npx --yes hunkdiff@beta "$@"
-    '';
-  };
 
   dockerfilePinFromGitHub = pkgs.buildGoModule rec {
     pname = "dockerfile-pin";
@@ -86,6 +79,5 @@ in
 [
   difitFromGitHub
   dockerfilePinFromGitHub
-  hunkFromNpm
 ]
 ++ darwinOnlyPackages
