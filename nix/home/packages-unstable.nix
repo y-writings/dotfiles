@@ -14,6 +14,7 @@ with pkgs;
   nixd
   terraform-ls
   # tools
+  actionlint
   ast-grep
   bash
   bashly
