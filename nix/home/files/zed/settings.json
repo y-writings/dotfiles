@@ -1,10 +1,18 @@
 {
   "ui_font_weight": 300.0,
   "buffer_font_weight": 320.0,
-  "buffer_font_family": "CaskaydiaCove Nerd Font",
-  "ui_font_family": "CaskaydiaCove Nerd Font",
+  "buffer_font_family": "CaskaydiaCove Nerd Font Mono",
+  "ui_font_family": "CaskaydiaCove Nerd Font Mono",
   "agent_servers": {
     "opencode": {
+      "favorite_config_option_values": {
+        "effort": [
+          "xhigh"
+        ],
+        "model": [
+          "openai/gpt-5.5"
+        ]
+      },
       "type": "registry",
       "env": {
         "OPENCODE_DB": "opencode.db",
