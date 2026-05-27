@@ -4,6 +4,9 @@
   "buffer_font_family": "CaskaydiaCove Nerd Font Mono",
   "ui_font_family": "CaskaydiaCove Nerd Font Mono",
   "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    },
     "opencode": {
       "favorite_config_option_values": {
         "effort": [

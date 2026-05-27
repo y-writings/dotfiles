@@ -21,6 +21,7 @@ with pkgs;
   bat
   betterleaks
   cloc
+  codex
   commitlint
   curl
   delta
@@ -53,6 +54,7 @@ with pkgs;
   poppler
   postgresql
   prettier
+  ripgrep
   terraform
   tldr
   tree
