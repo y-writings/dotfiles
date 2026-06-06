@@ -30,6 +30,7 @@
       dw = "cd $vscodeWorkspace";
       dc = "COMPOSE_BAKE=true docker compose";
       lg = "lazygit";
+      gmain = "git switch main && git pull";
       ld = "lazydocker";
       nr = "ni run";
       mr = "mise run";

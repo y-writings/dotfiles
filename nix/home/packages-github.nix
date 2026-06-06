@@ -8,31 +8,6 @@ let
       exec ${pkgs.nodejs}/bin/npx --yes difit "$@"
     '';
   };
-
-
-  dockerfilePinFromGitHub = pkgs.buildGoModule rec {
-    pname = "dockerfile-pin";
-    version = "1.2.1";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "azu";
-      repo = "dockerfile-pin";
-      rev = "v${version}";
-      hash = "sha256-EV7mdttJFBuBRlASwbGvrobw7e4NKkuGlyZshz9hKsE=";
-    };
-
-    vendorHash = "sha256-CgMFIYoM+nWiZ5NXtTlXHhrjzVYxoVg0YVpQq3LLrjI=";
-    nativeCheckInputs = [ pkgs.git ];
-
-    meta = with pkgs.lib; {
-      description = "Pin Docker, Compose, and GitHub Actions image references with digests";
-      homepage = "https://github.com/azu/dockerfile-pin";
-      license = licenses.mit;
-      mainProgram = "dockerfile-pin";
-      platforms = platforms.unix;
-    };
-  };
-
   # Official prebuilt tarball from upstream warpd release for macOS.
   warpdFromOfficialRelease = pkgs.stdenvNoCC.mkDerivation {
     pname = "warpd";
@@ -78,6 +53,5 @@ let
 in
 [
   difitFromGitHub
-  dockerfilePinFromGitHub
 ]
 ++ darwinOnlyPackages

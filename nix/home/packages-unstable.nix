@@ -25,6 +25,7 @@ with pkgs;
   commitlint
   curl
   delta
+  dockerfile-pin
   dust
   entire
   eza
@@ -34,6 +35,7 @@ with pkgs;
   gh
   ghq
   git
+  git-wt
   gitleaks
   (google-cloud-sdk.withExtraComponents [
     google-cloud-sdk.components.cloud-run-proxy
