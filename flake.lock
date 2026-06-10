@@ -77,6 +77,24 @@
         "url": "https://install.determinate.systems/determinate-nixd/tag/v3.21.0/x86_64-linux"
       }
     },
+    "driftline": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1781011180,
+        "narHash": "sha256-sB3e86im3HMhEZuViobLoijOZ6DD7sgMF404NJA8T3w=",
+        "owner": "y-writings",
+        "repo": "driftline",
+        "rev": "375280d5f7300676d85ad6c6d6ae5e17d6da068f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "y-writings",
+        "repo": "driftline",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -299,6 +317,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1780243769,
+        "narHash": "sha256-x5UQuRsH3MqI0U9afaXSNqzTPSeZlRLvFAav2Ux1pNw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "331800de5053fcebacf6813adb5db9c9dca22a0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1780365719,
         "narHash": "sha256-QfWfccTN+70ZQ4m2qlU9PiKfz2Yppq94058iJyARNwc=",
         "owner": "NixOS",
@@ -313,7 +347,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1777207419,
         "narHash": "sha256-V3bmPWAajDiC+1ClDOp55gianW2EyRJSJOyu1RUQibc=",
@@ -332,11 +366,12 @@
     "root": {
       "inputs": {
         "determinate": "determinate",
+        "driftline": "driftline",
         "home-manager": "home-manager",
         "ni-zsh": "ni-zsh",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-stable": "nixpkgs-stable",
         "user-config": "user-config",
         "vscode-extensions": "vscode-extensions"
@@ -356,7 +391,7 @@
     },
     "vscode-extensions": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1780632924,

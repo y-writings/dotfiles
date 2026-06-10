@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, inputs }:
 let
   # Fallback wrapper for tools not yet packaged in nixpkgs.
   difitFromGitHub = pkgs.writeShellApplication {
@@ -53,5 +53,6 @@ let
 in
 [
   difitFromGitHub
+  inputs.driftline.packages.${pkgs.system}.driftline
 ]
 ++ darwinOnlyPackages

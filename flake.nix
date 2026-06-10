@@ -21,6 +21,8 @@
 
     vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
+    driftline.url = "github:y-writings/driftline";
+
     ni-zsh = {
       url = "github:azu/ni.zsh";
       flake = false;
