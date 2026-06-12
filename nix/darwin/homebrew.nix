@@ -14,6 +14,7 @@ in
     onActivation.cleanup = "zap";
     taps = [
       "entireio/tap"
+      "k1low/tap"
     ];
 
     masApps =
@@ -25,6 +26,7 @@ in
 
     brews = [
       "agent-browser"
+      "k1low/tap/mo"
     ];
 
     casks = [
