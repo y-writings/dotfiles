@@ -9,6 +9,11 @@ let
   codexEnabled = hasInstallFeature "codex" || aiDevelopmentEnabled;
 in
 {
+  nix-homebrew.trust = {
+    formulae = [ "k1low/tap/mo" ];
+    casks = [ "entireio/tap/entire" ];
+  };
+
   homebrew = {
     enable = true;
     onActivation.cleanup = "zap";
