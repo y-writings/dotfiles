@@ -145,18 +145,6 @@
 
   };
 
-  launchd.user.agents.warpd = {
-    serviceConfig = {
-      KeepAlive = true;
-      RunAtLoad = true;
-      ProcessType = "Interactive";
-      ProgramArguments = [
-        "/etc/profiles/per-user/${username}/bin/warpd"
-        "-f"
-      ];
-    };
-  };
-
   services.jankyborders = {
     enable = true;
     style = "round";
