@@ -53,6 +53,7 @@ in
       "homerow"
       "jordanbaird-ice"
       "karabiner-elements"
+      "notion"
       "obsidian"
       "orbstack"
       "postman"
