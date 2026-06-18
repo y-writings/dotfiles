@@ -13,12 +13,6 @@
     },
   },
   {
-    "context": "ProjectPanel",
-    "unbind": {
-      "cmd-c": "project_panel::Copy",
-    },
-  },
-  {
     "bindings": {
       "cmd-b": "multi_workspace::FocusWorkspaceSidebar",
       "cmd-shift-b": "multi_workspace::ToggleWorkspaceSidebar",
@@ -140,9 +134,10 @@
     },
   },
   {
-    "context": "ProjectPanel",
+    "context": "AcpThread",
     "bindings": {
-      "cmd-c": "workspace::CopyRelativePath",
+      "alt-q": "agent::ToggleModelSelector",
+      "alt-w": "agent::ToggleThinkingEffortMenu",
     },
   },
 ]
