@@ -61,4 +61,5 @@ with pkgs;
   tldr
   tree
   trivy
+  yamlfmt
 ]
