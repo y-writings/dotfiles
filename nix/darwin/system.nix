@@ -9,6 +9,8 @@
   security.pam.services.sudo_local.watchIdAuth = true;
 
   fonts.packages = with pkgs; [
+    jetbrains-mono
+    monaspace
     nerd-fonts.caskaydia-cove
     udev-gothic-nf
   ];
