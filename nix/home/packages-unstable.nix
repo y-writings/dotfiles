@@ -20,6 +20,7 @@ with pkgs;
   bashly
   bat
   betterleaks
+  claude-code
   cloc
   codex
   commitlint
