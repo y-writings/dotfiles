@@ -16,6 +16,7 @@ with pkgs;
   # tools
   actionlint
   ast-grep
+  awscli2
   bash
   bashly
   bat
