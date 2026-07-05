@@ -2673,11 +2673,11 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "v"
+                  "key_code": "n"
                 },
                 "to": [
                   {
-                    "key_code": "4",
+                    "key_code": "6",
                     "modifiers": ["left_shift"]
                   }
                 ],
@@ -3108,9 +3108,9 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "k",
+                  "key_code": "w",
                   "modifiers": {
-                    "mandatory": ["command"]
+                    "mandatory": ["left_control"]
                   }
                 },
                 "to": [
