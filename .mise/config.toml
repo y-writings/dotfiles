@@ -19,4 +19,4 @@ run = "agent-browser install"
 
 [tasks."mise:install-global"]
 description = "Install globally configured mise tools"
-run = "mise install --global"
+run = "mise install -C ${HOME}"
