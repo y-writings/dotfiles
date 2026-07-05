@@ -59,7 +59,6 @@ with pkgs;
   postgresql
   prettier
   ripgrep
-  terraform
   tldr
   tree
   trivy

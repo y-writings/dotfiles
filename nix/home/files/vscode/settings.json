@@ -257,7 +257,6 @@
     "go": "${env:HOME}/.local/share/mise/shims/go",
     "gopls": "${env:HOME}/.local/share/mise/shims/gopls"
   },
-  "go.goroot": "${env:HOME}/.local/share/mise/installs/go/1.25.2",
   "go.toolsManagement.autoUpdate": true,
   "js/ts.preferences.preferTypeOnlyAutoImports": true,
   "json.schemaDownload.enable": true,

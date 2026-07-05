@@ -80,6 +80,7 @@
   home.sessionPath = [
     "${paths.workspacePath}/bin"
     "${config.home.homeDirectory}/.local/bin"
+    "${config.home.homeDirectory}/.local/share/mise/shims"
     "/opt/homebrew/bin"
   ];
 }
