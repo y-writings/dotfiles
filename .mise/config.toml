@@ -16,3 +16,7 @@ depends_post = ["post-rebuild-agent-browser"]
 hide = true
 description = "Install agent-browser"
 run = "agent-browser install"
+
+[tasks."mise:install-global"]
+description = "Install globally configured mise tools"
+run = "mise install --global"
