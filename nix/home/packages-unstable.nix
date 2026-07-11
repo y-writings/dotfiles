@@ -42,6 +42,7 @@ with pkgs;
   (google-cloud-sdk.withExtraComponents [
     google-cloud-sdk.components.cloud-run-proxy
   ])
+  herdr
   img2pdf
   jjui
   jq
