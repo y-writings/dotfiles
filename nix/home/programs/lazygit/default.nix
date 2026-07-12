@@ -5,13 +5,13 @@
     enable = true;
     settings = {
       git = {
-        paging = {
-          colorArg = "always";
-        };
         pagers = [
           {
-            pager = "delta --dark --paging=never";
+            name = "Hunk";
+            colorArg = "never";
+            pager = "hunk pager --mode stack --line-numbers --hunk-headers --no-wrap --transparent-bg";
           }
+          { }
         ];
       };
       customCommands = [
