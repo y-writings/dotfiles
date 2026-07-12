@@ -10,10 +10,7 @@ let
 in
 {
   nix-homebrew.trust = {
-    formulae = [
-      "k1low/tap/mo"
-      "modem-dev/tap/hunk"
-    ];
+    formulae = [ "k1low/tap/mo" ];
     casks = [ "entireio/tap/entire" ];
   };
 
@@ -23,7 +20,6 @@ in
     taps = [
       "entireio/tap"
       "k1low/tap"
-      "modem-dev/tap"
     ];
 
     masApps =
@@ -35,8 +31,8 @@ in
 
     brews = [
       "agent-browser"
+      "homebrew/core/hunk"
       "k1low/tap/mo"
-      "modem-dev/tap/hunk"
     ];
 
     casks = [
