@@ -21,6 +21,7 @@ with pkgs;
   bashly
   bat
   betterleaks
+  bottom
   claude-code
   cloc
   codex
