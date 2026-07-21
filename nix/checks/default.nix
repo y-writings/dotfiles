@@ -73,6 +73,17 @@ in
 {
   exported-home-base = (homeConfiguration [ ]).activationPackage;
 
+  git-wt-integration =
+    let
+      configuration = homeConfiguration [ ];
+    in
+    assert configuration.config.programs.git.settings.wt.basedir == ".worktrees";
+    assert pkgs.lib.hasPrefix "eval \"$(git wt --init zsh)\""
+      configuration.config.programs.zsh.initContent;
+    pkgs.runCommand "git-wt-integration-check" { } ''
+      touch "$out"
+    '';
+
   exported-home-overlay =
     (homeConfiguration [
       {

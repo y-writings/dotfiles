@@ -22,6 +22,7 @@
       };
       init.defaultBranch = "main";
       ghq.root = paths.ghqRootPath;
+      wt.basedir = ".worktrees";
 
       filter.lfs = {
         clean = "git-lfs clean -- %f";
