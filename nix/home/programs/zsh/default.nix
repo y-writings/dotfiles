@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   inputs,
@@ -64,7 +65,9 @@
       }
     ];
 
-    initContent = ''
+    initContent = lib.mkBefore ''
+      eval "$(git wt --init zsh)"
+
       # Source utility functions (gr, gw, dlog, etc.)
       source ${./functions.zsh}
 
