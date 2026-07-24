@@ -6,6 +6,8 @@
     package = pkgs.mise;
 
     globalConfig = {
+      settings.idiomatic_version_file_enable_tools = [ "node" ];
+
       tools = {
         bun = "1.3.11";
         go = "1.26.3";
