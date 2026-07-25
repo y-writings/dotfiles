@@ -7,10 +7,9 @@ description = "Apply nix-darwin configuration"
 run = "sudo darwin-rebuild switch --impure --flake path:.#${USER}-aarch64-darwin --override-input user-config path:${HOME}/.config/nix"
 depends_post = ["post-rebuild-agent-browser"]
 
-[tasks.brew]
-description = "Update Homebrew cask"
-run = "brew update && brew upgrade && brew cleanup"
-depends_post = ["post-rebuild-agent-browser"]
+[tasks.brew-cleanup]
+description = "Clean up Homebrew"
+run = "brew cleanup"
 
 [tasks.post-rebuild-agent-browser]
 hide = true
