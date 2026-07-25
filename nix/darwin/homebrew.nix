@@ -31,7 +31,7 @@ in
 
     brews = [
       "agent-browser"
-      "homebrew/core/hunk"
+      "hunk"
       "k1low/tap/mo"
     ];
 
