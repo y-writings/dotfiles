@@ -24,6 +24,22 @@ mise run rebuild
 
 その他のタスクは `mise tasks` で確認できます。
 
+### DBeaver と Vrapper の更新
+
+`mise run rebuild`（nix-darwin activation）で DBeaver Community Edition が新規インストールまたは更新されると、
+Homebrew Cask の `postinstall` が Eclipse p2 Director を実行し、Vrapper を再導入します。
+DBeaver が起動中の場合は安全のため強制終了せず、DBeaver を終了して rebuild を再実行するようエラーになります。
+Vrapper の設定は Home Manager が `~/.vrapperrc` として管理するため、DBeaver の更新後も維持されます。
+
+手動の `brew upgrade` では nix-darwin が生成する Brewfile の `postinstall` は実行されません。
+DBeaver の更新には `mise run rebuild` を使用してください。手動で更新して Vrapper が失われた場合も、
+次回の DBeaver の Cask 更新時に postinstall が実行されるよう、nix-darwin 経由で更新してください。
+この構成では activation 時の Homebrew auto-update / upgrade が有効なため、rebuild は DBeaver 以外の
+Homebrew 管理対象も更新します。
+
+Vrapper は stable update site から導入され、その URL だけを p2 の trusted authority に指定しています。
+配布物自体を Nix store に固定する構成ではないため、update site の時点の内容が導入されます。
+
 ## Troubleshooting
 
 Determinate Nix 導入時に既存の `/etc/zshenv` や `/etc/zshrc` と競合することがあります。
