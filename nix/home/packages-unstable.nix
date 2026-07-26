@@ -60,7 +60,6 @@ with pkgs;
   poppler
   postgresql
   prettier
-  raycast-beta
   ripgrep
   tldr
   tree

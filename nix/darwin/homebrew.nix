@@ -62,6 +62,7 @@ in
       "obsidian"
       "orbstack"
       "postman"
+      "raycast"
       "slack"
       "zed"
     ]
