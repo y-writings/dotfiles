@@ -1361,6 +1361,56 @@
                 ],
                 "conditions": [
                   {
+                    "type": "input_source_if",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "variable_if",
+                    "name": "layer_rcmd",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": [],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "escape"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "layer_num",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "num_layer_mode",
+                      "text": ""
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "input_source_unless",
+                    "input_sources": [
+                      {
+                        "language": "ja"
+                      }
+                    ]
+                  },
+                  {
                     "type": "variable_if",
                     "name": "layer_rcmd",
                     "value": 1
@@ -2673,11 +2723,11 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "n"
+                  "key_code": "v"
                 },
                 "to": [
                   {
-                    "key_code": "6",
+                    "key_code": "4",
                     "modifiers": ["left_shift"]
                   }
                 ],
@@ -2753,7 +2803,12 @@
                 "to": [
                   {
                     "key_code": "f1",
-                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                    "modifiers": [
+                      "fn",
+                      "left_command",
+                      "left_option",
+                      "left_control"
+                    ]
                   }
                 ],
                 "description": "next-display",
@@ -2777,7 +2832,12 @@
                 "to": [
                   {
                     "key_code": "f2",
-                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                    "modifiers": [
+                      "fn",
+                      "left_command",
+                      "left_option",
+                      "left_control"
+                    ]
                   }
                 ],
                 "description": "previous-display",
@@ -2801,7 +2861,12 @@
                 "to": [
                   {
                     "key_code": "f3",
-                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                    "modifiers": [
+                      "fn",
+                      "left_command",
+                      "left_option",
+                      "left_control"
+                    ]
                   }
                 ],
                 "description": "left-half",
@@ -2825,7 +2890,12 @@
                 "to": [
                   {
                     "key_code": "f4",
-                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                    "modifiers": [
+                      "fn",
+                      "left_command",
+                      "left_option",
+                      "left_control"
+                    ]
                   }
                 ],
                 "description": "right-half",
@@ -2849,7 +2919,12 @@
                 "to": [
                   {
                     "key_code": "f5",
-                    "modifiers": ["fn", "left_command", "left_option", "left_control"]
+                    "modifiers": [
+                      "fn",
+                      "left_command",
+                      "left_option",
+                      "left_control"
+                    ]
                   }
                 ],
                 "description": "maximize",
@@ -2945,7 +3020,11 @@
                 "conditions": [
                   {
                     "type": "frontmost_application_unless",
-                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                    "bundle_identifiers": [
+                      "com.apple.Terminal",
+                      "com.mitchellh.ghostty",
+                      "dev.kdrag0n.MacVirt"
+                    ]
                   }
                 ]
               },
@@ -2968,7 +3047,11 @@
                 "conditions": [
                   {
                     "type": "frontmost_application_unless",
-                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                    "bundle_identifiers": [
+                      "com.apple.Terminal",
+                      "com.mitchellh.ghostty",
+                      "dev.kdrag0n.MacVirt"
+                    ]
                   }
                 ]
               },
@@ -3024,7 +3107,11 @@
                 "conditions": [
                   {
                     "type": "frontmost_application_unless",
-                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                    "bundle_identifiers": [
+                      "com.apple.Terminal",
+                      "com.mitchellh.ghostty",
+                      "dev.kdrag0n.MacVirt"
+                    ]
                   }
                 ]
               },
@@ -3047,7 +3134,11 @@
                 "conditions": [
                   {
                     "type": "frontmost_application_unless",
-                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                    "bundle_identifiers": [
+                      "com.apple.Terminal",
+                      "com.mitchellh.ghostty",
+                      "dev.kdrag0n.MacVirt"
+                    ]
                   }
                 ]
               },
@@ -3070,7 +3161,11 @@
                 "conditions": [
                   {
                     "type": "frontmost_application_unless",
-                    "bundle_identifiers": ["com.apple.Terminal", "com.mitchellh.ghostty", "dev.kdrag0n.MacVirt"]
+                    "bundle_identifiers": [
+                      "com.apple.Terminal",
+                      "com.mitchellh.ghostty",
+                      "dev.kdrag0n.MacVirt"
+                    ]
                   }
                 ]
               }

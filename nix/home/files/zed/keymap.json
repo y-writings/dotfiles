@@ -159,4 +159,10 @@
       "shift-l": "vim::EndOfLine",
     },
   },
+  {
+    "context": "GitDiff > Editor",
+    "bindings": {
+      "cmd-k c": "editor::ToggleFoldAll",
+    },
+  },
 ]
