@@ -52,7 +52,10 @@ in
       "amical"
       "brainfm"
       "cleanshot"
-      "dbeaver-community"
+      {
+        name = "dbeaver-community";
+        postinstall = builtins.readFile ./homebrew-postinstall/dbeaver-vrapper.sh;
+      }
       "entireio/tap/entire"
       "ghostty@tip"
       "homerow"
