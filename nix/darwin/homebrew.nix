@@ -54,7 +54,10 @@ in
       "cleanshot"
       {
         name = "dbeaver-community";
-        postinstall = builtins.readFile ./homebrew-postinstall/dbeaver-vrapper.sh;
+        # nix-darwin embeds this value in a double-quoted Brewfile string, so
+        # passing the script contents directly would leave newlines and quotes
+        # unescaped. Execute the script from the Nix store instead.
+        postinstall = "/bin/sh ${./homebrew-postinstall/dbeaver-vrapper.sh}";
       }
       "entireio/tap/entire"
       "ghostty@tip"
