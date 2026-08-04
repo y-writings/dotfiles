@@ -18,50 +18,43 @@
         {
           key = "<c-t>";
           context = "commits";
-          description = "選択コミット(単体/範囲)の日時を現在日時に更新";
+          description = "選択コミット以降の日時を現在日時に更新";
           prompts = [
             {
               type = "confirm";
               title = "Commit日時更新";
-              body = "選択コミット(単体/範囲)の日時を現在日時に変更し、以降のコミットIDを書き換えます。実行しますか？";
+              body = "選択コミットから現在のHEADまでの作者日時とコミッター日時を同一の現在日時に変更し、選択コミット以降のコミットIDを書き換えます。実行しますか？";
             }
           ];
           command = ''
-            range_from='{{.SelectedCommitRange.From}}'
-            range_to='{{.SelectedCommitRange.To}}'
-            branch=$(git branch --show-current)
+            selected='{{.SelectedCommit.Hash}}'
 
-            if [ -z "$branch" ]; then
-              printf '%s\n' '現在のブランチでのみ実行できます。' >&2
+            if ! git merge-base --is-ancestor "$selected" HEAD; then
+              printf '%s\n' '選択コミットは現在のHEADの祖先ではありません。' >&2
               exit 1
             fi
 
-            if ! git merge-base --is-ancestor "$range_from" "$range_to" || ! git merge-base --is-ancestor "$range_to" "$branch"; then
-              printf '%s\n' '選択範囲は現在のブランチに含まれていません。' >&2
-              exit 1
-            fi
-
-            if git rev-parse --verify -q "$range_from^" >/dev/null; then
-              revision_range="$range_from^..$range_to"
+            if git rev-parse --verify -q "$selected^" >/dev/null; then
+              revision_range="$selected^..HEAD"
+              rebase_target="$selected^"
             else
-              revision_range="$range_to"
+              revision_range=HEAD
+              rebase_target=--root
             fi
 
-            rewrite_targets=":$(git rev-list "$revision_range" | tr '\n' ':')"
-            rewrite_date="$(date -u '+%s +0000')"
-            backup_namespace="refs/lazygit/retime-original/$(git rev-parse HEAD)-$$"
-            export rewrite_targets rewrite_date FILTER_BRANCH_SQUELCH_WARNING=1
+            if [ -n "$(git rev-list --merges --max-count=1 "$revision_range")" ]; then
+              printf '%s\n' '選択コミットから現在のHEADまでにマージコミットが含まれるため、実行できません。' >&2
+              exit 1
+            fi
 
-            git filter-branch --original "$backup_namespace" --env-filter '
-              case "$rewrite_targets" in
-                *":$GIT_COMMIT:"*)
-                  GIT_AUTHOR_DATE="$rewrite_date"
-                  GIT_COMMITTER_DATE="$rewrite_date"
-                  export GIT_AUTHOR_DATE GIT_COMMITTER_DATE
-                  ;;
-              esac
-            ' -- "$branch" &&
-              git update-ref "refs/lazygit/retime-last/refs/heads/$branch" "$(git rev-parse "$backup_namespace/refs/heads/$branch")"
+            rewrite_date="$(date -u '+%s +0000')"
+
+            GIT_SEQUENCE_EDITOR=: git rebase -i \
+              --no-autosquash \
+              --no-autostash \
+              --no-update-refs \
+              --exec "GIT_AUTHOR_DATE='$rewrite_date' GIT_COMMITTER_DATE='$rewrite_date' git commit --amend --allow-empty --no-edit --no-verify --date='$rewrite_date'" \
+              "$rebase_target"
           '';
           output = "terminal";
           loadingText = "コミット日時を更新中...";
