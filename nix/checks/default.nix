@@ -97,6 +97,9 @@ in
     assert !pkgs.lib.hasInfix "SelectedCommitRange" command;
     assert !pkgs.lib.hasInfix "filter-branch" command;
     assert !pkgs.lib.hasInfix "refs/lazygit" command;
+    assert pkgs.lib.hasInfix "git rev-list --merges" command;
+    assert pkgs.lib.hasInfix "--root" command;
+    assert pkgs.lib.hasInfix "--allow-empty" command;
     pkgs.runCommand "lazygit-retime-commits-check"
       {
         nativeBuildInputs = [
@@ -171,6 +174,24 @@ in
         fi
         test "$(git -C "$dirty_repo" rev-parse HEAD)" = "$dirty_tip"
 
+        merge_repo="$TMPDIR/merge"
+        make_repo "$merge_repo"
+        merge_branch=$(git -C "$merge_repo" branch --show-current)
+        merge_selected=$(git -C "$merge_repo" rev-parse HEAD~2)
+        git -C "$merge_repo" switch -qc side "$merge_selected"
+        printf '%s\n' side > "$merge_repo/side"
+        git -C "$merge_repo" add side
+        git -C "$merge_repo" commit -qm side
+        git -C "$merge_repo" switch -q "$merge_branch"
+        git -C "$merge_repo" merge --no-ff -qm merge side
+        merge_graph=$(git -C "$merge_repo" log --format='%H %P')
+        if run_command "$merge_repo" "$merge_selected"; then
+          printf '%s\n' 'accepted a range containing a merge commit' >&2
+          exit 1
+        fi
+        test "$(git -C "$merge_repo" log --format='%H %P')" = "$merge_graph"
+        test -z "$(git -C "$merge_repo" status --porcelain)"
+
         retime_repo="$TMPDIR/retime"
         make_repo "$retime_repo"
         selected=$(git -C "$retime_repo" rev-parse HEAD~2)
@@ -187,6 +208,23 @@ in
         assert_date "$retime_repo" HEAD~2 "$rewrite_date" "$rewrite_date"
         assert_date "$retime_repo" HEAD~1 "$rewrite_date" "$rewrite_date"
         assert_date "$retime_repo" HEAD "$rewrite_date" "$rewrite_date"
+
+        root_repo="$TMPDIR/root"
+        make_repo "$root_repo"
+        root_selected=$(git -C "$root_repo" rev-list --max-parents=0 HEAD)
+        root_old_tip=$(git -C "$root_repo" rev-parse HEAD)
+        run_command "$root_repo" "$root_selected"
+
+        test "$(git -C "$root_repo" rev-list --count HEAD)" = 4
+        test "$(git -C "$root_repo" rev-list --max-parents=0 --count HEAD)" = 1
+        test "$(git -C "$root_repo" rev-parse HEAD)" != "$root_old_tip"
+
+        root_rewrite_date=$(git -C "$root_repo" show -s --format=%aI HEAD~3)
+        test "$root_rewrite_date" != '2024-01-01T00:00:00Z'
+        assert_date "$root_repo" HEAD~3 "$root_rewrite_date" "$root_rewrite_date"
+        assert_date "$root_repo" HEAD~2 "$root_rewrite_date" "$root_rewrite_date"
+        assert_date "$root_repo" HEAD~1 "$root_rewrite_date" "$root_rewrite_date"
+        assert_date "$root_repo" HEAD "$root_rewrite_date" "$root_rewrite_date"
 
         touch "$out"
       '';
