@@ -50,6 +50,9 @@
             rewrite_date="$(date -u '+%s +0000')"
 
             GIT_SEQUENCE_EDITOR=: git rebase -i \
+              --no-autosquash \
+              --no-autostash \
+              --no-update-refs \
               --exec "GIT_AUTHOR_DATE='$rewrite_date' GIT_COMMITTER_DATE='$rewrite_date' git commit --amend --allow-empty --no-edit --no-verify --date='$rewrite_date'" \
               "$rebase_target"
           '';

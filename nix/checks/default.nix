@@ -100,6 +100,9 @@ in
     assert pkgs.lib.hasInfix "git rev-list --merges" command;
     assert pkgs.lib.hasInfix "--root" command;
     assert pkgs.lib.hasInfix "--allow-empty" command;
+    assert pkgs.lib.hasInfix "--no-autosquash" command;
+    assert pkgs.lib.hasInfix "--no-autostash" command;
+    assert pkgs.lib.hasInfix "--no-update-refs" command;
     pkgs.runCommand "lazygit-retime-commits-check"
       {
         nativeBuildInputs = [
@@ -166,6 +169,7 @@ in
         git -C "$dirty_repo" add tracked
         git -C "$dirty_repo" commit -qm tracked
         dirty_tip=$(git -C "$dirty_repo" rev-parse HEAD)
+        git -C "$dirty_repo" config rebase.autoStash true
         printf '%s\n' modified > "$dirty_repo/tracked"
         dirty_selected=$(git -C "$dirty_repo" rev-parse HEAD~2)
         if run_command "$dirty_repo" "$dirty_selected"; then
@@ -208,6 +212,26 @@ in
         assert_date "$retime_repo" HEAD~2 "$rewrite_date" "$rewrite_date"
         assert_date "$retime_repo" HEAD~1 "$rewrite_date" "$rewrite_date"
         assert_date "$retime_repo" HEAD "$rewrite_date" "$rewrite_date"
+
+        autosquash_repo="$TMPDIR/autosquash"
+        make_repo "$autosquash_repo"
+        git -C "$autosquash_repo" commit --allow-empty -qm 'fixup! two'
+        git -C "$autosquash_repo" config rebase.autoSquash true
+        autosquash_selected=$(git -C "$autosquash_repo" rev-parse HEAD~3)
+        autosquash_subjects=$(git -C "$autosquash_repo" log --format=%s)
+        run_command "$autosquash_repo" "$autosquash_selected"
+
+        test "$(git -C "$autosquash_repo" rev-list --count HEAD)" = 5
+        test "$(git -C "$autosquash_repo" log --format=%s)" = "$autosquash_subjects"
+
+        update_refs_repo="$TMPDIR/update-refs"
+        make_repo "$update_refs_repo"
+        update_refs_selected=$(git -C "$update_refs_repo" rev-parse HEAD~2)
+        git -C "$update_refs_repo" branch preserved "$update_refs_selected"
+        git -C "$update_refs_repo" config rebase.updateRefs true
+        run_command "$update_refs_repo" "$update_refs_selected"
+
+        test "$(git -C "$update_refs_repo" rev-parse preserved)" = "$update_refs_selected"
 
         root_repo="$TMPDIR/root"
         make_repo "$root_repo"
