@@ -7,11 +7,13 @@
       git = {
         pagers = [
           {
-            name = "Hunk";
-            colorArg = "never";
-            pager = "hunk pager --mode stack --line-numbers --hunk-headers --no-wrap --transparent-bg";
+            name = "delta";
+            pager = "delta --paging=never --line-numbers";
           }
-          { }
+          {
+            name = "difftastic";
+            externalDiffCommand = "difft --color=always";
+          }
         ];
       };
       customCommands = [

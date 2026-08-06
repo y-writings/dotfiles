@@ -253,6 +253,23 @@ in
         touch "$out"
       '';
 
+  lazygit-pagers =
+    let
+      pagers = lazygitSettings.git.pagers;
+    in
+    assert builtins.length pagers == 2;
+    assert (builtins.elemAt pagers 0) == {
+      name = "delta";
+      pager = "delta --paging=never --line-numbers";
+    };
+    assert (builtins.elemAt pagers 1) == {
+      name = "difftastic";
+      externalDiffCommand = "difft --color=always";
+    };
+    pkgs.runCommand "lazygit-pagers-check" { } ''
+      touch "$out"
+    '';
+
   exported-home-overlay =
     (homeConfiguration [
       {
