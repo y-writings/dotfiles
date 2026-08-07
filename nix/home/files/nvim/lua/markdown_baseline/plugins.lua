@@ -64,7 +64,8 @@ return {
     end,
   },
   {
-    'tpope/vim-surround',
+    'kylechui/nvim-surround',
+    opts = {},
   },
   {
     'stevearc/conform.nvim',

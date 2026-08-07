@@ -40,7 +40,6 @@ require('lazy').setup({
   spec = {
     { import = 'markdown_baseline.plugins' },
   },
-  lockfile = vim.fn.stdpath('state') .. '/lazy-lock.json',
   checker = { enabled = false },
   change_detection = { enabled = false },
 })
