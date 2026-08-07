@@ -1,42 +1,12 @@
 {
-  "bullets.vim": {
-    "branch": "master",
-    "commit": "89294b8930e660936374fb763ac48a1ac51dd29c"
-  },
-  "conform.nvim": {
-    "branch": "master",
-    "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f"
-  },
-  "lazy.nvim": {
-    "branch": "main",
-    "commit": "85c7ff3711b730b4030d03144f6db6375044ae82"
-  },
-  "nightfox.nvim": {
-    "branch": "main",
-    "commit": "ba47d4b4c5ec308718641ba7402c143836f35aa9"
-  },
-  "nvim-lint": {
-    "branch": "master",
-    "commit": "486474c2ace8d78d28995074dbdbe29011bc63d0"
-  },
-  "nvim-lspconfig": {
-    "branch": "master",
-    "commit": "44acfe887d4056f704ccc4f17513ed41c9e2b2e6"
-  },
-  "nvim-surround": {
-    "branch": "main",
-    "commit": "8b47db616ef658b8fc27e61db2896aa2f40134de"
-  },
-  "nvim-treesitter": {
-    "branch": "main",
-    "commit": "dc42c209f3820bdfaae0956f15de29689aa6b451"
-  },
-  "outline.nvim": {
-    "branch": "main",
-    "commit": "ead1820d49c8e79ce89cab1c2c318981b695c9d2"
-  },
-  "render-markdown.nvim": {
-    "branch": "main",
-    "commit": "3f3eea97b80839f629c951ca660ffd125bfa5b34"
-  }
+  "bullets.vim": { "branch": "master", "commit": "89294b8930e660936374fb763ac48a1ac51dd29c" },
+  "conform.nvim": { "branch": "master", "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f" },
+  "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" },
+  "nightfox.nvim": { "branch": "main", "commit": "ba47d4b4c5ec308718641ba7402c143836f35aa9" },
+  "nvim-lint": { "branch": "master", "commit": "486474c2ace8d78d28995074dbdbe29011bc63d0" },
+  "nvim-lspconfig": { "branch": "master", "commit": "44acfe887d4056f704ccc4f17513ed41c9e2b2e6" },
+  "nvim-surround": { "branch": "main", "commit": "8b47db616ef658b8fc27e61db2896aa2f40134de" },
+  "nvim-treesitter": { "branch": "main", "commit": "dc42c209f3820bdfaae0956f15de29689aa6b451" },
+  "outline.nvim": { "branch": "main", "commit": "ead1820d49c8e79ce89cab1c2c318981b695c9d2" },
+  "render-markdown.nvim": { "branch": "main", "commit": "3f3eea97b80839f629c951ca660ffd125bfa5b34" }
 }

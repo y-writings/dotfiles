@@ -8,6 +8,15 @@
   },
   "overrides": [
     {
+      "includes": ["nix/home/files/nvim/lazy-lock.json"],
+      "json": {
+        "formatter": {
+          "expand": "never",
+          "lineWidth": 120
+        }
+      }
+    },
+    {
       "includes": ["nix/home/files/zed/*.json"],
       "json": {
         "parser": {
