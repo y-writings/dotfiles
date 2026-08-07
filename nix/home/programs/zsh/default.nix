@@ -37,6 +37,7 @@
       mr = "mise run";
       rp = "realpath";
       sg = "ast-grep";
+      "typescript-lsp" = "typescript-language-server";
       pbc = "pbcopy";
       pbp = "pbpaste";
 
