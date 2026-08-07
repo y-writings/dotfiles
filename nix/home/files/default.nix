@@ -35,6 +35,5 @@ in
   xdg.configFile."karabiner/karabiner.json".source =
     config.lib.file.mkOutOfStoreSymlink "${filesDir}/karabiner/karabiner.json";
 
-  xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${filesDir}/nvim";
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${filesDir}/nvim";
 }
