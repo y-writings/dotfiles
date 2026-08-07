@@ -212,11 +212,14 @@ set -euo pipefail
 temp_config="$(mktemp -d)"
 trap 'rm -r "$temp_config"' EXIT
 ln -s "$PWD/nix/home/files/nvim" "$temp_config/nvim"
-task_check='local Plugin = require("lazy.core.plugin"); '
+task_check='local ok, err = pcall(function() '
+task_check+='local Plugin = require("lazy.core.plugin"); '
 task_check+='local Config = require("lazy.core.config"); '
 task_check+='for _, plugin in pairs(Config.plugins) do '
 task_check+='assert(not Plugin.has_errors(plugin), '
-task_check+='"lazy task failed: " .. plugin.name) end'
+task_check+='"lazy task failed: " .. plugin.name) end end); '
+task_check+='if not ok then vim.api.nvim_err_writeln(err); '
+task_check+='vim.cmd("cquit") end'
 XDG_CONFIG_HOME="$temp_config" nvim --headless \
   "+Lazy! clean" \
   "+Lazy! install" \
@@ -319,17 +322,27 @@ set -euo pipefail
 temp_config="$(mktemp -d)"
 trap 'rm -r "$temp_config"' EXIT
 ln -s "$PWD/nix/home/files/nvim" "$temp_config/nvim"
-mapping_check='local mappings = { '
-mapping_check+='i = { "<C-g>s", "<C-g>S" }, '
-mapping_check+='n = { "ys", "yss", "yS", "ySS", "ds", "cs", "cS" }, '
-mapping_check+='x = { "S", "gS" } }; '
-mapping_check+='for mode, keys in pairs(mappings) do '
-mapping_check+='for _, lhs in ipairs(keys) do '
-mapping_check+='assert(vim.fn.maparg(lhs, mode) ~= "", '
-mapping_check+='"missing default mapping: " .. mode .. " " .. lhs) end end; '
+mapping_check='local ok, err = pcall(function() local mappings = { '
+mapping_check+='i = { ["<C-g>s"] = "<Plug>(nvim-surround-insert)", '
+mapping_check+='["<C-g>S"] = "<Plug>(nvim-surround-insert-line)" }, '
+mapping_check+='n = { ys = "<Plug>(nvim-surround-normal)", '
+mapping_check+='yss = "<Plug>(nvim-surround-normal-cur)", '
+mapping_check+='yS = "<Plug>(nvim-surround-normal-line)", '
+mapping_check+='ySS = "<Plug>(nvim-surround-normal-cur-line)", '
+mapping_check+='ds = "<Plug>(nvim-surround-delete)", '
+mapping_check+='cs = "<Plug>(nvim-surround-change)", '
+mapping_check+='cS = "<Plug>(nvim-surround-change-line)" }, '
+mapping_check+='x = { S = "<Plug>(nvim-surround-visual)", '
+mapping_check+='gS = "<Plug>(nvim-surround-visual-line)" } }; '
+mapping_check+='for mode, expected in pairs(mappings) do '
+mapping_check+='for lhs, rhs in pairs(expected) do '
+mapping_check+='assert(vim.fn.maparg(lhs, mode) == rhs, '
+mapping_check+='"unexpected mapping: " .. mode .. " " .. lhs) end end; '
 mapping_check+='local opts = require("nvim-surround.config").get_opts(); '
 mapping_check+='assert(opts.move_cursor == "begin"); '
-mapping_check+='assert(opts.highlight.duration == 0)'
+mapping_check+='assert(opts.highlight.duration == 0) end); '
+mapping_check+='if not ok then vim.api.nvim_err_writeln(err); '
+mapping_check+='vim.cmd("cquit") end'
 XDG_CONFIG_HOME="$temp_config" nvim --headless \
   "+lua $mapping_check" \
   +qa
