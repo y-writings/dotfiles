@@ -18,6 +18,8 @@ active lockfile.
   be added, so the plugin's standard behavior remains active.
 - Refresh `lazy-lock.json` to remove obsolete entries and pin the revisions for
   the complete current plugin specification, including `nvim-surround`.
+- Align Biome's formatting for `lazy-lock.json` with lazy.nvim's generated
+  layout so plugin operations do not create format-only diffs.
 
 ## Behavior And Failure Handling
 
@@ -33,8 +35,8 @@ successful lockfile refresh.
   setup completes without errors.
 - Confirm `nvim-surround` is present, `vim-surround` is absent, and the tracked
   lockfile contains the current plugin set.
-- Confirm the plugin exposes its default surround mappings without repository
-  overrides.
+- Confirm the plugin exposes all default insert, normal, and visual mappings
+  and representative default options without repository overrides.
 
 ## Out Of Scope
 

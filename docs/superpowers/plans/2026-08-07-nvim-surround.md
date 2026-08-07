@@ -27,6 +27,7 @@ regenerated from installed revisions without updating unrelated plugins.
   surround plugin specification.
 - Modify `nix/home/files/nvim/lazy-lock.json`: pin the complete active plugin
   set, including `nvim-surround`.
+- Modify `biome.json`: preserve lazy.nvim's generated lockfile layout.
 
 ### Task 1: Activate The Repository Lockfile
 
@@ -177,6 +178,7 @@ Expected: the commit succeeds and repository hooks pass.
 
 **Files:**
 
+- Modify: `biome.json`
 - Modify: `nix/home/files/nvim/lazy-lock.json`
 
 - [ ] **Step 1: Confirm the current lockfile has the wrong plugin set**
@@ -210,15 +212,22 @@ set -euo pipefail
 temp_config="$(mktemp -d)"
 trap 'rm -r "$temp_config"' EXIT
 ln -s "$PWD/nix/home/files/nvim" "$temp_config/nvim"
+task_check='local Plugin = require("lazy.core.plugin"); '
+task_check+='local Config = require("lazy.core.config"); '
+task_check+='for _, plugin in pairs(Config.plugins) do '
+task_check+='assert(not Plugin.has_errors(plugin), '
+task_check+='"lazy task failed: " .. plugin.name) end'
 XDG_CONFIG_HOME="$temp_config" nvim --headless \
   "+Lazy! clean" \
   "+Lazy! install" \
+  "+lua $task_check" \
   +qa
 ```
 
-Expected: exit status 0. lazy.nvim removes plugins absent from the
-specification, installs `nvim-surround`, and writes all installed revisions to
-`nix/home/files/nvim/lazy-lock.json` through the config symlink.
+Expected: exit status 0 with no task assertion error. lazy.nvim removes plugins
+absent from the specification, installs `nvim-surround`, and writes all
+installed revisions to `nix/home/files/nvim/lazy-lock.json` through the config
+symlink.
 
 - [ ] **Step 3: Verify the exact lockfile plugin set**
 
@@ -241,10 +250,38 @@ jq -e 'keys == [
 
 Expected: output `true` and exit status 0.
 
-- [ ] **Step 4: Commit the refreshed lockfile**
+- [ ] **Step 4: Keep Biome aligned with lazy.nvim's generated layout**
+
+Add this first entry to the `overrides` array in `biome.json`:
+
+```json
+{
+  "includes": ["nix/home/files/nvim/lazy-lock.json"],
+  "json": {
+    "formatter": {
+      "expand": "never",
+      "lineWidth": 120
+    }
+  }
+}
+```
+
+Run:
 
 ```bash
-git add nix/home/files/nvim/lazy-lock.json
+before="$(shasum -a 256 nix/home/files/nvim/lazy-lock.json)"
+biome format --write nix/home/files/nvim/lazy-lock.json
+after="$(shasum -a 256 nix/home/files/nvim/lazy-lock.json)"
+test "$before" = "$after"
+```
+
+Expected: Biome reports `No fixes applied`, the hashes match, and the command
+exits 0.
+
+- [ ] **Step 5: Commit the refreshed lockfile and formatter override**
+
+```bash
+git add biome.json nix/home/files/nvim/lazy-lock.json
 git commit -m "chore(nvim): refresh lazy lockfile"
 ```
 
@@ -282,15 +319,24 @@ set -euo pipefail
 temp_config="$(mktemp -d)"
 trap 'rm -r "$temp_config"' EXIT
 ln -s "$PWD/nix/home/files/nvim" "$temp_config/nvim"
-mapping_check='for _, lhs in ipairs({ "ys", "ds", "cs" }) do '
-mapping_check+='assert(vim.fn.maparg(lhs, "n") ~= "", '
-mapping_check+='"missing default mapping: " .. lhs) end'
+mapping_check='local mappings = { '
+mapping_check+='i = { "<C-g>s", "<C-g>S" }, '
+mapping_check+='n = { "ys", "yss", "yS", "ySS", "ds", "cs", "cS" }, '
+mapping_check+='x = { "S", "gS" } }; '
+mapping_check+='for mode, keys in pairs(mappings) do '
+mapping_check+='for _, lhs in ipairs(keys) do '
+mapping_check+='assert(vim.fn.maparg(lhs, mode) ~= "", '
+mapping_check+='"missing default mapping: " .. mode .. " " .. lhs) end end; '
+mapping_check+='local opts = require("nvim-surround.config").get_opts(); '
+mapping_check+='assert(opts.move_cursor == "begin"); '
+mapping_check+='assert(opts.highlight.duration == 0)'
 XDG_CONFIG_HOME="$temp_config" nvim --headless \
   "+lua $mapping_check" \
   +qa
 ```
 
-Expected: exit status 0 with no startup or assertion error.
+Expected: exit status 0 with all insert, normal, and visual default mappings
+present, `move_cursor = "begin"`, and `highlight.duration = 0`.
 
 - [ ] **Step 3: Check formatting and whitespace**
 
