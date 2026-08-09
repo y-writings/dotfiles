@@ -5,14 +5,15 @@
     enable = true;
     settings = {
       git = {
-        pagers = [
+        diffRenderers = [
           {
             name = "delta";
-            pager = "delta --paging=never --line-numbers";
+            command = "delta --paging=never --line-numbers";
           }
           {
             name = "difftastic";
-            externalDiffCommand = "difft --color=always";
+            command = "difft --color=always";
+            type = "extDiff";
           }
         ];
       };
