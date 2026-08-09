@@ -255,17 +255,20 @@ in
 
   lazygit-pagers =
     let
-      pagers = lazygitSettings.git.pagers;
+      diffRenderers = lazygitSettings.git.diffRenderers;
     in
-    assert builtins.length pagers == 2;
-    assert (builtins.elemAt pagers 0) == {
-      name = "delta";
-      pager = "delta --paging=never --line-numbers";
-    };
-    assert (builtins.elemAt pagers 1) == {
-      name = "difftastic";
-      externalDiffCommand = "difft --color=always";
-    };
+    assert builtins.length diffRenderers == 2;
+    assert
+      (builtins.elemAt diffRenderers 0) == {
+        name = "delta";
+        command = "delta --paging=never --line-numbers";
+      };
+    assert
+      (builtins.elemAt diffRenderers 1) == {
+        name = "difftastic";
+        command = "difft --color=always";
+        type = "extDiff";
+      };
     pkgs.runCommand "lazygit-pagers-check" { } ''
       touch "$out"
     '';
