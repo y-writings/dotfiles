@@ -10,6 +10,7 @@
 
   fonts.packages = with pkgs; [
     jetbrains-mono
+    maple-mono.truetype
     monaspace
     nerd-fonts.caskaydia-cove
     udev-gothic-nf
