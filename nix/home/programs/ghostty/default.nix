@@ -36,7 +36,7 @@
       "background-opacity" = 0.5;
       "macos-option-as-alt" = "left";
       "font-family" = [
-        "Cascadia Code NF"
+        "Monaspace Neon Frozen"
         "UDEV Gothic 35NFLG"
       ];
       "font-feature" = "calt,liga";
