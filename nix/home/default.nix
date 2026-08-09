@@ -5,6 +5,7 @@
     ./files
     ./programs/zsh
     ./programs/git
+    ./programs/gh
     ./programs/yazi
     ./programs/vscode
     ./programs/starship

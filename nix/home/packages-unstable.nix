@@ -36,7 +36,6 @@ with pkgs;
   fd
   fish
   gemini-cli
-  gh
   ghq
   git
   git-wt
