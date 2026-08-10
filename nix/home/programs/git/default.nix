@@ -23,6 +23,7 @@
       init.defaultBranch = "main";
       ghq.root = paths.ghqRootPath;
       wt.basedir = ".worktrees";
+      rerere.enabled = true;
 
       filter.lfs = {
         clean = "git-lfs clean -- %f";
