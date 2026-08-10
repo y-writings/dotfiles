@@ -80,6 +80,7 @@ in
       configuration = homeConfiguration [ ];
     in
     assert configuration.config.programs.git.settings.wt.basedir == ".worktrees";
+    assert configuration.config.programs.git.settings.rerere.enabled;
     assert pkgs.lib.hasPrefix "eval \"$(git wt --init zsh)\""
       configuration.config.programs.zsh.initContent;
     pkgs.runCommand "git-wt-integration-check" { } ''
