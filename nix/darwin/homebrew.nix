@@ -61,6 +61,7 @@ in
       }
       "entireio/tap/entire"
       "ghostty@tip"
+      "grok-build"
       "homerow"
       "jordanbaird-ice"
       "karabiner-elements"
