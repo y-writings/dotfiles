@@ -24,6 +24,7 @@
       ghq.root = paths.ghqRootPath;
       wt.basedir = ".worktrees";
       rerere.enabled = true;
+      pull.rebase = true;
 
       filter.lfs = {
         clean = "git-lfs clean -- %f";
