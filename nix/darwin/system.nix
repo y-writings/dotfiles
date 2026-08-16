@@ -143,7 +143,6 @@
       "/System/Applications/System Settings.app"
       "${config.users.users.${username}.home}/Applications/Home Manager Apps/Ghostty.app"
       "/Applications/Arc.app"
-      "/Applications/Ice.app"
     ];
 
   };
