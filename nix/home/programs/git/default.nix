@@ -25,6 +25,7 @@
       wt.basedir = ".worktrees";
       rerere.enabled = true;
       pull.rebase = true;
+      pull.autoStash = true;
 
       filter.lfs = {
         clean = "git-lfs clean -- %f";
