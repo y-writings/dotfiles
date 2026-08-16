@@ -1,6 +1,7 @@
 {
   inputs,
   hostSystem,
+  githubPackages,
   homeModule,
   mkDarwinSystem,
 }:
@@ -74,6 +75,54 @@ let
 in
 {
   exported-home-base = (homeConfiguration [ ]).activationPackage;
+
+  github-package-management =
+    let
+      configuration = homeConfiguration [ ];
+      homePackagePaths = map (package: package.outPath) configuration.config.home.packages;
+      githubPackageNames = builtins.attrNames githubPackages;
+      driftlinePath = inputs.driftline.packages.${hostSystem}.driftline.outPath;
+      countHomePackagePath =
+        path: builtins.length (builtins.filter (homePath: homePath == path) homePackagePaths);
+      githubPackageHomeCounts = builtins.listToAttrs (
+        map (name: {
+          inherit name;
+          value = countHomePackagePath githubPackages.${name}.outPath;
+        }) githubPackageNames
+      );
+      invalidGithubPackageHomeCounts = pkgs.lib.filterAttrs (
+        _: count: count != 1
+      ) githubPackageHomeCounts;
+      driftlineHomeCount = countHomePackagePath driftlinePath;
+    in
+    assert pkgs.lib.assertMsg (githubPackageNames != [ ]) "githubPackages must not be empty";
+    assert pkgs.lib.assertMsg (
+      !(githubPackages ? driftline)
+    ) "githubPackages must not contain driftline";
+    assert pkgs.lib.assertMsg (invalidGithubPackageHomeCounts == { })
+      "GitHub packages must appear exactly once in home.packages; offending counts: ${builtins.toJSON invalidGithubPackageHomeCounts}";
+    assert pkgs.lib.assertMsg (driftlineHomeCount == 1)
+      "driftline must appear exactly once in home.packages; observed count: ${toString driftlineHomeCount}";
+    pkgs.runCommand "github-package-management-check" { } ''
+      touch "$out"
+    '';
+
+  github-package-update-script =
+    let
+      script = ../../scripts/update-github-packages.sh;
+    in
+    pkgs.runCommand "github-package-update-script-check"
+      {
+        nativeBuildInputs = [
+          pkgs.bash
+          pkgs.shellcheck
+        ];
+      }
+      ''
+        bash -n ${script}
+        shellcheck ${script}
+        touch "$out"
+      '';
 
   ghostty-package-management =
     let

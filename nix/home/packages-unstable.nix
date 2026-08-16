@@ -53,6 +53,7 @@ with pkgs;
   markdownlint-cli2
   neovim
   nil
+  nix-update
   nixfmt
   opencode
   pik
