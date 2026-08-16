@@ -85,6 +85,7 @@ in
       ghosttyDockItems = builtins.filter (
         item: builtins.match ".*Ghostty\\.app" (item."tile-data"."file-data"._CFURLString or "") != null
       ) systemConfig.system.defaults.dock.persistent-apps;
+      vscodeSettings = builtins.fromJSON (builtins.readFile ../home/files/vscode/settings.json);
     in
     assert homeConfig.programs.ghostty.package.pname == "ghostty-bin";
     assert homeConfig.programs.ghostty.settings."auto-update" == [ "off" ];
@@ -95,6 +96,7 @@ in
     assert
       (builtins.head ghosttyDockItems)."tile-data"."file-data"._CFURLString
       == "${homeDir}/Applications/Home Manager Apps/Ghostty.app";
+    assert vscodeSettings."terminal.external.osxExec" == "Ghostty.app";
     pkgs.runCommand "ghostty-package-management-check" { } ''
       touch "$out"
     '';
