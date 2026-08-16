@@ -75,6 +75,32 @@ in
 {
   exported-home-base = (homeConfiguration [ ]).activationPackage;
 
+  ghostty-package-management =
+    let
+      systemConfig = (mkDarwinSystem baseSystemArgs).config;
+      homeConfig = systemConfig.home-manager.users.${username};
+      caskNames = map (
+        cask: if builtins.isString cask then cask else cask.name
+      ) systemConfig.homebrew.casks;
+      ghosttyDockItems = builtins.filter (
+        item: builtins.match ".*Ghostty\\.app" (item."tile-data"."file-data"._CFURLString or "") != null
+      ) systemConfig.system.defaults.dock.persistent-apps;
+      vscodeSettings = builtins.fromJSON (builtins.readFile ../home/files/vscode/settings.json);
+    in
+    assert homeConfig.programs.ghostty.package.pname == "ghostty-bin";
+    assert homeConfig.programs.ghostty.settings."auto-update" == [ "off" ];
+    assert homeConfig.targets.darwin.copyApps.enable;
+    assert !(builtins.elem "ghostty" caskNames);
+    assert !(builtins.elem "ghostty@tip" caskNames);
+    assert builtins.length ghosttyDockItems == 1;
+    assert
+      (builtins.head ghosttyDockItems)."tile-data"."file-data"._CFURLString
+      == "${homeDir}/Applications/Home Manager Apps/Ghostty.app";
+    assert vscodeSettings."terminal.external.osxExec" == "Ghostty.app";
+    pkgs.runCommand "ghostty-package-management-check" { } ''
+      touch "$out"
+    '';
+
   git-wt-integration =
     let
       configuration = homeConfiguration [ ];

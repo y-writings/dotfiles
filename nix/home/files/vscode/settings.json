@@ -285,7 +285,7 @@
   "scm.graph.badges": "all",
   "telemetry.telemetryLevel": "off",
   "terminal.explorerKind": "external",
-  "terminal.external.osxExec": "/Applications/Ghostty.app",
+  "terminal.external.osxExec": "Ghostty.app",
   "terminal.integrated.allowedLinkSchemes": [
     "file",
     "http",

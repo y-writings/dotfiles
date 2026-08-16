@@ -1,10 +1,11 @@
-{ paths, ... }:
+{ paths, pkgs, ... }:
 {
   programs.ghostty = {
     enable = true;
-    package = null;
+    package = pkgs.ghostty-bin;
     enableZshIntegration = true;
     settings = {
+      "auto-update" = "off";
       keybind = [
         "shift+enter=text:\x1b\r"
         "cmd+shift+o=write_screen_file:copy"

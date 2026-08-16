@@ -1,4 +1,5 @@
 {
+  config,
   username,
   pkgs,
   ...
@@ -140,7 +141,7 @@
     autohide-time-modifier = 0.5;
     persistent-apps = [
       "/System/Applications/System Settings.app"
-      "/Applications/Ghostty.app"
+      "${config.users.users.${username}.home}/Applications/Home Manager Apps/Ghostty.app"
       "/Applications/Arc.app"
       "/Applications/Ice.app"
     ];
