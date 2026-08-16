@@ -46,6 +46,8 @@
     }@inputs:
     let
       hostSystem = "aarch64-darwin";
+      pkgs = nixpkgs.legacyPackages.${hostSystem};
+      githubPackages = import ./nix/packages/github { inherit pkgs; };
 
       homeModule = import ./nix/home;
       darwinModule = import ./nix/darwin;
@@ -69,25 +71,22 @@
 
       homeModules.default = homeModule;
       darwinModules.default = darwinModule;
+      packages.${hostSystem} = githubPackages;
 
-      formatter.${hostSystem} =
-        let
-          pkgs = nixpkgs.legacyPackages.${hostSystem};
-        in
-        pkgs.writeShellApplication {
-          name = "nixfmt";
-          runtimeInputs = [
-            pkgs.fd
-            pkgs.nixfmt
-          ];
-          text = ''
-            if [ "$#" -eq 0 ]; then
-              fd --extension nix --exec nixfmt {}
-            else
-              nixfmt "$@"
-            fi
-          '';
-        };
+      formatter.${hostSystem} = pkgs.writeShellApplication {
+        name = "nixfmt";
+        runtimeInputs = [
+          pkgs.fd
+          pkgs.nixfmt
+        ];
+        text = ''
+          if [ "$#" -eq 0 ]; then
+            fd --extension nix --exec nixfmt {}
+          else
+            nixfmt "$@"
+          fi
+        '';
+      };
 
       darwinConfigurations =
         if builtins.pathExists userConfigPath then
@@ -135,6 +134,7 @@
         inherit
           inputs
           hostSystem
+          githubPackages
           homeModule
           mkDarwinSystem
           ;

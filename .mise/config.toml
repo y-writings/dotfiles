@@ -1,6 +1,10 @@
 [tasks.update]
-description = "Update flake.lock"
-run = "sudo nix flake update"
+description = "Update flake inputs and GitHub packages"
+run = [
+  "sudo nix flake update",
+  "./scripts/update-github-packages.sh",
+  "nix flake check --no-build",
+]
 
 [tasks.rebuild]
 description = "Apply nix-darwin configuration"

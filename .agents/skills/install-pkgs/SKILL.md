@@ -7,6 +7,8 @@ metadata:
   domain: nix-darwin-home-manager-homebrew
 ---
 
+<!-- markdownlint-disable MD013 -->
+
 # Install Packages Skill
 
 Use this skill to add packages to this repository without guessing the package manager, file, or Homebrew token shape. The repo is a macOS dotfiles flake using Nix, nix-darwin, Home Manager, and nix-homebrew, so package placement affects rebuild behavior and duplicate installs.
@@ -16,7 +18,12 @@ Use this skill to add packages to this repository without guessing the package m
 1. **Gather context before editing.** Inspect the repo structure and the relevant Nix modules. In this repo, the usual files are:
    - `flake.nix` for the flake stack and public outputs
    - `nix/darwin/homebrew.nix` for Homebrew taps, formulae, casks, and MAS apps
-   - `nix/home/packages.nix`, `nix/home/packages-stable.nix`, `nix/home/packages-unstable.nix`, and `nix/home/packages-github.nix` for Home Manager user packages
+   - `nix/home/packages.nix`, `nix/home/packages-stable.nix`, and
+     `nix/home/packages-unstable.nix` for Home Manager user packages
+   - `nix/home/packages-flake-inputs.nix` for packages supplied by flake
+     inputs
+   - `nix/packages/github/default.nix` and its sibling package files for
+     directly managed GitHub packages
    - `nix/home/programs/*/default.nix` for package-specific Home Manager program modules
 2. **Check duplicates and conflicts.** Search for the requested package name, binary name, tap name, cask token, formula token, and obvious aliases. If moving from Nix to Homebrew or vice versa, remove the old install only when the user requested that direction or when duplicate installation would clearly break the rebuild.
 3. **Identify the package shape.** Confirm whether it is a CLI, GUI app, daemon/service, language runtime, development library, shell integration, or app-store package. Also confirm platform support, because this repository targets macOS `aarch64-darwin`.
@@ -26,7 +33,20 @@ Use this skill to add packages to this repository without guessing the package m
 
 ## Placement decision guide
 
-- Use `nix/home/packages-*.nix` for normal CLI tools and libraries available in nixpkgs, especially when a portable Nix package works well.
+- Use `nix/home/packages-stable.nix` or `nix/home/packages-unstable.nix` for
+  normal CLI tools and libraries available in nixpkgs, especially when a
+  portable Nix package works well.
+- Use `nix/home/packages-flake-inputs.nix` for packages supplied by flake
+  inputs.
+- Use `nix/packages/github/default.nix` and its sibling package files for
+  directly managed GitHub packages.
+- A sibling package file is inert until it is registered in
+  `nix/packages/github/default.nix`.
+- Every registry entry is automatically exposed as a flake package, installed
+  by Home Manager, and included in the GitHub updater.
+- Keep new definitions compatible with `nix-update` by using conventional
+  `pname`, `version`, and `src` attributes plus GitHub metadata such as source
+  owner/repository and `meta.homepage`.
 - Use `nix/home/programs/<name>/default.nix` when Home Manager has a meaningful `programs.<name>.enable` module or when dotfile/config generation is part of the install.
 - Use `nix/darwin/homebrew.nix` for macOS GUI apps, casks, Mac App Store apps, vendor-distributed Homebrew packages, packages missing/broken in nixpkgs, or when the user explicitly says to install on the brew side.
 - Use `homebrew.brews` only for Homebrew **formulae**.
@@ -76,6 +96,9 @@ After edits, run as many of these as apply:
 - `nixfmt --check <modified files>`
 - `nix eval .#darwinModules.default`
 - `nix eval .#homeModules.default` when Home Manager package lists changed
+- `nix eval --json path:.#packages.aarch64-darwin --apply builtins.attrNames`
+  to verify the registered package names
+- `nix build path:.#<package-name>` to build the new package output
 - `nix flake check --no-build`
 - targeted `nix eval --expr ...` or equivalent to confirm the changed `homebrew.taps`, `homebrew.brews`, or `homebrew.casks` values
 - a duplicate search for the package/token after editing
