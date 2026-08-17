@@ -14,6 +14,7 @@
     ./programs/mise
     ./programs/zellij
     ./programs/ghostty
+    ./programs/dbeaver
     ./programs/lazygit
   ];
 
