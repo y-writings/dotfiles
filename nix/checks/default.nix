@@ -122,17 +122,61 @@ in
   github-package-update-script =
     let
       script = ../../scripts/update-github-packages.sh;
+      fakeGit = pkgs.writeShellScriptBin "git" ''
+        if [ "$*" = "rev-parse --show-toplevel" ]; then
+          printf '%s\n' "$TEST_REPO_ROOT"
+        else
+          printf 'Unexpected git arguments: %s\n' "$*" >&2
+          exit 1
+        fi
+      '';
+      fakeNix = pkgs.writeShellScriptBin "nix" ''
+        if [[ "$*" == *"builtins.currentSystem"* ]]; then
+          printf '%s\n' 'aarch64-darwin'
+        else
+          printf '%s\n' "$TEST_PACKAGE_UPDATE_FLAGS"
+        fi
+      '';
+      fakeNixUpdate = pkgs.writeShellScriptBin "nix-update" ''
+        printf '%s\n' "$1" >> "$TEST_UPDATE_LOG"
+      '';
+      fakeNixfmt = pkgs.writeShellScriptBin "nixfmt" ''
+        exit 0
+      '';
     in
     pkgs.runCommand "github-package-update-script-check"
       {
         nativeBuildInputs = [
           pkgs.bash
+          pkgs.jq
           pkgs.shellcheck
+          fakeGit
+          fakeNix
+          fakeNixUpdate
+          fakeNixfmt
         ];
       }
       ''
         bash -n ${script}
         shellcheck ${script}
+
+        export TEST_REPO_ROOT="$TMPDIR/repo"
+        export TEST_UPDATE_LOG="$TMPDIR/updates"
+        mkdir -p "$TEST_REPO_ROOT"
+
+        export TEST_PACKAGE_UPDATE_FLAGS='{"agent-slack":false,"codex-acp":true,"difit":true}'
+        ${script} > "$TMPDIR/output"
+        test "$(cat "$TEST_UPDATE_LOG")" = "$(printf 'codex-acp\ndifit')"
+        grep -Fq 'Skipping agent-slack (bulk updates disabled)' "$TMPDIR/output"
+        grep -Fq 'Updating codex-acp' "$TMPDIR/output"
+        grep -Fq 'Updating difit' "$TMPDIR/output"
+
+        : > "$TEST_UPDATE_LOG"
+        export TEST_PACKAGE_UPDATE_FLAGS='{"agent-slack":false,"codex-acp":false,"difit":false}'
+        ${script} > "$TMPDIR/all-disabled-output"
+        test ! -s "$TEST_UPDATE_LOG"
+        grep -Fq 'No GitHub packages enabled for bulk updates' "$TMPDIR/all-disabled-output"
+
         touch "$out"
       '';
 
