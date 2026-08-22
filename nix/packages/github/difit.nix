@@ -49,6 +49,8 @@ buildNpmPackage (finalAttrs: {
     rm "$out/lib/node_modules/difit/node_modules/.pnpm/node_modules/difit-vscode"
   '';
 
+  passthru.updateWithBulkUpdater = true;
+
   meta = {
     description = "GitHub-like local diff viewer";
     homepage = "https://github.com/yoshiko-pg/difit";

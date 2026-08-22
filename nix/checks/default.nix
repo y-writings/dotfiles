@@ -81,6 +81,9 @@ in
       configuration = homeConfiguration [ ];
       homePackagePaths = map (package: package.outPath) configuration.config.home.packages;
       githubPackageNames = builtins.attrNames githubPackages;
+      githubPackageBulkUpdateFlags = pkgs.lib.mapAttrs (
+        _: package: package.passthru.updateWithBulkUpdater or null
+      ) githubPackages;
       driftlinePath = inputs.driftline.packages.${hostSystem}.driftline.outPath;
       countHomePackagePath =
         path: builtins.length (builtins.filter (homePath: homePath == path) homePackagePaths);
@@ -96,6 +99,15 @@ in
       driftlineHomeCount = countHomePackagePath driftlinePath;
     in
     assert pkgs.lib.assertMsg (githubPackageNames != [ ]) "githubPackages must not be empty";
+    assert pkgs.lib.assertMsg (builtins.all builtins.isBool (
+      builtins.attrValues githubPackageBulkUpdateFlags
+    )) "Every GitHub package must define boolean passthru.updateWithBulkUpdater metadata";
+    assert pkgs.lib.assertMsg (
+      !githubPackageBulkUpdateFlags.agent-slack
+    ) "agent-slack must be excluded from bulk updates";
+    assert pkgs.lib.assertMsg (
+      githubPackageBulkUpdateFlags.codex-acp && githubPackageBulkUpdateFlags.difit
+    ) "codex-acp and difit must be included in bulk updates";
     assert pkgs.lib.assertMsg (
       !(githubPackages ? driftline)
     ) "githubPackages must not contain driftline";
@@ -110,17 +122,61 @@ in
   github-package-update-script =
     let
       script = ../../scripts/update-github-packages.sh;
+      fakeGit = pkgs.writeShellScriptBin "git" ''
+        if [ "$*" = "rev-parse --show-toplevel" ]; then
+          printf '%s\n' "$TEST_REPO_ROOT"
+        else
+          printf 'Unexpected git arguments: %s\n' "$*" >&2
+          exit 1
+        fi
+      '';
+      fakeNix = pkgs.writeShellScriptBin "nix" ''
+        if [[ "$*" == *"builtins.currentSystem"* ]]; then
+          printf '%s\n' 'aarch64-darwin'
+        else
+          printf '%s\n' "$TEST_PACKAGE_UPDATE_FLAGS"
+        fi
+      '';
+      fakeNixUpdate = pkgs.writeShellScriptBin "nix-update" ''
+        printf '%s\n' "$1" >> "$TEST_UPDATE_LOG"
+      '';
+      fakeNixfmt = pkgs.writeShellScriptBin "nixfmt" ''
+        exit 0
+      '';
     in
     pkgs.runCommand "github-package-update-script-check"
       {
         nativeBuildInputs = [
           pkgs.bash
+          pkgs.jq
           pkgs.shellcheck
+          fakeGit
+          fakeNix
+          fakeNixUpdate
+          fakeNixfmt
         ];
       }
       ''
         bash -n ${script}
         shellcheck ${script}
+
+        export TEST_REPO_ROOT="$TMPDIR/repo"
+        export TEST_UPDATE_LOG="$TMPDIR/updates"
+        mkdir -p "$TEST_REPO_ROOT"
+
+        export TEST_PACKAGE_UPDATE_FLAGS='{"agent-slack":false,"codex-acp":true,"difit":true}'
+        ${script} > "$TMPDIR/output"
+        test "$(cat "$TEST_UPDATE_LOG")" = "$(printf 'codex-acp\ndifit')"
+        grep -Fq 'Skipping agent-slack (bulk updates disabled)' "$TMPDIR/output"
+        grep -Fq 'Updating codex-acp' "$TMPDIR/output"
+        grep -Fq 'Updating difit' "$TMPDIR/output"
+
+        : > "$TEST_UPDATE_LOG"
+        export TEST_PACKAGE_UPDATE_FLAGS='{"agent-slack":false,"codex-acp":false,"difit":false}'
+        ${script} > "$TMPDIR/all-disabled-output"
+        test ! -s "$TEST_UPDATE_LOG"
+        grep -Fq 'No GitHub packages enabled for bulk updates' "$TMPDIR/all-disabled-output"
+
         touch "$out"
       '';
 

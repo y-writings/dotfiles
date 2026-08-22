@@ -24,6 +24,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateWithBulkUpdater = false;
+
   meta = {
     description = "Slack automation CLI for AI agents";
     homepage = "https://github.com/stablyai/agent-slack";
