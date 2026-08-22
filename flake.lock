@@ -82,11 +82,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1784905004,
-        "narHash": "sha256-lxX5tQpHY3K/eC97jVJbmfLxD8VluZswDPNyJApb2bY=",
+        "lastModified": 1787419601,
+        "narHash": "sha256-lHb1IXEc98nHiC/kg9NwwATkUsvwb0cA0hXI8iMPBuo=",
         "owner": "y-writings",
         "repo": "driftline",
-        "rev": "87322a6af78694932d7275d3673a930a1745ef8b",
+        "rev": "96cb647921157c20ac03226eb638b021d4b2a3d8",
         "type": "github"
       },
       "original": {
