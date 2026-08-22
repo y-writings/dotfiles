@@ -206,6 +206,23 @@ in
       touch "$out"
     '';
 
+  bottom-color-scheme =
+    let
+      configuration = homeConfiguration [ ];
+      bottomConfig = configuration.config.programs.bottom;
+      widgetStyles = bottomConfig.settings.styles.widgets;
+    in
+    assert bottomConfig.enable;
+    assert bottomConfig.package.pname == "bottom";
+    assert widgetStyles.selected_border_colour == "#ff9e64";
+    assert widgetStyles.selected_text.colour == "#1a1b26";
+    assert widgetStyles.selected_text.bg_colour == "#ff9e64";
+    assert widgetStyles.selected_text.bold;
+    assert !(widgetStyles ? bg_colour);
+    pkgs.runCommand "bottom-color-scheme-check" { } ''
+      touch "$out"
+    '';
+
   git-wt-integration =
     let
       configuration = homeConfiguration [ ];

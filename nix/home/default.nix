@@ -13,6 +13,7 @@
     ./programs/fzf
     ./programs/mise
     ./programs/zellij
+    ./programs/bottom
     ./programs/ghostty
     ./programs/dbeaver
     ./programs/lazygit
