@@ -4,6 +4,12 @@
   "buffer_font_family": "Monaspace Neon Frozen",
   "ui_font_family": "CaskaydiaCove Nerd Font Mono",
   "agent_servers": {
+    "codex-acp": {
+      "default_config_options": {
+        "fast-mode": true,
+      },
+      "type": "registry",
+    },
     "opencode": {
       "type": "registry",
       "env": {
@@ -11,7 +17,7 @@
       },
       "default_config_options": {
         "mode": "build",
-        "model": "openai/gpt-5.6-luna-fast",
+        "model": "openai/gpt-5.6-sol-fast",
         "effort": "xhigh",
       },
       "favorite_config_option_values": {
@@ -79,7 +85,7 @@
     },
   },
   "ui_font_size": 14,
-  "buffer_font_size": 14,
+  "buffer_font_size": 14.0,
   "theme": {
     "mode": "system",
     "light": "One Dark",
