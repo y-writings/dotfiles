@@ -18,6 +18,8 @@ buildNpmPackage (finalAttrs: {
   npmDepsHash = "sha256-tHnOMBXerUKBqTQM+jbXT3F9wgodvP6xdWJd7XNwhxE=";
   npmBuildScript = "build";
 
+  passthru.updateWithBulkUpdater = true;
+
   meta = {
     description = "ACP adapter for Codex CLI";
     homepage = "https://github.com/agentclientprotocol/codex-acp";

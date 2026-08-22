@@ -81,6 +81,9 @@ in
       configuration = homeConfiguration [ ];
       homePackagePaths = map (package: package.outPath) configuration.config.home.packages;
       githubPackageNames = builtins.attrNames githubPackages;
+      githubPackageBulkUpdateFlags = pkgs.lib.mapAttrs (
+        _: package: package.passthru.updateWithBulkUpdater or null
+      ) githubPackages;
       driftlinePath = inputs.driftline.packages.${hostSystem}.driftline.outPath;
       countHomePackagePath =
         path: builtins.length (builtins.filter (homePath: homePath == path) homePackagePaths);
@@ -96,6 +99,15 @@ in
       driftlineHomeCount = countHomePackagePath driftlinePath;
     in
     assert pkgs.lib.assertMsg (githubPackageNames != [ ]) "githubPackages must not be empty";
+    assert pkgs.lib.assertMsg (builtins.all builtins.isBool (
+      builtins.attrValues githubPackageBulkUpdateFlags
+    )) "Every GitHub package must define boolean passthru.updateWithBulkUpdater metadata";
+    assert pkgs.lib.assertMsg (
+      !githubPackageBulkUpdateFlags.agent-slack
+    ) "agent-slack must be excluded from bulk updates";
+    assert pkgs.lib.assertMsg (
+      githubPackageBulkUpdateFlags.codex-acp && githubPackageBulkUpdateFlags.difit
+    ) "codex-acp and difit must be included in bulk updates";
     assert pkgs.lib.assertMsg (
       !(githubPackages ? driftline)
     ) "githubPackages must not contain driftline";
