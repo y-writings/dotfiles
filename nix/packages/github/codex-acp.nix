@@ -6,16 +6,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "codex-acp";
-  version = "1.6.2";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "agentclientprotocol";
     repo = "codex-acp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QNQ9x4CEO6xzKDd1vggBbntnGLjI1TBmg5ydCWM3T7k=";
+    hash = "sha256-oOByalquD4I4s+3JafMDYlQ3dGN1TAfq3sy6owSsv6M=";
   };
 
-  npmDepsHash = "sha256-uK03isdvl9tpYDF1sapHjmPdhtLGbdjE3cDU/qFa5G0=";
+  npmDepsHash = "sha256-5dk7J0nDg4YWpiSnnY11JPWKgMgJn1Wi0KGAyhdc1Fk=";
   npmBuildScript = "build";
 
   passthru.updateWithBulkUpdater = true;
