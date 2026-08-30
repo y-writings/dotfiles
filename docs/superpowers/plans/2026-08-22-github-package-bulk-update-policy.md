@@ -5,9 +5,8 @@
 > superpowers:executing-plans to implement this plan task-by-task. Steps use
 > checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Keep `agent-slack` pinned while the repository's shared updater
-continues to update `codex-acp` and `difit` according to required per-package
-metadata.
+**Goal:** Update `codex-acp` and `difit` through the repository's shared updater
+according to required per-package metadata.
 
 **Architecture:** Store a required `passthru.updateWithBulkUpdater` boolean on
 every GitHub package derivation so package exposure and installation remain
@@ -24,7 +23,6 @@ skips disabled packages or invokes `nix-update` for enabled packages.
 **Files:**
 
 - Modify: `nix/checks/default.nix:79-108`
-- Modify: `nix/packages/github/agent-slack.nix:27-35`
 - Modify: `nix/packages/github/codex-acp.nix:21-28`
 - Modify: `nix/packages/github/difit.nix:52-59`
 
@@ -46,9 +44,6 @@ Add these assertions after the existing non-empty package assertion:
       builtins.all builtins.isBool (builtins.attrValues githubPackageBulkUpdateFlags)
     ) "Every GitHub package must define boolean passthru.updateWithBulkUpdater metadata";
     assert pkgs.lib.assertMsg (
-      !githubPackageBulkUpdateFlags.agent-slack
-    ) "agent-slack must be excluded from bulk updates";
-    assert pkgs.lib.assertMsg (
       githubPackageBulkUpdateFlags.codex-acp && githubPackageBulkUpdateFlags.difit
     ) "codex-acp and difit must be included in bulk updates";
 ```
@@ -66,12 +61,6 @@ Expected: FAIL with
 
 - [ ] **Step 3: Add the required metadata to all package derivations**
 
-Add this attribute before `meta` in `nix/packages/github/agent-slack.nix`:
-
-```nix
-  passthru.updateWithBulkUpdater = false;
-```
-
 Add this attribute before `meta` in both
 `nix/packages/github/codex-acp.nix` and `nix/packages/github/difit.nix`:
 
@@ -86,7 +75,6 @@ Run:
 ```bash
 nixfmt \
   nix/checks/default.nix \
-  nix/packages/github/agent-slack.nix \
   nix/packages/github/codex-acp.nix \
   nix/packages/github/difit.nix
 ```
@@ -108,7 +96,6 @@ Expected: exit 0 and build the `github-package-management-check` derivation.
 ```bash
 git add \
   nix/checks/default.nix \
-  nix/packages/github/agent-slack.nix \
   nix/packages/github/codex-acp.nix \
   nix/packages/github/difit.nix
 git commit -m "feat(nix): declare GitHub package update policy"
@@ -173,15 +160,15 @@ syntax and ShellCheck validation and runs the updater against fake Git, Nix,
         export TEST_UPDATE_LOG="$TMPDIR/updates"
         mkdir -p "$TEST_REPO_ROOT"
 
-        export TEST_PACKAGE_UPDATE_FLAGS='{"agent-slack":false,"codex-acp":true,"difit":true}'
+        export TEST_PACKAGE_UPDATE_FLAGS='{"codex-acp":true,"difit":true,"disabled-package":false}'
         ${script} > "$TMPDIR/output"
         test "$(cat "$TEST_UPDATE_LOG")" = "$(printf 'codex-acp\ndifit')"
-        grep -Fq 'Skipping agent-slack (bulk updates disabled)' "$TMPDIR/output"
         grep -Fq 'Updating codex-acp' "$TMPDIR/output"
         grep -Fq 'Updating difit' "$TMPDIR/output"
+        grep -Fq 'Skipping disabled-package (bulk updates disabled)' "$TMPDIR/output"
 
         : > "$TEST_UPDATE_LOG"
-        export TEST_PACKAGE_UPDATE_FLAGS='{"agent-slack":false,"codex-acp":false,"difit":false}'
+        export TEST_PACKAGE_UPDATE_FLAGS='{"codex-acp":false,"difit":false}'
         ${script} > "$TMPDIR/all-disabled-output"
         test ! -s "$TEST_UPDATE_LOG"
         grep -Fq 'No GitHub packages enabled for bulk updates' "$TMPDIR/all-disabled-output"
@@ -288,7 +275,6 @@ git commit -m "feat(nix): filter bulk GitHub package updates"
 **Files:**
 
 - Verify: `nix/checks/default.nix`
-- Verify: `nix/packages/github/agent-slack.nix`
 - Verify: `nix/packages/github/codex-acp.nix`
 - Verify: `nix/packages/github/difit.nix`
 - Verify: `scripts/update-github-packages.sh`
@@ -323,7 +309,6 @@ Run:
 ```bash
 nixfmt --check \
   nix/checks/default.nix \
-  nix/packages/github/agent-slack.nix \
   nix/packages/github/codex-acp.nix \
   nix/packages/github/difit.nix
 bash -n scripts/update-github-packages.sh

@@ -12,7 +12,6 @@ The initial package set contains:
 
 - `codex-acp` from `agentclientprotocol/codex-acp`
 - `difit` from `yoshiko-pg/difit`
-- `agent-slack` from `stablyai/agent-slack`
 
 All packages registered in this set are installed and updated automatically.
 There is no separate enabled-package list.
@@ -29,8 +28,7 @@ Store directly managed GitHub packages under a dedicated package set:
 nix/packages/github/
 ├── default.nix
 ├── codex-acp.nix
-├── difit.nix
-└── agent-slack.nix
+└── difit.nix
 ```
 
 `default.nix` is the only package registry. It returns an attribute set whose
@@ -51,8 +49,6 @@ Use the smallest reproducible implementation supported by each upstream:
 - Build `difit` from its tagged GitHub source with the Nix pnpm hooks, its
   committed `pnpm-lock.yaml`, a source hash, and the fixed pnpm dependency
   output.
-- Install the `agent-slack-darwin-arm64` GitHub Release asset with `fetchurl`
-  and a fixed hash. Do not add Node.js or npm when using the standalone binary.
 
 Each package declares its GitHub homepage and source owner/repository so its
 origin remains visible in both the directory layout and the derivation.
@@ -70,9 +66,9 @@ the standard package output:
 packages.${hostSystem} = githubPackages;
 ```
 
-This creates `.#codex-acp`, `.#difit`, and `.#agent-slack` for standard Nix
-tooling without maintaining individual output declarations. Adding a package
-requires only its package file and one entry in
+This creates `.#codex-acp` and `.#difit` for standard Nix tooling without
+maintaining individual output declarations. Adding a package requires only its
+package file and one entry in
 `nix/packages/github/default.nix`.
 
 ## Home Manager Integration
@@ -134,7 +130,7 @@ path cannot work.
 ## Verification
 
 - Format every changed Nix file.
-- Build `.#codex-acp`, `.#difit`, and `.#agent-slack`.
+- Build `.#codex-acp` and `.#difit`.
 - Confirm each executable reports the pinned version from the built output.
 - Evaluate the GitHub package attribute names and confirm Home Manager installs
   the same set exactly once.
