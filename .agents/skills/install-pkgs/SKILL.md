@@ -13,6 +13,23 @@ metadata:
 
 Use this skill to add packages to this repository without guessing the package manager, file, or Homebrew token shape. The repo is a macOS dotfiles flake using Nix, nix-darwin, Home Manager, and nix-homebrew, so package placement affects rebuild behavior and duplicate installs.
 
+## Activation boundary
+
+Package installation, uninstallation, replacement, or movement means updating
+this repository's declarative configuration and running non-mutating
+verification by default. It does not authorize changing the active machine.
+
+Run activation commands such as `darwin-rebuild switch`, `home-manager switch`,
+`mise run rebuild`, direct package-manager mutations, or commands through
+`sudo` only when the user explicitly requests activation in the current
+conversation with wording that cannot reasonably be misunderstood, such as
+`rebuildして`. Do not infer activation permission from words such as install,
+uninstall, replace, apply, or complete end-to-end.
+
+Formatting, evaluation, checks, metadata inspection, and builds that do not
+change the active system or user profile are verification, not activation. The
+verification checklist below never grants permission to activate changes.
+
 ## Core workflow
 
 1. **Gather context before editing.** Inspect the repo structure and the relevant Nix modules. In this repo, the usual files are:

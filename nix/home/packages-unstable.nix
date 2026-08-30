@@ -15,6 +15,7 @@ with pkgs;
   terraform-ls
   # tools
   actionlint
+  antigravity-cli
   ast-grep
   awscli2
   bash
@@ -34,7 +35,6 @@ with pkgs;
   eza
   fd
   fish
-  gemini-cli
   ghq
   git
   git-wt
