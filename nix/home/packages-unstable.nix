@@ -15,7 +15,6 @@ with pkgs;
   terraform-ls
   # tools
   actionlint
-  antigravity-cli
   ast-grep
   awscli2
   bash

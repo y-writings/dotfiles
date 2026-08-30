@@ -50,6 +50,7 @@ in
       "1password"
       "1password-cli"
       "amical"
+      "antigravity-cli"
       "brainfm"
       "cleanshot"
       {
