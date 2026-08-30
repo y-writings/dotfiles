@@ -9,14 +9,14 @@
 one explicit package registry without per-package flake, Home Manager, or mise
 wiring.
 
-**Architecture:** Define `codex-acp`, `difit`, and `agent-slack` as focused Nix
-derivations under `nix/packages/github`, then expose the whole attribute set as
-the flake package output and install all of its values through Home Manager. A
-single fail-fast script enumerates those flake package names and runs
-`nix-update`; `driftline` remains a flake input updated by `nix flake update`.
+**Architecture:** Define `codex-acp` and `difit` as focused Nix derivations
+under `nix/packages/github`, then expose the whole attribute set as the flake
+package output and install all of its values through Home Manager. A single
+fail-fast script enumerates those flake package names and runs `nix-update`;
+`driftline` remains a flake input updated by `nix flake update`.
 
 **Tech Stack:** Nix, nix-darwin, Home Manager, `buildNpmPackage`,
-`fetchPnpmDeps`, `fetchurl`, `nix-update`, mise, Bash
+`fetchPnpmDeps`, `nix-update`, mise, Bash
 
 ---
 
@@ -27,8 +27,6 @@ single fail-fast script enumerates those flake package names and runs
 - Create: `nix/packages/github/codex-acp.nix` - builds the ACP adapter from its
   npm lock.
 - Create: `nix/packages/github/difit.nix` - builds the CLI from its pnpm lock.
-- Create: `nix/packages/github/agent-slack.nix` - installs the fixed Apple
-  Silicon release binary.
 - Modify: `flake.nix` - publishes the complete GitHub package set once.
 - Modify: `nix/home/packages.nix` - installs every registered GitHub package.
 - Rename: `nix/home/packages-github.nix` to
@@ -238,88 +236,7 @@ If Step 3 fails, keep the failing package isolated and diagnose its install
 phase. Do not restore `npx`, add `latest`, enable build-time network access, or
 replace the lock with a generated unlocked install.
 
-### Task 3: Add The Agent Slack Release Package
-
-**Files:**
-
-- Create: `nix/packages/github/agent-slack.nix`
-- Test: direct Nix build and version invocation
-
-- [ ] **Step 1: Confirm the package is currently absent**
-
-Run:
-
-```bash
-test -z "$(command -v agent-slack || true)"
-```
-
-Expected: exit status 0 before activation of the new Home Manager package.
-
-- [ ] **Step 2: Create the fixed release-asset derivation**
-
-Create `nix/packages/github/agent-slack.nix`:
-
-```nix
-{
-  fetchurl,
-  lib,
-  stdenvNoCC,
-}:
-
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "agent-slack";
-  version = "0.9.3";
-
-  src = fetchurl {
-    url = "https://github.com/stablyai/agent-slack/releases/download/v${finalAttrs.version}/agent-slack-darwin-arm64";
-    hash = "sha256-ISvecKk6btX0kRyOc4jLH1a1HuCFABa8K9VbdByiBZY=";
-  };
-
-  dontUnpack = true;
-  dontStrip = true;
-
-  installPhase = ''
-    runHook preInstall
-
-    install -Dm755 "$src" "$out/bin/agent-slack"
-
-    runHook postInstall
-  '';
-
-  meta = {
-    description = "Slack automation CLI for AI agents";
-    homepage = "https://github.com/stablyai/agent-slack";
-    changelog = "https://github.com/stablyai/agent-slack/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.mit;
-    mainProgram = "agent-slack";
-    platforms = [ "aarch64-darwin" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-  };
-})
-```
-
-- [ ] **Step 3: Format, build, and execute the release binary**
-
-Run:
-
-```bash
-nix fmt -- --check nix/packages/github/agent-slack.nix
-out="$(nix build --impure --no-link --print-out-paths --expr '
-  let
-    flake = builtins.getFlake (toString ./.);
-    pkgs = flake.inputs.nixpkgs.legacyPackages.aarch64-darwin;
-  in
-  pkgs.callPackage ./nix/packages/github/agent-slack.nix { }
-')"
-"$out/bin/agent-slack" --version
-"$out/bin/agent-slack" --help >/dev/null
-```
-
-Expected: the commands succeed and the version is `0.9.3`. Do not re-sign the
-binary; the pinned upstream asset already carries a valid ad-hoc signature and
-runs directly from the Nix store.
-
-### Task 4: Register And Publish The Package Set
+### Task 3: Register And Publish The Package Set
 
 **Files:**
 
@@ -334,7 +251,6 @@ Create `nix/packages/github/default.nix`:
 ```nix
 { pkgs }:
 {
-  agent-slack = pkgs.callPackage ./agent-slack.nix { };
   codex-acp = pkgs.callPackage ./codex-acp.nix { };
   difit = pkgs.callPackage ./difit.nix { };
 }
@@ -386,10 +302,10 @@ nix eval --json path:.#packages.aarch64-darwin --apply builtins.attrNames
 Expected:
 
 ```json
-["agent-slack", "codex-acp", "difit"]
+["codex-acp", "difit"]
 ```
 
-### Task 5: Install The Entire Set Through Home Manager
+### Task 4: Install The Entire Set Through Home Manager
 
 **Files:**
 
@@ -466,7 +382,7 @@ nix eval path:.#homeModules.default
 Expected: every command succeeds and the removed runtime wrapper has no
 matches.
 
-### Task 6: Add Package Ownership Checks
+### Task 5: Add Package Ownership Checks
 
 **Files:**
 
@@ -524,7 +440,7 @@ Expected: the check builds successfully, proving that every registered package
 and `driftline` are installed exactly once under their intended ownership
 models. Adding a future registry entry must not require editing this check.
 
-### Task 7: Add The Dynamic GitHub Package Updater
+### Task 6: Add The Dynamic GitHub Package Updater
 
 **Files:**
 
@@ -609,7 +525,7 @@ nix eval --json path:.#packages.aarch64-darwin --apply builtins.attrNames
 nix build path:.#checks.aarch64-darwin.github-package-update-script
 ```
 
-Expected: syntax and ShellCheck pass, the same three package names are printed,
+Expected: syntax and ShellCheck pass, the same two package names are printed,
 and the focused check builds.
 
 - [ ] **Step 4: Verify each updater after the new files are tracked by Git**
@@ -628,11 +544,11 @@ nix_update="$(
 PATH="$nix_update/bin:$PATH" scripts/update-github-packages.sh
 ```
 
-Expected: each current package reports that it is already current, all three
-build validations pass, and no package file changes. The updater must not run
+Expected: each current package reports that it is already current, both build
+validations pass, and no package file changes. The updater must not run
 with `sudo`.
 
-### Task 8: Compose The Mise Update Workflow
+### Task 7: Compose The Mise Update Workflow
 
 **Files:**
 
@@ -653,7 +569,7 @@ run = [
 ]
 ```
 
-This keeps `driftline` in the first step and the three directly managed GitHub
+This keeps `driftline` in the first step and the two directly managed GitHub
 packages in the second step.
 
 - [ ] **Step 2: Verify mise parses the composed task**
@@ -667,7 +583,7 @@ mise tasks | rg '^update\s+Update flake inputs and GitHub packages$'
 
 Expected: TOML lint passes and mise lists the updated task description.
 
-### Task 9: Run End-To-End Verification
+### Task 8: Run End-To-End Verification
 
 **Files:**
 
@@ -688,8 +604,7 @@ nix fmt -- --check \
   nix/home/packages-unstable.nix \
   nix/packages/github/default.nix \
   nix/packages/github/codex-acp.nix \
-  nix/packages/github/difit.nix \
-  nix/packages/github/agent-slack.nix
+  nix/packages/github/difit.nix
 markdownlint-cli2 \
   docs/superpowers/specs/2026-08-16-github-packages-management-design.md \
   docs/superpowers/plans/2026-08-16-github-packages-management.md
@@ -707,16 +622,14 @@ Run with a 180-second command timeout:
 
 ```bash
 nix build --no-link \
-  path:.#agent-slack \
   path:.#codex-acp \
   path:.#difit
-"$(nix path-info path:.#agent-slack)/bin/agent-slack" --version
 "$(nix path-info path:.#codex-acp)/bin/codex-acp" --version
 "$(nix path-info path:.#difit)/bin/difit" --version
 ```
 
-Expected: all three outputs build successfully without runtime package
-resolution and report versions `0.9.3`, `1.4.0`, and `5.0.11`, respectively.
+Expected: both outputs build successfully without runtime package resolution
+and report versions `1.4.0` and `5.0.11`, respectively.
 
 - [ ] **Step 3: Run flake checks**
 

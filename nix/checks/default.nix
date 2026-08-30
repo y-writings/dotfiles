@@ -103,9 +103,6 @@ in
       builtins.attrValues githubPackageBulkUpdateFlags
     )) "Every GitHub package must define boolean passthru.updateWithBulkUpdater metadata";
     assert pkgs.lib.assertMsg (
-      !githubPackageBulkUpdateFlags.agent-slack
-    ) "agent-slack must be excluded from bulk updates";
-    assert pkgs.lib.assertMsg (
       githubPackageBulkUpdateFlags.codex-acp && githubPackageBulkUpdateFlags.difit
     ) "codex-acp and difit must be included in bulk updates";
     assert pkgs.lib.assertMsg (
@@ -164,15 +161,15 @@ in
         export TEST_UPDATE_LOG="$TMPDIR/updates"
         mkdir -p "$TEST_REPO_ROOT"
 
-        export TEST_PACKAGE_UPDATE_FLAGS='{"agent-slack":false,"codex-acp":true,"difit":true}'
+        export TEST_PACKAGE_UPDATE_FLAGS='{"codex-acp":true,"difit":true,"disabled-package":false}'
         ${script} > "$TMPDIR/output"
         test "$(cat "$TEST_UPDATE_LOG")" = "$(printf 'codex-acp\ndifit')"
-        grep -Fq 'Skipping agent-slack (bulk updates disabled)' "$TMPDIR/output"
         grep -Fq 'Updating codex-acp' "$TMPDIR/output"
         grep -Fq 'Updating difit' "$TMPDIR/output"
+        grep -Fq 'Skipping disabled-package (bulk updates disabled)' "$TMPDIR/output"
 
         : > "$TEST_UPDATE_LOG"
-        export TEST_PACKAGE_UPDATE_FLAGS='{"agent-slack":false,"codex-acp":false,"difit":false}'
+        export TEST_PACKAGE_UPDATE_FLAGS='{"codex-acp":false,"difit":false}'
         ${script} > "$TMPDIR/all-disabled-output"
         test ! -s "$TEST_UPDATE_LOG"
         grep -Fq 'No GitHub packages enabled for bulk updates' "$TMPDIR/all-disabled-output"

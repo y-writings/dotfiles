@@ -3,16 +3,14 @@
 ## Goal
 
 Allow each package under `nix/packages/github` to declare whether the
-repository's shared GitHub package updater should update it. Keep
-`agent-slack` pinned while continuing to update `codex-acp` and `difit` through
-the existing mise `update` task.
+repository's shared GitHub package updater should update it. Continue to update
+`codex-acp` and `difit` through the existing mise `update` task.
 
 ## Package Metadata
 
 Every GitHub package derivation must define a boolean
 `passthru.updateWithBulkUpdater` value. The initial policy is:
 
-- `agent-slack`: `false`
 - `codex-acp`: `true`
 - `difit`: `true`
 
@@ -54,8 +52,7 @@ the worktree for review.
 
 - Assert that every registered GitHub package declares a boolean
   `passthru.updateWithBulkUpdater` value.
-- Assert that `agent-slack` is excluded and that `codex-acp` and `difit` are
-  included in bulk updates.
+- Assert that `codex-acp` and `difit` are included in bulk updates.
 - Retain Bash syntax and ShellCheck validation for the updater.
 - Run the focused Nix checks and `nix flake check --no-build`.
 - Confirm formatting and whitespace checks pass.
