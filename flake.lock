@@ -345,6 +345,22 @@
     },
     "nixpkgs_4": {
       "locked": {
+        "lastModified": 1788334797,
+        "narHash": "sha256-nskSa8kDimM7F0VFSP8IdoSNo4G0vKzOtxwvOFpoGDI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c19db427a1fdfc7591c0b0baeb4665dcef2c61da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-26.05-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_5": {
+      "locked": {
         "lastModified": 1784564315,
         "narHash": "sha256-7OpsHHIZFUBLbeHNQ0oC40DZRQjsmGWodXge+OqgPgk=",
         "owner": "nixos",
@@ -369,8 +385,27 @@
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-stable": "nixpkgs-stable",
+        "skills-reconcile": "skills-reconcile",
         "user-config": "user-config",
         "vscode-extensions": "vscode-extensions"
+      }
+    },
+    "skills-reconcile": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1788662343,
+        "narHash": "sha256-1RdOvOodY/9+TQZouOABPSKUGwM4hh4KZ04l/NFl0a8=",
+        "owner": "y-writings",
+        "repo": "skills-reconcile",
+        "rev": "5fa687e87dbea48e3c615d030b03043ce350475d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "y-writings",
+        "repo": "skills-reconcile",
+        "type": "github"
       }
     },
     "user-config": {
@@ -387,7 +422,7 @@
     },
     "vscode-extensions": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1788753883,
