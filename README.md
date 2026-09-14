@@ -1,4 +1,4 @@
-# y-writings' personal dotfiles
+# y-writings' personal dotfiles test
 
 macOS (`aarch64-darwin`) を Nix + nix-darwin + Home Manager でセットアップするための dotfiles です。
 
