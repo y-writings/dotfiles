@@ -61,6 +61,7 @@ in
         postinstall = "/bin/sh ${./homebrew-postinstall/dbeaver-vrapper.sh}";
       }
       "entireio/tap/entire"
+      "grok-bot"
       "grok-build"
       "homerow"
       "jordanbaird-ice"
