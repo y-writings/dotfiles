@@ -9,9 +9,9 @@
       settings.idiomatic_version_file_enable_tools = [ "node" ];
 
       tools = {
-        bun = "1.3.11";
-        go = "1.26.3";
-        terraform = "1.15.7";
+        bun = "1.4.3";
+        go = "1.27.3";
+        terraform = "1.17.0";
       };
     };
   };
