@@ -28,6 +28,7 @@ with pkgs;
   commitlint
   curl
   delta
+  devcontainer
   difftastic
   dockerfile-pin
   dust
