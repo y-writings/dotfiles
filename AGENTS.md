@@ -28,3 +28,7 @@ If activation was not explicitly requested, complete the declarative edits and
 verification, stop before activation, and report that the active machine was
 not changed. OpenCode execution-time permission prompts are an additional guard,
 not a substitute for this policy.
+
+## プルリクエスト
+
+プルリクエストを作成するときは、[CONTRIBUTING.md](CONTRIBUTING.md) を読み、それに従うこと。
