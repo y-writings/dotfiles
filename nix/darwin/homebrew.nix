@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   enabledInstallFeatures ? [ ],
   ...
 }:
@@ -7,6 +8,20 @@ let
   hasInstallFeature = feature: lib.elem feature enabledInstallFeatures;
   aiDevelopmentEnabled = hasInstallFeature "ai-development";
   codexEnabled = hasInstallFeature "codex" || aiDevelopmentEnabled;
+  vrapperVersion = "0.74.0";
+  vrapperUpdateSite =
+    pkgs.runCommand "vrapper-update-site-${vrapperVersion}"
+      {
+        src = pkgs.fetchurl {
+          url = "https://github.com/vrapper/vrapper/releases/download/${vrapperVersion}/vrapper_${vrapperVersion}_20181124.zip";
+          hash = "sha256-q4IZhikiVaIStrUAlxd3dCPkpDFNrCdoyQ5MFLTvmaY=";
+        };
+        nativeBuildInputs = [ pkgs.unzip ];
+      }
+      ''
+        mkdir -p "$out"
+        unzip -q "$src" -d "$out"
+      '';
 in
 {
   nix-homebrew.trust = {
@@ -58,7 +73,7 @@ in
         # nix-darwin embeds this value in a double-quoted Brewfile string, so
         # passing the script contents directly would leave newlines and quotes
         # unescaped. Execute the script from the Nix store instead.
-        postinstall = "/bin/sh ${./homebrew-postinstall/dbeaver-vrapper.sh}";
+        postinstall = "/bin/sh ${./homebrew-postinstall/dbeaver-vrapper.sh} ${vrapperUpdateSite}";
       }
       "entireio/tap/entire"
       "grok-bot"
