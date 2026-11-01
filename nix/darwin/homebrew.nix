@@ -87,6 +87,7 @@ in
       "postman"
       "raycast"
       "slack"
+      "t3-code"
       "zed"
     ]
     ++ lib.optionals (hasInstallFeature "productivity") [
