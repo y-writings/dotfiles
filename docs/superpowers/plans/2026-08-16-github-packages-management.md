@@ -315,6 +315,13 @@ Expected:
 - Modify: `nix/home/packages-unstable.nix:54-58`
 - Test: Home Manager module evaluation
 
+> **Later change (VIS-469):** The `pkgs.system` selections in the snippets below
+> are the plan text as written, not a second runtime configuration. Live
+> modules now use `pkgs.stdenv.hostPlatform.system`. Both expressions evaluate
+> to the same system string; `pkgs.system` is a nixpkgs compatibility alias
+> that emits a deprecation warning. `nix/home/packages-flake-inputs.nix` also
+> installs `skills-reconcile`, which this plan does not list.
+
 - [ ] **Step 1: Replace the mixed GitHub file with a flake-input-only file**
 
 Rename the file and replace its contents with:

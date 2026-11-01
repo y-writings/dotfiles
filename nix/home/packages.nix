@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }:
 let
-  stablePkgs = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
+  stablePkgs = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   stablePackages = import ./packages-stable.nix { inherit stablePkgs; };
   unstablePackages = import ./packages-unstable.nix { inherit pkgs; };
   githubPackages = import ../packages/github { inherit pkgs; };
