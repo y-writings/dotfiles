@@ -15,16 +15,37 @@ jobs:
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
+          fetch-depth: 0
           persist-credentials: false
-      - name: Evaluate public flake outputs
+      - name: Detect changes requiring Nix evaluation
+        id: changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          docker run --rm \
-            --volume "${GITHUB_WORKSPACE}:/workspace:ro" \
-            --workdir /workspace \
-            docker.io/nixos/nix:2.35.1@sha256:377d4887aca98f0dfa12971c1ea6d6a625a435d8b610d4c95a436843da6fbfd1 \
-            nix --extra-experimental-features "nix-command flakes" \
-              flake check path:/workspace \
-              --all-systems \
-              --no-build \
-              --no-update-lock-file \
-              --keep-going
+          if [ "${GITHUB_EVENT_NAME}" != "pull_request" ] || \
+            ! git diff --quiet "${BASE_SHA}" "${HEAD_SHA}" -- . \
+              ':(exclude,glob)**/*.md'; then
+            echo "nix=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "nix=false" >> "${GITHUB_OUTPUT}"
+          fi
+      - name: Install Nix
+        if: steps.changes.outputs.nix == 'true'
+        uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Restore and save Nix store
+        if: steps.changes.outputs.nix == 'true'
+        uses: nix-community/cache-nix-action@7df957e333c1e5da7721f60227dbba6d06080569 # v7
+        with:
+          primary-key: nix-eval-${{ runner.os }}-${{ hashFiles('flake.lock') }}
+          restore-prefixes-first-match: nix-eval-${{ runner.os }}-
+      - name: Evaluate public flake outputs
+        if: steps.changes.outputs.nix == 'true'
+        run: |
+          nix flake check path:. \
+            --all-systems \
+            --no-build \
+            --no-update-lock-file \
+            --keep-going

@@ -1,12 +1,9 @@
 { pkgs, inputs, ... }:
 let
-  stablePkgs = inputs.nixpkgs-stable.legacyPackages.${pkgs.system};
-  stablePackages = import ./packages-stable.nix { inherit stablePkgs; };
   unstablePackages = import ./packages-unstable.nix { inherit pkgs; };
   githubPackages = import ../packages/github { inherit pkgs; };
   flakeInputPackages = import ./packages-flake-inputs.nix { inherit pkgs inputs; };
 in
 {
-  home.packages =
-    unstablePackages ++ stablePackages ++ builtins.attrValues githubPackages ++ flakeInputPackages;
+  home.packages = unstablePackages ++ builtins.attrValues githubPackages ++ flakeInputPackages;
 }
