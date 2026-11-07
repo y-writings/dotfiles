@@ -3,8 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
-
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
@@ -19,10 +17,19 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    driftline.url = "github:y-writings/driftline";
-    skills-reconcile.url = "github:y-writings/skills-reconcile";
+    driftline = {
+      url = "github:y-writings/driftline";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    skills-reconcile = {
+      url = "github:y-writings/skills-reconcile";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ni-zsh = {
       url = "github:azu/ni.zsh";

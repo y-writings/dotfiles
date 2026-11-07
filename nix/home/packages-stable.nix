@@ -1,3 +1,0 @@
-{ stablePkgs }:
-with stablePkgs;
-[ ]

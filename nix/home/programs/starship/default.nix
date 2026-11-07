@@ -1,9 +1,9 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
-    package = inputs.nixpkgs-stable.legacyPackages.${pkgs.stdenv.hostPlatform.system}.starship;
+    package = pkgs.starship;
     settings = {
       format = "$directory$git_branch$gcloud$line_break$character";
       directory = {
