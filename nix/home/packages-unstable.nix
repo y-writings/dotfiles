@@ -56,6 +56,7 @@ with pkgs;
   nix-update
   nixfmt
   opencode
+  pi-coding-agent
   pik
   pinact
   poppler

@@ -76,6 +76,11 @@ in
 {
   exported-home-base = (homeConfiguration [ ]).activationPackage;
 
+  dbeaver-vrapper = import ./dbeaver-vrapper.nix {
+    inherit pkgs;
+    systemConfig = (mkDarwinSystem baseSystemArgs).config;
+  };
+
   github-package-management =
     let
       configuration = homeConfiguration [ ];

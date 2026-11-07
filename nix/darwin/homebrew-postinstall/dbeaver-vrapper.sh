@@ -2,11 +2,11 @@
 
 dbeaver_executable="/Applications/DBeaver.app/Contents/MacOS/dbeaver"
 dbeaver_features="/Applications/DBeaver.app/Contents/Eclipse/features"
-vrapper_update_site="https://vrapper.sourceforge.net/update-site/stable/"
+vrapper_update_site="file://${1:?Usage: $0 <vrapper-update-site>}"
 vrapper_feature="net.sourceforge.vrapper.feature.group"
 
 if /usr/bin/pgrep -f '[D]Beaver.app/Contents/MacOS/dbeaver' >/dev/null; then
-  echo "DBeaver is running. Quit DBeaver, then run the nix-darwin rebuild again." >&2
+  echo "DBeaver is running. Quit DBeaver before retrying this postinstall." >&2
   exit 1
 fi
 
@@ -15,7 +15,7 @@ if [ ! -x "$dbeaver_executable" ]; then
   exit 1
 fi
 
-if /usr/bin/find "$dbeaver_features" -maxdepth 1 -name 'net.sourceforge.vrapper.feature_*' -print -quit \
+if /usr/bin/find "$dbeaver_features" -maxdepth 1 -name 'net.sourceforge.vrapper_*' -print -quit \
   | /usr/bin/grep -q .; then
   echo "Vrapper is already installed; skipping."
   exit 0
