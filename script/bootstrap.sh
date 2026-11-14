@@ -35,6 +35,8 @@ if ! command -v nix &>/dev/null; then
   sh "$installer_path" install
   rm -f "$installer_path"
   trap - EXIT
+  # Load Nix into this shell without restarting the terminal.
+  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   echo "Nix installed."
 else
   echo "[2/5] Nix already installed. Skipping."
@@ -53,7 +55,38 @@ echo "[4/5] Running create-user-toml.sh..."
 chmod +x "$repo_dir/script/create-user-toml.sh"
 "$repo_dir/script/create-user-toml.sh"
 
+echo "[5/5] Preparing existing files for nix-darwin..."
+files_to_backup=()
+# These files become nix-darwin-managed; nix.conf stays with Determinate Nix.
+for file in /etc/nix/nix.custom.conf /etc/bashrc /etc/zshenv /etc/zshrc /etc/zprofile; do
+  if [ ! -e "$file" ] && [ ! -L "$file" ]; then
+    continue
+  fi
+  if [ -L "$file" ] && [ "$(readlink "$file")" = "/etc/static/${file#/etc/}" ]; then
+    continue
+  fi
+  if [ ! -f "$file" ] && [ ! -L "$file" ]; then
+    echo "Cannot back up $file: expected a file or symlink." >&2
+    exit 1
+  fi
+  backup="$file.before-nix-darwin"
+  if [ -e "$backup" ] || [ -L "$backup" ]; then
+    echo "Cannot back up $file: $backup already exists. Move it aside and retry." >&2
+    exit 1
+  fi
+  files_to_backup+=("$file")
+done
+
+for file in "${files_to_backup[@]}"; do
+  echo "Backing up $file to $file.before-nix-darwin..."
+  sudo mv -n "$file" "$file.before-nix-darwin"
+  if [ -e "$file" ] || [ -L "$file" ]; then
+    echo "Failed to back up $file; aborting before nix-darwin switch." >&2
+    exit 1
+  fi
+done
+
 echo "[5/5] Running first nix-darwin switch..."
-sudo nix run nix-darwin -- switch --impure --flake "path:${repo_dir}#${bootstrap_user}-aarch64-darwin" --override-input user-config "path:${HOME}/.config/nix"
+sudo "$(command -v nix)" run nix-darwin -- switch --impure --flake "path:${repo_dir}#${bootstrap_user}-aarch64-darwin" --override-input user-config "path:${HOME}/.config/nix"
 
 echo "=== Bootstrap complete! ==="

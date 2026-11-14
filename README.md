@@ -57,8 +57,14 @@ nix flake check --no-build
 
 ## Troubleshooting
 
-Determinate Nix 導入時に既存の `/etc/zshenv` や `/etc/zshrc` と競合することがあります。
-エラーメッセージに従い、必要に応じて元のファイルをリネームまたは削除してください。
+`bootstrap.sh` は初回の nix-darwin switch 前に、既存の
+`/etc/nix/nix.custom.conf`、`/etc/bashrc`、`/etc/zshenv`、
+`/etc/zshrc`、`/etc/zprofile` を
+末尾に `.before-nix-darwin` を付けて退避します。
+nix-darwin 管理済みのリンクはスキップし、同名の退避先が既にある場合は上書きせず停止します。
+その場合は退避先の内容を確認して別名で保存し、再実行してください。
+`/etc/nix/nix.conf` は Determinate Nix が管理するため退避しません。
+上記以外のファイルが競合した場合は、エラーメッセージに従って対処してください。
 
 ## Standalone Build
 
