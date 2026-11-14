@@ -76,6 +76,19 @@ in
 {
   exported-home-base = (homeConfiguration [ ]).activationPackage;
 
+  bootstrap =
+    pkgs.runCommand "bootstrap-check"
+      {
+        nativeBuildInputs = [
+          pkgs.bash
+          pkgs.python3
+        ];
+      }
+      ''
+        python3 ${./bootstrap.py} ${../../script/bootstrap.sh}
+        touch "$out"
+      '';
+
   dbeaver-vrapper = import ./dbeaver-vrapper.nix {
     inherit pkgs;
     systemConfig = (mkDarwinSystem baseSystemArgs).config;
