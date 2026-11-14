@@ -77,7 +77,6 @@ in
       "grok-bot"
       "grok-build"
       "homerow"
-      "jordanbaird-ice"
       "karabiner-elements"
       "notion"
       "obsidian"
