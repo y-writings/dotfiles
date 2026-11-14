@@ -32,7 +32,6 @@ with pkgs;
   difftastic
   dockerfile-pin
   dust
-  entire
   eza
   fd
   fish

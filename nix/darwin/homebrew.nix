@@ -26,7 +26,6 @@ in
 {
   nix-homebrew.trust = {
     formulae = [ "k1low/tap/mo" ];
-    casks = [ "entireio/tap/entire" ];
   };
 
   homebrew = {
@@ -37,7 +36,6 @@ in
       cleanup = "zap";
     };
     taps = [
-      "entireio/tap"
       "k1low/tap"
     ];
 
@@ -50,6 +48,7 @@ in
 
     brews = [
       "agent-browser"
+      "entire-cli"
       "hunk"
       "k1low/tap/mo"
     ];
@@ -75,7 +74,6 @@ in
         # unescaped. Execute the script from the Nix store instead.
         postinstall = "/bin/sh ${./homebrew-postinstall/dbeaver-vrapper.sh} ${vrapperUpdateSite}";
       }
-      "entireio/tap/entire"
       "grok-bot"
       "grok-build"
       "homerow"
