@@ -30,6 +30,11 @@ get_git_config_value() {
 
 build_features_toml() {
   local raw="$1"
+  if [ -z "$raw" ]; then
+    printf '[]'
+    return 0
+  fi
+
   local -a features
   local -a normalized
   local item trimmed escaped
@@ -134,7 +139,7 @@ printf 'home [%s]: ' "$default_home"
 IFS= read -r input_home
 input_home="$(trim "$input_home")"
 
-default_dotfiles_root="$(pwd)"
+default_dotfiles_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 printf 'dotfilesRoot [%s]: ' "$default_dotfiles_root"
 IFS= read -r input_dotfiles_root
 input_dotfiles_root="$(trim "$input_dotfiles_root")"
