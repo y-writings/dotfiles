@@ -95,6 +95,9 @@ in
     ]
     ++ lib.optionals codexEnabled [
       "codex-app"
+    ]
+    ++ lib.optionals (hasInstallFeature "tailscale") [
+      "tailscale-app"
     ];
   };
 }

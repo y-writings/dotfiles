@@ -24,6 +24,7 @@ let
     "ai-development"
     "codex"
     "masapps"
+    "tailscale"
   ];
   enabledInstallFeatures = sanitize.sanitizeStringListAllowlist {
     value = rawEnabledInstallFeatures;
