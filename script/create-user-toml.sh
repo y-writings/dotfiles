@@ -96,6 +96,7 @@ prompt_enabled_install_features() {
     "ai-development"
     "codex"
     "masapps"
+    "tailscale"
   )
   local feature
   local selected=""

@@ -26,6 +26,22 @@ mise run rebuild
 
 その他のタスクは `mise tasks` で確認できます。
 
+### Tailscale
+
+Tailscale の Standalone 版は Homebrew cask `tailscale-app` で管理します。
+既定では無効です。`~/.config/nix/user.toml` の `enabledInstallFeatures` に
+`"tailscale"` を追加すると、次回の rebuild でインストールされます。
+既存の feature は残したまま追加してください。
+
+```toml
+enabledInstallFeatures = ["productivity", "tailscale"]
+```
+
+初回セットアップでも `tailscale` の有効・無効を選択できます。
+`lib.mkDarwinSystem` を使う場合も、引数の `enabledInstallFeatures` に `"tailscale"` を追加します。
+インストール後の VPN 設定と認証はアプリから行います。
+無効化して rebuild すると、既存の `cleanup = "zap"` 設定に従ってアプリと関連設定が削除対象になります。
+
 ### DBeaver / Vrapper
 
 DBeaver Community は Homebrew cask で管理し、新規導入・更新時の postinstall で Vrapper を導入します。
