@@ -95,6 +95,7 @@ prompt_enabled_install_features() {
     "productivity"
     "ai-development"
     "codex"
+    "lm-studio"
     "masapps"
     "tailscale"
   )

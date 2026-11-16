@@ -42,6 +42,22 @@ enabledInstallFeatures = ["productivity", "tailscale"]
 インストール後の VPN 設定と認証はアプリから行います。
 無効化して rebuild すると、既存の `cleanup = "zap"` 設定に従ってアプリと関連設定が削除対象になります。
 
+### LM Studio
+
+LM Studio は
+[Homebrew cask `lm-studio`](https://formulae.brew.sh/cask/lm-studio) で管理します。
+既定では無効です。`~/.config/nix/user.toml` の `enabledInstallFeatures` に
+`"lm-studio"` を追加すると、次回の rebuild でインストールされます。
+既存の feature は残したまま追加してください。
+
+```toml
+enabledInstallFeatures = ["productivity", "lm-studio"]
+```
+
+初回セットアップでも `lm-studio` の有効・無効を選択できます。
+`lib.mkDarwinSystem` を使う場合も、引数の `enabledInstallFeatures` に `"lm-studio"` を追加します。
+無効化して rebuild すると、既存の `cleanup = "zap"` 設定に従ってアプリと関連設定が削除対象になります。
+
 ### DBeaver / Vrapper
 
 DBeaver Community は Homebrew cask で管理し、新規導入・更新時の postinstall で Vrapper を導入します。
