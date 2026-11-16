@@ -1,4 +1,9 @@
-{ paths, pkgs, ... }:
+{
+  config,
+  paths,
+  pkgs,
+  ...
+}:
 {
   programs.ghostty = {
     enable = true;
@@ -45,4 +50,12 @@
       working-directory = paths.workspacePath;
     };
   };
+
+  # SSH login keeps TERM=xterm-ghostty and does not forward TERMINFO.
+  # Apple's /bin/zsh looks the terminal up while sourcing nix-darwin's
+  # set-environment and Home Manager's hm-session-vars.sh, before
+  # TERMINFO_DIRS exists. ~/.terminfo is on ncurses' default search path.
+  # ghostty-bin.terminfo is the app bundle's database (hex layout), which
+  # both Apple ncurses and Nix ncurses on Darwin can read.
+  home.file.".terminfo".source = "${config.programs.ghostty.package.terminfo}/share/terminfo";
 }
