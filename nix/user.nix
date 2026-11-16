@@ -23,6 +23,7 @@ let
     "productivity"
     "ai-development"
     "codex"
+    "lm-studio"
     "masapps"
     "tailscale"
   ];

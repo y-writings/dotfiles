@@ -1,6 +1,7 @@
 username = "your account"
 home = "/Users/your account"
 dotfilesRoot = "/path/to/dotfiles"
+# Add "lm-studio" to install LM Studio.
 # Add "tailscale" to install the standalone Tailscale app.
 enabledInstallFeatures = ["productivity"]
 

@@ -96,6 +96,9 @@ in
     ++ lib.optionals codexEnabled [
       "codex-app"
     ]
+    ++ lib.optionals (hasInstallFeature "lm-studio") [
+      "lm-studio"
+    ]
     ++ lib.optionals (hasInstallFeature "tailscale") [
       "tailscale-app"
     ];
