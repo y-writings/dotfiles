@@ -208,6 +208,11 @@ in
     in
     assert homeConfig.programs.ghostty.package.pname == "ghostty-bin";
     assert homeConfig.programs.ghostty.settings."auto-update" == [ "off" ];
+    assert
+      (toString homeConfig.home.file.".terminfo".source)
+      == "${homeConfig.programs.ghostty.package.terminfo}/share/terminfo";
+    assert !(homeConfig.home.sessionVariables ? TERM);
+    assert !(homeConfig.programs.zsh.sessionVariables ? TERM);
     assert homeConfig.targets.darwin.copyApps.enable;
     assert !(builtins.elem "ghostty" caskNames);
     assert !(builtins.elem "ghostty@tip" caskNames);
