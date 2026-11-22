@@ -1,6 +1,6 @@
 ---
 name: install-pkgs
-description: Add packages to this dotfiles repository's Nix, nix-darwin, Home Manager, or Homebrew configuration. Use this skill whenever a user asks to install, add, move, or audit packages in this repo, especially when choosing between nix/home packages and nix/darwin/homebrew.nix or when a Homebrew tap, cask, formula, or Brewfile failure is involved.
+description: Add packages to this dotfiles repository's Nix, nix-darwin, Home Manager, or Homebrew configuration. Use this skill whenever a user asks to install, add, move, or audit packages in this repo, especially when choosing between nix/home packages and nix/darwin/homebrew/ or when a Homebrew tap, cask, formula, or Brewfile failure is involved.
 compatibility: opencode
 metadata:
   repository: y-writings/dotfiles
@@ -34,7 +34,8 @@ verification checklist below never grants permission to activate changes.
 
 1. **Gather context before editing.** Inspect the repo structure and the relevant Nix modules. In this repo, the usual files are:
    - `flake.nix` for the flake stack and public outputs
-   - `nix/darwin/homebrew.nix` for Homebrew taps, formulae, casks, and MAS apps
+   - `nix/darwin/homebrew/default.nix` for Homebrew settings, taps, and always-installed packages
+   - `nix/darwin/homebrew/features.nix` for casks and MAS apps selected by `enabledInstallFeatures`
    - `nix/home/packages.nix`, `nix/home/packages-stable.nix`, and
      `nix/home/packages-unstable.nix` for Home Manager user packages
    - `nix/home/packages-flake-inputs.nix` for packages supplied by flake
@@ -65,12 +66,12 @@ verification checklist below never grants permission to activate changes.
   `pname`, `version`, and `src` attributes plus GitHub metadata such as source
   owner/repository and `meta.homepage`.
 - Use `nix/home/programs/<name>/default.nix` when Home Manager has a meaningful `programs.<name>.enable` module or when dotfile/config generation is part of the install.
-- Use `nix/darwin/homebrew.nix` for macOS GUI apps, casks, Mac App Store apps, vendor-distributed Homebrew packages, packages missing/broken in nixpkgs, or when the user explicitly says to install on the brew side.
+- Use `nix/darwin/homebrew/` for macOS GUI apps, casks, Mac App Store apps, vendor-distributed Homebrew packages, packages missing/broken in nixpkgs, or when the user explicitly says to install on the brew side.
 - Use `homebrew.brews` only for Homebrew **formulae**.
 - Use `homebrew.casks` only for Homebrew **casks**.
 - Use `homebrew.taps` whenever the formula or cask is not in Homebrew core/cask and requires a third-party tap.
 
-Respect explicit user intent. If the user says `brew側で`, choose `nix/darwin/homebrew.nix` unless there is concrete evidence that Homebrew cannot install the package.
+Respect explicit user intent. If the user says `brew側で`, choose `nix/darwin/homebrew/` unless there is concrete evidence that Homebrew cannot install the package.
 
 ## Homebrew tap/cask/formula verification
 
