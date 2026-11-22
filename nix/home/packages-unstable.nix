@@ -52,7 +52,8 @@ with pkgs;
   markdownlint-cli2
   neovim
   nil
-  nix-update
+  # Use pre-2.35 flake source handling until Mic92/nix-update#692 ships.
+  (nix-update.override { nix = nixVersions.nix_2_34; })
   nixfmt
   opencode
   pi-coding-agent
