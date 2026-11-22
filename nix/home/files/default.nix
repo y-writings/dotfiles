@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   paths,
   ...
 }:
@@ -26,8 +27,7 @@ in
   home.file."Library/Application Support/Code/User/keybindings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${filesDir}/vscode/keybindings.json";
 
-  xdg.configFile."zed/settings.json".source =
-    config.lib.file.mkOutOfStoreSymlink "${filesDir}/zed/settings.json";
+  xdg.configFile."zed/settings.json".source = lib.mkDefault ./zed/settings.json;
 
   xdg.configFile."zed/keymap.json".source =
     config.lib.file.mkOutOfStoreSymlink "${filesDir}/zed/keymap.json";

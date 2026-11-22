@@ -6,7 +6,11 @@
   "agent_servers": {
     "codex-acp": {
       "default_config_options": {
-        "fast-mode": true,
+        "mode": "agent",
+        "reasoning_effort": "max",
+        "model": "gpt-6.2-astra",
+        "collaboration_mode": "default",
+        "fast-mode": false,
       },
       "type": "registry",
     },
@@ -17,17 +21,11 @@
       },
       "default_config_options": {
         "mode": "build",
-        "model": "openai/gpt-5.6-sol-fast",
-        "effort": "xhigh",
+        "model": "openai/gpt-6-astra",
+        "effort": "max",
       },
       "favorite_config_option_values": {
-        "model": [
-          "google-vertex/gemini-3.5-flash",
-          "google-vertex/gemini-3.1-pro-preview",
-          "openai/gpt-5.6-sol-fast",
-          "openai/gpt-5.6-luna-fast",
-          "openai/gpt-5.6-terra-fast",
-        ],
+        "model": [],
         "effort": ["xhigh", "max", "high"],
       },
     },
@@ -61,7 +59,6 @@
     "copilot": {
       "proxy": null,
       "proxy_no_verify": null,
-      "enterprise_uri": null,
     },
   },
   "terminal": {
