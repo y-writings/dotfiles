@@ -6,7 +6,8 @@
       "prompt": "https://github.com/entireio/cli を brew側でインストールして。",
       "expected_output": "The agent verifies the tap contents, classifies Entire as a cask rather than a formula, adds entireio/tap to homebrew.taps, adds a tap-qualified cask token to homebrew.casks, and removes any duplicate Nix package if appropriate.",
       "files": [
-        "nix/darwin/homebrew.nix",
+        "nix/darwin/homebrew/default.nix",
+        "nix/darwin/homebrew/features.nix",
         "nix/home/packages-unstable.nix"
       ]
     },
@@ -17,7 +18,8 @@
       "files": [
         "nix/home/packages-unstable.nix",
         "nix/home/packages-stable.nix",
-        "nix/darwin/homebrew.nix"
+        "nix/darwin/homebrew/default.nix",
+        "nix/darwin/homebrew/features.nix"
       ]
     },
     {
@@ -25,7 +27,8 @@
       "prompt": "新しいGUIアプリをHomebrew caskで追加して。tapが必要ならそれも含めて。",
       "expected_output": "The agent confirms whether the package is a cask, checks whether a third-party tap is required, adds the tap and tap-qualified cask token when needed, and validates that it did not accidentally add a formula entry.",
       "files": [
-        "nix/darwin/homebrew.nix"
+        "nix/darwin/homebrew/default.nix",
+        "nix/darwin/homebrew/features.nix"
       ]
     }
   ]

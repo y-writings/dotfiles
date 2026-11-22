@@ -5,9 +5,7 @@
   ...
 }:
 let
-  hasInstallFeature = feature: lib.elem feature enabledInstallFeatures;
-  aiDevelopmentEnabled = hasInstallFeature "ai-development";
-  codexEnabled = hasInstallFeature "codex" || aiDevelopmentEnabled;
+  featurePackages = import ./features.nix { inherit lib enabledInstallFeatures; };
   vrapperVersion = "0.74.0";
   vrapperUpdateSite =
     pkgs.runCommand "vrapper-update-site-${vrapperVersion}"
@@ -39,12 +37,7 @@ in
       "k1low/tap"
     ];
 
-    masApps =
-      { }
-      // lib.optionalAttrs (hasInstallFeature "masapps") {
-        "Kindle" = 302584613;
-        "Klack" = 6446206067;
-      };
+    inherit (featurePackages) masApps;
 
     brews = [
       "agent-browser"
@@ -72,7 +65,7 @@ in
         # nix-darwin embeds this value in a double-quoted Brewfile string, so
         # passing the script contents directly would leave newlines and quotes
         # unescaped. Execute the script from the Nix store instead.
-        postinstall = "/bin/sh ${./homebrew-postinstall/dbeaver-vrapper.sh} ${vrapperUpdateSite}";
+        postinstall = "/bin/sh ${../homebrew-postinstall/dbeaver-vrapper.sh} ${vrapperUpdateSite}";
       }
       "grok-bot"
       "grok-build"
@@ -87,20 +80,6 @@ in
       "t3-code"
       "zed"
     ]
-    ++ lib.optionals (hasInstallFeature "productivity") [
-      "rize"
-    ]
-    ++ lib.optionals aiDevelopmentEnabled [
-      "ollama-app"
-    ]
-    ++ lib.optionals codexEnabled [
-      "codex-app"
-    ]
-    ++ lib.optionals (hasInstallFeature "lm-studio") [
-      "lm-studio"
-    ]
-    ++ lib.optionals (hasInstallFeature "tailscale") [
-      "tailscale-app"
-    ];
+    ++ featurePackages.casks;
   };
 }
