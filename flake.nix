@@ -133,11 +133,6 @@
                 secrets
                 gitIdentity
                 ;
-              extraHomeModules = [
-                {
-                  xdg.configFile."zed/settings.json".source = nixpkgs.lib.mkForce ./nix/home/files/zed/settings.json;
-                }
-              ];
             };
           }
         else
