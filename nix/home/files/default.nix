@@ -28,9 +28,7 @@ in
     config.lib.file.mkOutOfStoreSymlink "${filesDir}/vscode/keybindings.json";
 
   xdg.configFile."zed/settings.json".source = lib.mkDefault ./zed/settings.json;
-
-  xdg.configFile."zed/keymap.json".source =
-    config.lib.file.mkOutOfStoreSymlink "${filesDir}/zed/keymap.json";
+  xdg.configFile."zed/keymap.json".source = lib.mkDefault ./zed/keymap.json;
 
   xdg.configFile."karabiner/karabiner.json".source =
     config.lib.file.mkOutOfStoreSymlink "${filesDir}/karabiner/karabiner.json";
