@@ -3018,21 +3018,6 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "b",
-                  "modifiers": {
-                    "mandatory": ["left_control"]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "left_arrow"
-                  }
-                ],
-                "description": "標準カーソル移動←"
-              },
-              {
-                "type": "basic",
-                "from": {
                   "key_code": "f",
                   "modifiers": {
                     "mandatory": ["left_control"]
@@ -3175,33 +3160,6 @@
                   }
                 ],
                 "description": "単語単位で次へ移動",
-                "conditions": [
-                  {
-                    "type": "frontmost_application_unless",
-                    "bundle_identifiers": [
-                      "com.apple.Terminal",
-                      "com.mitchellh.ghostty",
-                      "dev.kdrag0n.MacVirt"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "b",
-                  "modifiers": {
-                    "mandatory": ["left_option"],
-                    "optional": ["any"]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "left_arrow",
-                    "modifiers": ["left_option"]
-                  }
-                ],
-                "description": "単語単位で前へ移動",
                 "conditions": [
                   {
                     "type": "frontmost_application_unless",
