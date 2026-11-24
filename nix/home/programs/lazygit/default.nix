@@ -17,6 +17,9 @@
           }
         ];
       };
+      os.copyToClipboardCmd = ''
+        printf '\033]52;c;%s\a' "$(printf '%s' {{text}} | base64 | tr -d '\n')" > /dev/tty
+      '';
       customCommands = [
         {
           key = "<c-t>";
