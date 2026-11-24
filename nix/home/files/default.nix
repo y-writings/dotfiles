@@ -27,6 +27,8 @@ in
   home.file."Library/Application Support/Code/User/keybindings.json".source =
     config.lib.file.mkOutOfStoreSymlink "${filesDir}/vscode/keybindings.json";
 
+  xdg.configFile."herdr/config.toml".source = ./herdr/config.toml;
+
   xdg.configFile."zed/settings.json".source = lib.mkDefault ./zed/settings.json;
   xdg.configFile."zed/keymap.json".source = lib.mkDefault ./zed/keymap.json;
 
