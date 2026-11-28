@@ -1,11 +1,10 @@
 # y-writings' personal dotfiles
 
-macOS (`aarch64-darwin`) を Nix + nix-darwin + Home Manager で
-セットアップするための dotfiles です。
+macOS (`aarch64-darwin`) 環境を Nix + nix-darwin + Home Manager で宣言的に構築・管理するための dotfiles です。
 
 ## Initial Setup
 
-`sudo` 実行権限と `git`, `curl` がある状態で以下を実行します。
+`sudo` 権限と `git`, `curl` が利用できる状態で、以下を実行します。
 
 ```bash
 curl -fsSL -o bootstrap.sh \
@@ -14,93 +13,21 @@ chmod +x bootstrap.sh
 ./bootstrap.sh
 ```
 
-Xcode Command Line Tools、Determinate Nix、`user.toml`、nix-darwin 環境まで初期セットアップします。
+Xcode Command Line Tools、Determinate Nix、`~/.config/nix/user.toml`、nix-darwin 環境まで一括でセットアップされます。
 
 ## Maintenance
 
-初回実行後は `mise` で rebuild します。
+初期セットアップ後の構成反映は `mise` で実行します。
 
 ```bash
 mise run rebuild
 ```
 
-その他のタスクは `mise tasks` で確認できます。
+その他のタスク一覧は `mise tasks` で確認できます。
 
-### Tailscale
+### Build Check (反映なし)
 
-Tailscale の Standalone 版は Homebrew cask `tailscale-app` で管理します。
-既定では無効です。`~/.config/nix/user.toml` の `enabledInstallFeatures` に
-`"tailscale"` を追加すると、次回の rebuild でインストールされます。
-既存の feature は残したまま追加してください。
-
-```toml
-enabledInstallFeatures = ["productivity", "tailscale"]
-```
-
-初回セットアップでも `tailscale` の有効・無効を選択できます。
-`lib.mkDarwinSystem` を使う場合も、引数の `enabledInstallFeatures` に `"tailscale"` を追加します。
-インストール後の VPN 設定と認証はアプリから行います。
-無効化して rebuild すると、既存の `cleanup = "zap"` 設定に従ってアプリと関連設定が削除対象になります。
-
-### LM Studio
-
-LM Studio は
-[Homebrew cask `lm-studio`](https://formulae.brew.sh/cask/lm-studio) で管理します。
-既定では無効です。`~/.config/nix/user.toml` の `enabledInstallFeatures` に
-`"lm-studio"` を追加すると、次回の rebuild でインストールされます。
-既存の feature は残したまま追加してください。
-
-```toml
-enabledInstallFeatures = ["productivity", "lm-studio"]
-```
-
-初回セットアップでも `lm-studio` の有効・無効を選択できます。
-`lib.mkDarwinSystem` を使う場合も、引数の `enabledInstallFeatures` に `"lm-studio"` を追加します。
-無効化して rebuild すると、既存の `cleanup = "zap"` 設定に従ってアプリと関連設定が削除対象になります。
-
-### DBeaver / Vrapper
-
-DBeaver Community は Homebrew cask で管理し、新規導入・更新時の postinstall で Vrapper を導入します。
-Vrapper は公式
-[GitHub Release 0.74.0](https://github.com/vrapper/vrapper/releases/tag/0.74.0)
-の `vrapper_0.74.0_20181124.zip` をバージョン・SHA-256 固定で取得し、
-Nix store に展開したローカル p2 リポジトリを使います。
-Vrapper の取得に SourceForge の更新サイトは使用しません。
-
-DBeaver が起動中の場合は postinstall を中止するため、rebuild の前に終了してください。
-Vrapper が導入済みならスキップし、DBeaver の更新で失われた場合は再導入します。
-postinstall は cask の新規導入・更新時だけ実行されます。
-cask がすでに最新の場合、rebuild だけでは失敗済みの postinstall は再実行されません。
-その場合は DBeaver を終了し、生成 Brewfile の `dbeaver-community` にある `postinstall` コマンドを手動実行して再試行します（実機の変更を伴います）。
-Vrapper の設定は Home Manager が管理する `.vrapperrc` に保持されます。
-下流の flake では、この修正を含む上流リビジョンへ
-`public-config` input の `flake.lock` を更新してから rebuild します。
-
-実機への反映を伴わない自動検証:
-
-```bash
-nix build path:.#checks.aarch64-darwin.dbeaver-vrapper --no-link
-nix flake check --no-build
-```
-
-自動検証は配布物・Brewfile・postinstall の分岐を確認します。
-実アプリへの導入成功や SQL エディタでの Vim 操作は別の確認項目です。
-実機反映後に DBeaver の Installation Details で Vrapper を確認し、SQL エディタで操作を確認してください。
-
-## Troubleshooting
-
-`bootstrap.sh` は初回の nix-darwin switch 前に、既存の
-`/etc/nix/nix.custom.conf`、`/etc/bashrc`、`/etc/zshenv`、
-`/etc/zshrc`、`/etc/zprofile` を
-末尾に `.before-nix-darwin` を付けて退避します。
-nix-darwin 管理済みのリンクはスキップし、同名の退避先が既にある場合は上書きせず停止します。
-その場合は退避先の内容を確認して別名で保存し、再実行してください。
-`/etc/nix/nix.conf` は Determinate Nix が管理するため退避しません。
-上記以外のファイルが競合した場合は、エラーメッセージに従って対処してください。
-
-## Standalone Build
-
-standalone build は `user-config` input を override して実行します。
+実機へ反映せずにビルドのみ検証する場合は、`user-config` を指定して実行します。
 
 ```bash
 darwin-rebuild build --impure \
@@ -108,13 +35,13 @@ darwin-rebuild build --impure \
   --override-input user-config path:${HOME}/.config/nix
 ```
 
+## Optional Features
+
+`enabledInstallFeatures` で追加できるオプション機能（Tailscale、LM Studio 等）の詳細は [docs/optional-features.md](docs/optional-features.md) を参照してください。
+
 ## Reusable Outputs
 
-他の flake から使うために `lib.mkDarwinSystem`, `homeModules.default`,
-`darwinModules.default` を公開しています。
-これらは top-level で private な `user.toml` を読みません。
-
-private 側では `public-config` を input にし、user / host 固有値と追加 module だけ渡します。
+外部 flake（private 設定など）から利用できるよう、`lib.mkDarwinSystem`, `homeModules.default`, `darwinModules.default` を公開しています。
 
 ```nix
 {
@@ -143,6 +70,5 @@ private 側では `public-config` を input にし、user / host 固有値と追
 }
 ```
 
-追加 module は canonical base の後ろに merge されます。上書きが必要な場合は `lib.mkForce` などを使います。
-Darwin 側には `username`, `enabledInstallFeatures`、
-Home 側には `inputs`, `paths`, `secrets`, `gitIdentity` が渡ります。
+- `extraDarwinModules` / `extraHomeModules` はベース設定の後ろにマージされます（上書きする場合は `lib.mkForce` 等を使用）。
+- Darwin 側には `username`, `enabledInstallFeatures`、Home 側には `inputs`, `paths`, `secrets`, `gitIdentity` が渡されます。
